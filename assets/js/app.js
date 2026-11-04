@@ -253,6 +253,195 @@
     return n;
   }
 
+  /* ---------------- local trace images (IndexedDB) ---------------- */
+  var MEDIA_DB = null;
+  var TRACE_URLS = [];
+  function openMediaDB() {
+    if (MEDIA_DB) return MEDIA_DB;
+    MEDIA_DB = new Promise(function (resolve, reject) {
+      if (!window.indexedDB) { reject(new Error('IndexedDB 不可用')); return; }
+      var req = indexedDB.open('maq-media', 1);
+      req.onupgradeneeded = function (e) {
+        var db = e.target.result;
+        if (!db.objectStoreNames.contains('traces')) {
+          var store = db.createObjectStore('traces', { keyPath: 'id', autoIncrement: true });
+          store.createIndex('qid', 'qid', { unique: false });
+        }
+      };
+      req.onsuccess = function () { resolve(req.result); };
+      req.onerror = function () { reject(req.error || new Error('IndexedDB 打开失败')); };
+    });
+    return MEDIA_DB;
+  }
+  function addTrace(qid, blob, name) {
+    return openMediaDB().then(function (db) {
+      return new Promise(function (resolve, reject) {
+        var tx = db.transaction('traces', 'readwrite');
+        var store = tx.objectStore('traces');
+        var req = store.add({ qid: qid, blob: blob, name: name || 'trace.jpg', createdAt: Date.now() });
+        req.onsuccess = function () { resolve(req.result); };
+        req.onerror = function () { reject(req.error || new Error('保存失败')); };
+      });
+    });
+  }
+  function listTraces(qid) {
+    return openMediaDB().then(function (db) {
+      return new Promise(function (resolve, reject) {
+        var tx = db.transaction('traces', 'readonly');
+        var store = tx.objectStore('traces');
+        var idx = store.index('qid');
+        var req = idx.getAll(qid);
+        req.onsuccess = function () {
+          var arr = req.result || [];
+          arr.sort(function (a, b) { return (a.createdAt || 0) - (b.createdAt || 0); });
+          resolve(arr);
+        };
+        req.onerror = function () { reject(req.error || new Error('读取失败')); };
+      });
+    });
+  }
+  function deleteTrace(id) {
+    return openMediaDB().then(function (db) {
+      return new Promise(function (resolve, reject) {
+        var tx = db.transaction('traces', 'readwrite');
+        var req = tx.objectStore('traces').delete(id);
+        req.onsuccess = function () { resolve(); };
+        req.onerror = function () { reject(req.error || new Error('删除失败')); };
+      });
+    });
+  }
+  function clearTraces() {
+    return openMediaDB().then(function (db) {
+      return new Promise(function (resolve, reject) {
+        var tx = db.transaction('traces', 'readwrite');
+        var req = tx.objectStore('traces').clear();
+        req.onsuccess = function () { resolve(); };
+        req.onerror = function () { reject(req.error || new Error('清空失败')); };
+      });
+    });
+  }
+  function getTracesFor(qids) {
+    return Promise.all(qids.map(function (qid) {
+      return listTraces(qid).then(function (items) { return [qid, items]; }).catch(function () { return [qid, []]; });
+    })).then(function (entries) {
+      var map = {};
+      entries.forEach(function (x) { map[x[0]] = x[1]; });
+      return map;
+    });
+  }
+  function compressImage(file) {
+    return new Promise(function (resolve, reject) {
+      if (!file || !/^image\//.test(file.type)) { reject(new Error('不是图片')); return; }
+      if (file.size > 20 * 1024 * 1024) { reject(new Error('图片超过 20MB')); return; }
+      var url = URL.createObjectURL(file);
+      var img = new Image();
+      img.onload = function () {
+        try {
+          var max = 1600;
+          var scale = Math.min(1, max / Math.max(img.width, img.height));
+          var canvas = document.createElement('canvas');
+          canvas.width = Math.max(1, Math.round(img.width * scale));
+          canvas.height = Math.max(1, Math.round(img.height * scale));
+          var ctx = canvas.getContext('2d');
+          ctx.fillStyle = '#fff';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          canvas.toBlob(function (blob) {
+            URL.revokeObjectURL(url);
+            resolve(blob || file);
+          }, 'image/jpeg', 0.82);
+        } catch (e) { URL.revokeObjectURL(url); reject(e); }
+      };
+      img.onerror = function () { URL.revokeObjectURL(url); reject(new Error('图片读取失败')); };
+      img.src = url;
+    });
+  }
+  function blobToDataURL(blob) {
+    return new Promise(function (resolve, reject) {
+      var r = new FileReader();
+      r.onload = function () { resolve(r.result); };
+      r.onerror = function () { reject(r.error || new Error('读取图片失败')); };
+      r.readAsDataURL(blob);
+    });
+  }
+  function fetchDataURL(url) {
+    return fetch(url).then(function (r) {
+      if (!r.ok) throw new Error('fetch failed');
+      return r.blob();
+    }).then(blobToDataURL).catch(function () { return ''; });
+  }
+  function openLightbox(src) {
+    var old = document.getElementById('lightbox');
+    if (old) old.remove();
+    var dlg = document.createElement('dialog');
+    dlg.id = 'lightbox';
+    dlg.className = 'lightbox';
+    dlg.innerHTML = '<button class="icon-btn lightbox-close" data-close aria-label="关闭">✕</button><img src="' + src + '" alt="作答痕迹">';
+    document.body.appendChild(dlg);
+    dlg.showModal();
+    dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+    dlg.addEventListener('close', function () { dlg.remove(); });
+  }
+  function loadTraceGallery(el) {
+    var qid = el.dataset.traceGallery;
+    listTraces(qid).then(function (items) {
+      if (el._urls) el._urls.forEach(function (u) { URL.revokeObjectURL(u); });
+      el._urls = [];
+      el.innerHTML = '';
+      if (!items.length) {
+        el.innerHTML = '<span class="tiny faint">还没有上传；可以拍答题纸、草稿纸或错题订正。</span>';
+        return;
+      }
+      items.forEach(function (item) {
+        var url = URL.createObjectURL(item.blob);
+        el._urls.push(url);
+        TRACE_URLS.push(url);
+        var fig = document.createElement('figure');
+        fig.className = 'trace-item';
+        var img = document.createElement('img');
+        img.src = url;
+        img.loading = 'lazy';
+        img.alt = item.name || '作答痕迹';
+        img.dataset.action = 'view-trace';
+        img.dataset.src = url;
+        var del = document.createElement('button');
+        del.type = 'button';
+        del.className = 'trace-del';
+        del.dataset.action = 'del-trace';
+        del.dataset.id = item.id;
+        del.title = '删除这张图片';
+        del.textContent = '×';
+        fig.appendChild(img);
+        fig.appendChild(del);
+        el.appendChild(fig);
+      });
+    }).catch(function () {
+      el.innerHTML = '<span class="tiny faint">图片存储不可用（浏览器不支持 IndexedDB）</span>';
+    });
+  }
+  function refreshTraceGalleries(root) {
+    TRACE_URLS.forEach(function (u) { URL.revokeObjectURL(u); });
+    TRACE_URLS = [];
+    $$('[data-trace-gallery]', root || document).forEach(loadTraceGallery);
+  }
+  function handleTraceFiles(input) {
+    var qid = input.dataset.qid;
+    var files = Array.prototype.slice.call(input.files || []).slice(0, 12);
+    if (!files.length) return;
+    toast('正在保存图片…');
+    Promise.all(files.map(function (f) {
+      return compressImage(f).then(function (blob) { return addTrace(qid, blob, f.name); });
+    })).then(function (res) {
+      input.value = '';
+      var gallery = document.querySelector('[data-trace-gallery="' + qid + '"]');
+      if (gallery) loadTraceGallery(gallery);
+      toast('已保存 ' + res.length + ' 张作答图片');
+    }).catch(function (e) {
+      input.value = '';
+      toast(e.message || '图片保存失败');
+    });
+  }
+
   function loadSession() {
     try {
       var raw = localStorage.getItem(SESSION_KEY);
@@ -428,8 +617,15 @@
   function noteBlock(q) {
     var p = getP(q.id);
     var open = p.note ? ' open' : '';
-    return '<details class="note-wrap"' + open + '><summary>笔记 / 草稿<span class="saved" data-saved="' + q.id + '"></span></summary>' +
-      '<textarea data-note data-qid="' + q.id + '" placeholder="写下思路、易错点或疑问，自动保存在本机…">' + esc(p.note || '') + '</textarea></details>';
+    return '<details class="note-wrap"' + open + '><summary>文字痕迹 / 笔记<span class="saved" data-saved="' + q.id + '"></span></summary>' +
+      '<textarea data-note data-qid="' + q.id + '" placeholder="写下思路、关键步骤、错因或疑问，自动保存在本机…">' + esc(p.note || '') + '</textarea></details>';
+  }
+  function traceBlock(q) {
+    return '<div class="trace-block" data-trace-block="' + q.id + '">' +
+      '<div class="trace-head"><b>我的作答痕迹</b>' +
+        '<label class="btn sm trace-upload">＋ 上传图片<input type="file" accept="image/*" multiple data-trace-input data-qid="' + q.id + '"></label>' +
+        '<span class="tiny faint">图片只保存在本机，导出错题文档时会一并打包</span></div>' +
+      '<div class="trace-gallery" data-trace-gallery="' + q.id + '"><span class="tiny faint">加载中…</span></div></div>';
   }
   function qCard(q, idx, opts) {
     opts = opts || {};
@@ -471,7 +667,7 @@
         '</div>' : '') +
       '</div>') +
       (revealed ? renderSolution(q) : '') +
-      (opts.note === false ? '' : noteBlock(q)) +
+      (opts.note === false ? '' : noteBlock(q) + traceBlock(q)) +
       '</article>';
   }
 
@@ -606,7 +802,7 @@
       .sort(function (a, b) { return (getP(b.id).lastAt || 0) - (getP(a.id).lastAt || 0); });
     var head = '<div class="page-head"><div><h1>错题本</h1><div class="sub">做错过的题会自动进来；重做并自评“做对了”或手动移出即可。</div></div>' +
       '<div class="btn-row"><button class="btn primary" data-action="start-wrong-all"' + (list.length ? '' : ' disabled') + '>全部重练（' + list.length + '）</button>' +
-      '<button class="btn" data-action="start-setup">自定义练题</button></div></div>';
+      '<a class="btn" href="#/export">导出复习文档</a><button class="btn" data-action="start-setup">自定义练题</button></div></div>';
     if (!list.length) {
       return head + '<div class="empty"><div class="big">✓</div><h3>错题本是空的</h3><p>去刷几题吧。做错的题会自动收录，之后可以集中重练。</p><a class="btn primary" href="#/bank">去题库</a></div>';
     }
@@ -709,6 +905,216 @@
       '</div>';
   }
 
+  /* ---------------- export review document ---------------- */
+  function readExportOptions() {
+    var chapters = new Set($$('[data-exp-ch]:checked').map(function (x) { return parseInt(x.value, 10); }));
+    var rangeEl = document.getElementById('expRange');
+    return {
+      range: rangeEl ? rangeEl.value : '30',
+      chapters: chapters,
+      marked: !!(document.getElementById('expMarked') && document.getElementById('expMarked').checked),
+      full: !!(document.getElementById('expFull') && document.getElementById('expFull').checked),
+      images: !!(document.getElementById('expImages') && document.getElementById('expImages').checked)
+    };
+  }
+  function exportCandidates(opts) {
+    var cutoff = opts.range === 'all' ? 0 : Date.now() - parseInt(opts.range, 10) * DAY;
+    return QS.filter(function (q) {
+      if (opts.chapters && !opts.chapters.has(q.chapter)) return false;
+      var p = getP(q.id);
+      if (!p.inWrongBook && !(opts.marked && p.flagged)) return false;
+      if (cutoff && !(p.lastAt && p.lastAt >= cutoff)) return false;
+      return true;
+    }).sort(function (a, b) { return (getP(b.id).lastAt || 0) - (getP(a.id).lastAt || 0); });
+  }
+  function updateExportPreview() {
+    var box = document.getElementById('expPreviewCount');
+    if (!box) return;
+    var qs = exportCandidates(readExportOptions());
+    var cls = {};
+    qs.forEach(function (q) { if (q.cluster) cls[q.cluster] = 1; });
+    box.innerHTML = '<b>' + qs.length + '</b> 题 · 涉及 ' + Object.keys(cls).length + ' 个题型';
+    var btn = document.querySelector('[data-action="generate-export"]');
+    if (btn) btn.textContent = '生成并下载（' + qs.length + ' 题）';
+  }
+  function viewExport() {
+    var allCh = (META.chapters || []).map(function (c) {
+      return '<label class="chip on"><input type="checkbox" data-exp-ch value="' + c.n + '" checked>第 ' + c.n + ' 章</label>';
+    }).join('');
+    return '<div class="page-head"><div><h1>导出复习文档</h1><div class="sub">把近期错题、关键步骤与自己的作答痕迹打包成一个手机友好的 HTML 文件。</div></div></div>' +
+      '<div class="export-grid"><div class="card card-pad">' +
+        '<div class="section-title" style="margin:0 0 8px"><h2 style="font-size:17px">导出设置</h2><span class="line"></span></div>' +
+        '<div class="export-row"><label>时间范围</label><select id="expRange"><option value="7">最近 7 天</option><option value="30" selected>最近 30 天</option><option value="90">最近 90 天</option><option value="all">全部错题</option></select></div>' +
+        '<div class="export-row"><label>章节</label><div class="export-chips">' + allCh + '</div></div>' +
+        '<div class="export-row"><label>内容</label><label class="checkline"><input type="checkbox" id="expMarked">同时包含标记题</label><label class="checkline"><input type="checkbox" id="expFull">包含完整解析</label><label class="checkline"><input type="checkbox" id="expImages" checked>包含我的图片痕迹</label></div>' +
+        '<div class="export-row"><label>预览</label><div class="export-preview" id="expPreviewCount"></div></div>' +
+        '<div class="btn-row" style="margin-top:14px"><button class="btn primary lg" data-action="generate-export">生成并下载</button><a class="btn lg ghost" href="#/wrong">返回错题本</a></div>' +
+        '<div class="export-tip" style="margin-top:14px">生成的是单个 HTML 文件：公式转为 MathML，图片内嵌，不依赖网络；手机浏览器直接打开，也可以打印或“存为 PDF”。</div>' +
+      '</div><div class="card card-pad"><h3 style="font-size:17px;margin-bottom:8px">文档里包含</h3>' +
+        '<ul class="small" style="padding-left:18px;line-height:1.9;color:var(--ink-2)">' +
+          '<li>每道错题的题干、所属章节、题型、难度与复杂度</li>' +
+          '<li><b>题型知识点总结 + 答题模板 / 关键步骤</b></li>' +
+          '<li><b>本题思路</b>（解析开头要点）与答案</li>' +
+          '<li>题目引用的教材定理 / 前题结论</li>' +
+          '<li>你自己写的文字痕迹与上传的作答图片</li>' +
+          (readExportOptions().full ? '<li>完整解析</li>' : '<li>可选：勾选“包含完整解析”后附完整解析</li>') +
+        '</ul>' +
+        '<div class="export-tip" style="margin-top:12px">图片痕迹保存在浏览器 IndexedDB 中；导出时会转成文档内嵌图片，不会上传服务器。</div>' +
+      '</div></div>';
+  }
+  function textToMathML(text) {
+    var s = String(text == null ? '' : text);
+    var out = '', last = 0, m;
+    var re = /\$\$([\s\S]*?)\$\$|\$([^$]*?)\$/g;
+    while ((m = re.exec(s))) {
+      out += esc(s.slice(last, m.index)).replace(/\n/g, '<br>');
+      var display = m[1] != null;
+      var tex = display ? m[1] : m[2];
+      try {
+        out += katex.renderToString(tex, { output: 'mathml', displayMode: display, throwOnError: false, strict: false });
+      } catch (e) {
+        out += '<code>' + esc(tex) + '</code>';
+      }
+      last = re.lastIndex;
+    }
+    out += esc(s.slice(last)).replace(/\n/g, '<br>');
+    return out;
+  }
+  function thoughtOf(q) {
+    var s = String(q.solution || '');
+    var parts = s.split(/\n\s*\n/).filter(function (x) { return x.trim(); });
+    var t = parts.slice(0, 2).join('\n');
+    if (t.length > 560) t = t.slice(0, 560) + '…';
+    return t;
+  }
+  async function buildExportDoc(qs, opts) {
+    var today = new Date();
+    var dateStr = today.getFullYear() + '-' + pad(today.getMonth() + 1) + '-' + pad(today.getDate());
+    var traces = opts.images ? (opts._traces || await getTracesFor(qs.map(function (q) { return q.id; }))) : {};
+    var fig = qs.some(function (q) { return q.body.indexOf('[[FIG1_4]]') >= 0; }) ? await fetchDataURL('assets/img/fig-1-4.png') : '';
+    var cards = qs.map(function (q, i) {
+      var p = getP(q.id);
+      var c = CMAP[q.cluster];
+      var images = traces[q.id] || [];
+      var body = String(q.body || '').replace(/\[\[FIG1_4\]\]/g, '@@FIG@@');
+      var bodyHTML = textToMathML(body);
+      bodyHTML = bodyHTML.replace('@@FIG@@', fig ? '<figure class="doc-fig"><img src="' + fig + '" alt="图 1-4"><figcaption>图 1-4</figcaption></figure>' : '<p class="muted">［图 1-4 见教材］</p>');
+      var refs = (q.refs || []).map(function (id) {
+        var r = REFS[id]; if (!r) return '';
+        return '<div class="doc-ref"><b>' + esc(r.label) + '</b><div>' + textToMathML(r.text) + '</div></div>';
+      }).join('');
+      var key = '';
+      if (c) {
+        key = '<div class="doc-key"><div class="doc-key-title">关键步骤 · ' + esc(c.name) + '</div>' +
+          '<p>' + textToMathML(c.summary) + '</p>' +
+          '<ol>' + (c.template || []).map(function (x) { return '<li>' + textToMathML(x) + '</li>'; }).join('') + '</ol></div>';
+      }
+      var thought = thoughtOf(q);
+      var note = p.note ? '<div class="doc-block"><h4>我的文字痕迹 / 笔记</h4><div>' + textToMathML(p.note) + '</div></div>' : '';
+      var traceImgs = '';
+      if (opts.images && images.length) {
+        traceImgs = '<div class="doc-block"><h4>我的图片痕迹（' + images.length + ' 张）</h4><div class="doc-imgs">' +
+          images.map(function (it, idx) { return '<figure><img src="' + it.data + '" alt="作答图片 ' + (idx + 1) + '"><figcaption>图片 ' + (idx + 1) + '</figcaption></figure>'; }).join('') +
+          '</div></div>';
+      }
+      var full = opts.full && q.solution ? '<details class="doc-full" open><summary>完整解析</summary><div>' + textToMathML(q.solution) + '</div></details>' : '';
+      var review = getReview(q.id);
+      return '<article class="doc-card">' +
+        '<div class="doc-index">' + (i + 1) + '</div>' +
+        '<div class="doc-top"><span class="doc-id">' + q.id + '</span><span class="doc-meta">' + esc(q.chapterTitle) + ' · ' + esc(q.source) + ' 第 ' + q.number + ' 题</span>' +
+          (p.inWrongBook ? '<span class="doc-tag red">错题</span>' : '') + (p.flagged ? '<span class="doc-tag amber">标记</span>' : '') +
+          '<span class="doc-tag">' + esc(q.type) + '</span><span class="doc-tag">' + complexityLabel(q.complexity) + '</span></div>' +
+        '<div class="doc-body">' + bodyHTML + '</div>' + refs +
+        (key ? '<div class="doc-block doc-key-wrap">' + key + '</div>' : '') +
+        '<div class="doc-block"><h4>本题思路</h4><div>' + textToMathML(thought) + '</div></div>' +
+        (q.answer ? '<div class="doc-answer"><b>答案</b><div>' + textToMathML(q.answer) + '</div></div>' : '') +
+        note + traceImgs + full +
+        '<div class="doc-foot">最近练习：' + (p.lastAt ? fmtDate(p.lastAt) : '—') + ' · 复习：' + reviewStageText(review) + '</div>' +
+      '</article>';
+    }).join('');
+    return '<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
+      '<title>数分错题复习 · ' + dateStr + '</title><style>' +
+      'body{margin:0;background:#f6f2e9;color:#20242a;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.85;font-size:17px}' +
+      '.wrap{max-width:820px;margin:0 auto;padding:20px 16px 50px}' +
+      'header.doc-head{background:#fffdf8;border:1px solid #e4ddce;border-radius:14px;padding:20px;margin-bottom:16px}' +
+      'header.doc-head h1{font-family:Georgia,"Songti SC",serif;font-size:27px;margin:0 0 5px}' +
+      'header.doc-head p{margin:2px 0;color:#727a84;font-size:13px}' +
+      '.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}' +
+      '.toolbar button,.toolbar a{border:1px solid #d3c9b5;background:#fffdf8;color:#20242a;border-radius:8px;padding:7px 12px;font-size:13px;text-decoration:none;cursor:pointer}' +
+      '.stat{display:flex;gap:22px;flex-wrap:wrap;margin-top:14px}.stat b{font-family:Georgia,serif;font-size:23px;margin-right:3px}' +
+      '.doc-card{background:#fffdf8;border:1px solid #e4ddce;border-radius:12px;padding:16px 18px;margin:14px 0;break-inside:avoid}' +
+      '.doc-index{display:inline-grid;place-items:center;width:27px;height:27px;border-radius:8px;background:#e8eff7;color:#2f5d8a;font-weight:700;font-size:13px;margin-right:7px}' +
+      '.doc-top{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:10px;font-size:12px;color:#727a84}' +
+      '.doc-id{font-family:monospace;color:#2f5d8a;font-weight:700}' +
+      '.doc-tag{display:inline-block;border:1px solid #e4ddce;background:#faf7ef;border-radius:5px;padding:0 6px;font-size:11px;color:#727a84}' +
+      '.doc-tag.red{color:#b23b3b;background:#f9e9e7;border-color:transparent}.doc-tag.amber{color:#9a6a16;background:#fbf1dc;border-color:transparent}' +
+      '.doc-body{font-size:17px}.doc-body br{line-height:2}' +
+      'math{font-family:"Cambria Math","STIX Two Math","Latin Modern Math",serif;font-size:1.05em}' +
+      'math[display="block"]{display:block;text-align:center;margin:8px auto;max-width:100%;overflow-x:auto}' +
+      '.doc-fig{margin:10px 0;text-align:center}.doc-fig img{max-width:100%;border:1px solid #e4ddce;border-radius:6px}.doc-fig figcaption{font-size:11px;color:#727a84}' +
+      '.doc-ref{margin-top:10px;border-left:3px solid #b4552d;background:#fdf6f1;border-radius:6px;padding:7px 10px;font-size:14px}' +
+      '.doc-ref b{display:block;color:#b4552d;font-size:11px;letter-spacing:.06em;margin-bottom:2px}' +
+      '.doc-block{margin-top:13px;border-top:1px dashed #e4ddce;padding-top:9px}' +
+      '.doc-block h4{margin:0 0 4px;font-size:12px;letter-spacing:.08em;color:#2f5d8a}' +
+      '.doc-key{background:#f5f8fc;border:1px solid #dce7f3;border-radius:8px;padding:10px 12px}' +
+      '.doc-key-title{font-weight:700;color:#2f5d8a;font-size:13px;margin-bottom:4px}' +
+      '.doc-key p{margin:0 0 6px;font-size:14px;color:#3c434c}' +
+      '.doc-key ol{margin:4px 0 0;padding-left:20px;color:#3c434c;font-size:14px}.doc-key li{margin:4px 0}' +
+      '.doc-answer{display:flex;gap:8px;background:#edf4fb;border-radius:7px;padding:8px 10px;margin-top:12px;font-size:15px}' +
+      '.doc-answer b{color:#2f5d8a;flex:none;font-size:11px;letter-spacing:.08em;padding-top:2px}' +
+      '.doc-full{margin-top:12px;border:1px solid #e4ddce;border-radius:8px;padding:8px 12px;background:#fcfaf5}' +
+      '.doc-full summary{cursor:pointer;color:#2f5d8a;font-size:12px;font-weight:700}' +
+      '.doc-full div{margin-top:8px;font-size:15px;color:#3c434c}' +
+      '.doc-imgs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px}' +
+      '.doc-imgs figure{margin:0;border:1px solid #e4ddce;border-radius:7px;overflow:hidden;background:#faf7ef}' +
+      '.doc-imgs img{width:100%;display:block}.doc-imgs figcaption{font-size:10px;color:#727a84;text-align:center;padding:2px}' +
+      '.doc-foot{margin-top:12px;font-size:11px;color:#a0a7b0;border-top:1px solid #e4ddce;padding-top:7px}' +
+      '.doc-end{text-align:center;color:#a0a7b0;font-size:11px;margin:24px 0}' +
+      '@media(max-width:600px){body{font-size:16px}.wrap{padding:12px 10px 36px}.doc-card{padding:13px 13px}.doc-head h1{font-size:22px}.doc-imgs{grid-template-columns:1fr}.doc-body{font-size:16px}}' +
+      '@media print{body{background:#fff}.toolbar{display:none}.wrap{max-width:none;padding:0}.doc-card{border:0;border-bottom:1px solid #ddd;border-radius:0;padding:10px 0}}' +
+      '</style></head><body><div class="wrap">' +
+      '<header class="doc-head"><h1>数学分析 · 近期错题复习</h1>' +
+        '<p>华东师大《数学分析》第六版上册 · 第 1–4 章 · 导出于 ' + dateStr + '</p>' +
+        '<p>范围：' + (opts.range === 'all' ? '全部错题' : '最近 ' + opts.range + ' 天') + (opts.marked ? ' · 含标记题' : '') + '</p>' +
+        '<div class="stat"><span><b>' + qs.length + '</b>道题</span><span><b>' + Object.keys(qs.reduce(function (m, q) { m[q.cluster] = 1; return m; }, {})).length + '</b>个题型</span><span><b>' + qs.filter(function (q) { return getP(q.id).inWrongBook; }).length + '</b>道错题</span></div>' +
+        '<div class="toolbar"><button onclick="window.print()">打印 / 存为 PDF</button><a href="https://lucy2025-creator.github.io/math-analysis-quiz/">回到在线题库</a></div>' +
+      '</header>' + cards +
+      '<div class="doc-end">共 ' + qs.length + ' 题 · 数分刷题 · 仅供个人学习</div>' +
+      '</div></body></html>';
+  }
+  async function generateExport() {
+    var opts = readExportOptions();
+    var qs = exportCandidates(opts);
+    if (!qs.length) { toast('这个范围内没有错题，换个时间范围或章节试试'); return; }
+    var btn = document.querySelector('[data-action="generate-export"]');
+    if (btn) { btn.disabled = true; btn.textContent = '生成中…'; }
+    try {
+      if (opts.images) {
+        var traces = await getTracesFor(qs.map(function (q) { return q.id; }));
+        for (var qid in traces) {
+          traces[qid] = (await Promise.all(traces[qid].map(async function (it) {
+            try { return { data: await blobToDataURL(it.blob), name: it.name }; }
+            catch (e) { return null; }
+          }))).filter(Boolean);
+        }
+        opts._traces = traces;
+      }
+      var html = await buildExportDoc(qs, opts);
+      var blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = '数分错题复习-' + todayKey() + '.html';
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
+      toast('已生成，正在下载：' + qs.length + ' 题');
+    } catch (e) {
+      console.error(e);
+      toast('生成失败：' + (e.message || '请重试'));
+    } finally {
+      if (btn) { btn.disabled = false; updateExportPreview(); }
+    }
+  }
+
   /* ---------------- views: settings ---------------- */
   function viewSettings() {
     var size = 0;
@@ -728,9 +1134,10 @@
         '</div>' +
         '<div class="card card-pad"><h3 style="font-size:17px;margin-bottom:6px">数据</h3>' +
           '<p class="small muted">记录保存在浏览器 localStorage 中（当前约 ' + (size / 1024).toFixed(1) + ' KB）。换设备或清缓存前请先导出。</p>' +
-          '<div class="btn-row" style="margin-top:12px"><button class="btn" data-action="export-data">导出备份</button>' +
+          '<div class="btn-row" style="margin-top:12px"><a class="btn" href="#/export">导出错题文档</a><button class="btn" data-action="export-data">导出备份</button>' +
             '<button class="btn" data-action="import-data">导入备份</button>' +
             '<button class="btn" data-action="print-all">打印题库</button></div>' +
+          '<p class="small muted" style="margin-top:9px">图片作答痕迹保存在浏览器 IndexedDB，会随“导出错题文档”内嵌导出；JSON 备份只含文字与进度。</p>' +
           '<input type="file" id="importFile" accept="application/json,.json" class="hide">' +
         '</div>' +
         '<div class="card card-pad danger-zone"><h3 style="font-size:17px;margin-bottom:6px;color:var(--red)">危险操作</h3>' +
@@ -761,7 +1168,7 @@
         '<article class="q-card" style="margin:0">' +
           '<div class="q-body">' + bodyHTML(q) + '</div>' + refBlock(q) +
           (q.hint ? '<div class="q-hint"><b>提示</b> ' + esc(q.hint) + '</div>' : '') +
-          renderSolution(q) + noteBlock(q) +
+          renderSolution(q) + noteBlock(q) + traceBlock(q) +
         '</article>' +
         '<div class="single-nav no-print"><a class="btn sm" href="#/q/' + (prev ? prev.id : q.id) + '">← 上一题</a>' +
           '<span class="small muted">' + (idx + 1) + ' / ' + QS.length + '</span>' +
@@ -1367,6 +1774,7 @@
     if (!confirm('确定清空所有练习记录、错题、收藏和笔记？此操作不可恢复。')) return;
     if (!confirm('再确认一次：真的要全部清空吗？')) return;
     state = defaults(); S = null; saveState(); saveSession();
+    clearTraces().catch(function () { /* IndexedDB 不可用时忽略 */ });
     applyTheme(); applyFont(); render(); toast('已清空');
   }
   function printAll() {
@@ -1410,6 +1818,7 @@
       case 'wrong': html = viewWrong(); break;
       case 'favorites': html = viewFavorites(); break;
       case 'stats': html = viewStats(); break;
+      case 'export': html = viewExport(); break;
       case 'settings': html = viewSettings(); break;
       case 'q': html = viewDetail(route); break;
       case 'search': html = viewSearch(route); break;
@@ -1421,6 +1830,8 @@
     if (route.name === 'session' && !S) { html = viewHome(); setNav('home'); }
     app.innerHTML = html;
     renderMath(app);
+    refreshTraceGalleries(app);
+    if (route.name === 'export') updateExportPreview();
     if (route.name === 'session') {
       var counts = sessionCounts();
       document.title = (S ? S.title + ' · ' : '') + '数分刷题';
@@ -1466,6 +1877,18 @@
       case 'ratio-equal': e.preventDefault(); ratioEqual(); break;
       case 'swap': e.preventDefault(); swapQuestion(); break;
       case 'zoom': e.preventDefault(); openZoom(qid); break;
+      case 'view-trace': e.preventDefault(); if (el.dataset.src) openLightbox(el.dataset.src); break;
+      case 'del-trace': {
+        e.preventDefault();
+        if (!confirm('删除这张作答图片？')) break;
+        var tid = parseInt(el.dataset.id, 10);
+        var gal = el.closest('[data-trace-gallery]');
+        deleteTrace(tid).then(function () {
+          if (gal) loadTraceGallery(gal);
+          toast('已删除图片');
+        }).catch(function () { toast('删除失败'); });
+        break;
+      }
       case 'zoom-close': e.preventDefault(); { var zd = el.closest('dialog'); if (zd) zd.close(); } break;
       case 'zoom-reveal': {
         e.preventDefault();
@@ -1503,6 +1926,7 @@
       case 'sheet-open': e.preventDefault(); openSheet(); break;
       case 'sheet-close': e.preventDefault(); closeSheet(); break;
       case 'retry-wrong': e.preventDefault(); retryWrong(el.dataset.id); break;
+      case 'generate-export': e.preventDefault(); generateExport(); break;
       case 'export-data': e.preventDefault(); exportData(); break;
       case 'import-data': e.preventDefault(); var f = document.getElementById('importFile'); if (f) f.click(); break;
       case 'reset-data': e.preventDefault(); resetData(); break;
@@ -1514,6 +1938,8 @@
 
   document.addEventListener('change', function (e) {
     var t = e.target;
+    if (t.matches('[data-trace-input]')) { handleTraceFiles(t); return; }
+    if (t.matches('#expRange') || t.matches('[data-exp-ch]') || t.matches('#expMarked')) { updateExportPreview(); return; }
     if (t.matches('#setTheme')) { state.settings.theme = t.value; saveState(); applyTheme(); }
     else if (t.matches('#setFont')) { state.settings.font = t.value; saveState(); applyFont(); }
     else if (t.matches('#setAutoReveal')) { state.settings.autoReveal = t.checked; saveState(); }
