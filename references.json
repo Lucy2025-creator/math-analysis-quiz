@@ -64,5 +64,10 @@
  "formula-1.2-3": {
   "label": "§2 正文 (3) 式",
   "text": "$$S=\\{y\\mid y=2-x^2,\\ x\\in\\mathbb{R}\\}.$$"
+ },
+ "q-2.rev-3": {
+  "label": "第二章总练习题第 3 题（Stolz 定理）",
+  "text": "设 $\\{b_n\\}$ 严格递增且 $\\lim b_n=+\\infty$，$\\{a_n\\}$ 为任一数列且 $\\lim\\frac{a_n-a_{n-1}}{b_n-b_{n-1}}=a$（$a$ 可为 $\\pm\\infty$），则 $\\lim\\frac{a_n}{b_n}=a.$",
+  "qid": "2.rev-3"
  }
 }
