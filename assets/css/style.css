@@ -280,7 +280,7 @@ html[data-theme="dark"] .btn.primary:hover{color:#0e1620}
 /* ---------- question bank table ---------- */
 .bank-list{display:flex;flex-direction:column;gap:8px}
 .bank-row{
-  display:grid;grid-template-columns:64px minmax(0,1fr) 150px 100px 72px;gap:12px;align-items:center;
+  display:grid;grid-template-columns:64px minmax(0,1fr) 150px 100px 104px;gap:12px;align-items:center;
   background:var(--card);border:1px solid var(--line);border-radius:11px;padding:11px 15px;
   transition:.14s;
 }
@@ -565,6 +565,71 @@ mark{background:color-mix(in srgb,var(--amber) 28%,transparent);color:inherit;bo
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
 @keyframes fadeIn{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
 
+/* ---------- cluster knowledge / template ---------- */
+.cluster-box{
+  border-bottom:1px solid color-mix(in srgb,var(--accent) 16%,var(--line));
+  background:color-mix(in srgb,var(--accent) 5%,transparent);
+}
+.cluster-box > summary{
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;cursor:pointer;list-style:none;
+  padding:10px 14px;font-size:13px;color:var(--ink-2);
+}
+.cluster-box > summary::-webkit-details-marker{display:none}
+.cluster-box > summary::before{content:"▸";font-size:10px;color:var(--accent);transition:.15s}
+.cluster-box[open] > summary::before{transform:rotate(90deg)}
+.cluster-box > summary b{font-weight:700}
+.cluster-box > summary .tiny{margin-left:auto}
+.cluster-inner{padding:0 15px 14px;font-size:13.5px;line-height:1.85}
+.cluster-sec{margin-top:8px}
+.cluster-sec > b{display:inline-block;font-size:11px;letter-spacing:.1em;color:var(--accent);margin-bottom:2px}
+.cluster-sec p{margin:0;color:var(--ink-2)}
+.cluster-sec ol{margin:6px 0 0 0;padding:0 0 0 22px;color:var(--ink-2);border-left:2px solid color-mix(in srgb,var(--accent) 45%,var(--line))}
+.cluster-sec li{margin:3px 0;padding-left:2px}
+.cluster-sec li::marker{color:var(--accent);font-weight:700}
+.cluster-foot{margin-top:9px;font-size:11px;color:var(--faint)}
+.cluster-foot a{color:var(--accent)}
+
+/* ---------- review panel ---------- */
+.review-panel{
+  display:flex;align-items:center;gap:20px;justify-content:space-between;flex-wrap:wrap;
+  border:1px solid color-mix(in srgb,var(--accent) 28%,var(--line));border-radius:var(--radius);
+  background:linear-gradient(120deg,color-mix(in srgb,var(--accent) 9%,var(--card)),var(--card));
+  padding:20px 24px;margin:0 0 18px;box-shadow:var(--shadow);position:relative;overflow:hidden;
+}
+.review-panel::after{content:"7";position:absolute;right:22px;top:-30px;font-family:var(--serif);font-size:140px;line-height:1;color:color-mix(in srgb,var(--accent) 8%,transparent);pointer-events:none}
+.review-copy{position:relative;z-index:1}
+.review-copy .eyebrow{font-size:10.5px;letter-spacing:.16em;color:var(--accent-2);font-weight:700;margin-bottom:3px}
+.review-copy h3{font-size:21px;margin:0 0 3px}
+.review-copy p{margin:0;font-size:13px;color:var(--muted)}
+.review-copy p b{font-size:17px;color:var(--accent);font-family:var(--serif)}
+.review-actions{display:flex;gap:8px;align-items:center;position:relative;z-index:1;flex-wrap:wrap}
+
+/* ---------- memory / check-in ---------- */
+.memory-card{margin-bottom:16px}
+.memory-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.memory-stats > div{background:var(--card-2);border:1px solid var(--line);border-radius:10px;padding:9px 12px}
+.memory-stats b{display:block;font-family:var(--serif);font-size:24px;line-height:1.2}
+.memory-stats span{font-size:10.5px;color:var(--muted);letter-spacing:.08em}
+.memory-cols{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.memory-cols h4{font-size:11px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;font-family:var(--sans);margin:0 0 8px}
+.stage-bars{display:flex;flex-direction:column;gap:6px}
+.stage-row{display:grid;grid-template-columns:52px 1fr 26px;gap:8px;align-items:center;font-size:11px}
+.stage-label{color:var(--muted);white-space:nowrap}
+.stage-num{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums}
+.checkin-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.check-cell{aspect-ratio:1;display:grid;place-items:center;border-radius:4px;background:var(--card-2);border:1px solid var(--line);font-size:9px;color:var(--faint);font-variant-numeric:tabular-nums}
+.check-cell.on{background:var(--green);border-color:var(--green);color:#fff}
+html[data-theme="dark"] .check-cell.on{color:#101418}
+
+/* ---------- zoom dialog ---------- */
+.zoom-dialog{width:min(920px,96vw);max-width:920px;max-height:92vh}
+.zoom-head{display:flex;align-items:flex-start;gap:12px;padding:16px 22px 12px;border-bottom:1px solid var(--line)}
+.zoom-head h2{font-size:21px;margin-top:2px}
+.zoom-head .icon-btn{margin-left:auto;flex:none}
+.zoom-body{padding:20px 26px 24px;overflow:auto;max-height:66vh;font-size:19px;line-height:2.05;white-space:pre-wrap;color:var(--ink)}
+.zoom-body .katex-display{overflow-x:auto;overflow-y:hidden;margin:.8em 0;padding:2px 0}
+.zoom-foot{display:flex;gap:9px;justify-content:flex-end;padding:12px 22px;border-top:1px solid var(--line);background:var(--card-2)}
+
 /* ---------- responsive ---------- */
 @media (max-width:960px){
   .stats-grid{grid-template-columns:repeat(2,1fr)}
@@ -573,7 +638,7 @@ mark{background:color-mix(in srgb,var(--amber) 28%,transparent);color:inherit;bo
   .detail-grid{grid-template-columns:1fr}
   .detail-side{position:static;flex-direction:row;flex-wrap:wrap}
   .detail-side .side-card{flex:1;min-width:180px}
-  .bank-row{grid-template-columns:50px minmax(0,1fr) 70px 72px}
+  .bank-row{grid-template-columns:50px minmax(0,1fr) 70px 96px}
   .bank-row .bank-tags{display:none}
   .bank-actions .icon-btn{width:28px;height:28px}
 }
@@ -601,10 +666,18 @@ mark{background:color-mix(in srgb,var(--amber) 28%,transparent);color:inherit;bo
   .grade-group{order:2}
   .sessionbar{top:55px;gap:8px;padding:8px 10px}
   .sessionbar .title{max-width:150px}
-  .bank-row{grid-template-columns:44px minmax(0,1fr) 68px;gap:8px;padding:9px 11px}
+  .bank-row{grid-template-columns:44px minmax(0,1fr) 92px;gap:8px;padding:9px 11px}
   .bank-row .bank-status{display:none}
   .mode-grid{grid-template-columns:1fr}
   .mode{padding:8px 10px}
+  .review-panel{padding:16px 18px;gap:12px}
+  .review-actions{width:100%}
+  .review-actions .btn{flex:1}
+  .memory-stats{grid-template-columns:1fr 1fr}
+  .memory-cols{grid-template-columns:1fr;gap:16px}
+  .zoom-body{font-size:17px;padding:16px}
+  .zoom-head{padding:13px 16px}
+  .zoom-foot{padding:10px 16px}
   .sheet-grid{grid-template-columns:repeat(5,1fr)}
   .result-hero{padding:22px;gap:20px}
   .ring{width:120px;height:120px}
