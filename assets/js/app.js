@@ -923,9 +923,13 @@
       if (opts.chapters && !opts.chapters.has(q.chapter)) return false;
       var p = getP(q.id);
       if (!p.inWrongBook && !(opts.marked && p.flagged)) return false;
-      if (cutoff && !(p.lastAt && p.lastAt >= cutoff)) return false;
+      var t = p.lastAt || p.updatedAt || 0;
+      if (cutoff && !(t && t >= cutoff)) return false;
       return true;
-    }).sort(function (a, b) { return (getP(b.id).lastAt || 0) - (getP(a.id).lastAt || 0); });
+    }).sort(function (a, b) {
+      var pa = getP(a.id), pb = getP(b.id);
+      return (pb.lastAt || pb.updatedAt || 0) - (pa.lastAt || pa.updatedAt || 0);
+    });
   }
   function updateExportPreview() {
     var box = document.getElementById('expPreviewCount');
@@ -2098,6 +2102,7 @@
     var p = ensureP(qid);
     p.inWrongBook = !p.inWrongBook;
     p.updatedAt = Date.now();
+    if (p.inWrongBook) p.lastAt = Date.now();
     saveState();
     toast(p.inWrongBook ? '已加入错题本' : '已移出错题本');
     render();
