@@ -103,6 +103,13 @@ create policy "own trace files delete"
 -- 4) 打开 Realtime（实时同步）
 do $$
 begin
+  create publication supabase_realtime;
+exception
+  when duplicate_object then null;
+end $$;
+
+do $$
+begin
   alter publication supabase_realtime add table public.user_state;
 exception
   when duplicate_object then null;
