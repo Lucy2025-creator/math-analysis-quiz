@@ -1,12 +1,14 @@
 /* 数学分析刷题 · Service Worker（离线缓存） */
-const CACHE = 'maq-v15';
+const CACHE = 'maq-v18';
 const ASSETS = [
   './',
   './index.html',
   './manifest.webmanifest',
   './assets/css/style.css',
   './assets/js/data.js',
+  './assets/js/supabase-config.js',
   './assets/js/app.js',
+  './assets/vendor/supabase/supabase.js',
   './assets/vendor/katex/katex.min.css',
   './assets/vendor/katex/katex.min.js',
   './assets/vendor/katex/auto-render.min.js',

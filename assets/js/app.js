@@ -142,7 +142,7 @@
   /* ---------------- state ---------------- */
   var DEFAULT_SETTINGS = { theme: 'auto', font: 'md', autoReveal: true, confirmSubmit: true };
   function defaults() {
-    return { v: 1, createdAt: Date.now(), progress: {}, sessions: [], reviews: {}, checkins: {}, settings: Object.assign({}, DEFAULT_SETTINGS) };
+    return { v: 1, createdAt: Date.now(), updatedAt: Date.now(), progress: {}, sessions: [], reviews: {}, checkins: {}, settings: Object.assign({}, DEFAULT_SETTINGS) };
   }
   function loadState() {
     try {
@@ -155,6 +155,7 @@
       s.reviews = s.reviews || {};
       s.checkins = s.checkins || {};
       s.settings = Object.assign({}, DEFAULT_SETTINGS, s.settings || {});
+      s.updatedAt = s.updatedAt || s.createdAt || Date.now();
       // 老版本记录迁移：练过的题直接进入“待首次复习”
       Object.keys(s.progress).forEach(function (id) {
         var p = s.progress[id];
@@ -172,9 +173,48 @@
     } catch (e) { return defaults(); }
   }
   var state = loadState();
-  function saveState() {
+
+  var CLOUD_CFG_KEY = 'maq.supabase.config';
+  var CLOUD_META_KEY = 'maq.cloud.v1';
+  var CLOUD_CFG = readCloudConfig();
+  var CLOUD = loadCloudMeta();
+  var CLOUD_SB = null;
+  var CLOUD_USER = null;
+  var CLOUD_CHANNEL = null;
+  var CLOUD_APPLYING = false;
+  var CLOUD_SYNCING = false;
+  var CLOUD_PUSH_TIMER = null;
+  var CLOUD_ACCOUNT_ROUTE = false;
+
+  function readCloudConfig() {
+    try {
+      var raw = localStorage.getItem(CLOUD_CFG_KEY);
+      if (raw) {
+        var x = JSON.parse(raw);
+        if (x && x.url && x.anonKey) return { url: String(x.url), anonKey: String(x.anonKey) };
+      }
+    } catch (e) { /* ignore */ }
+    var y = window.MAQ_SUPABASE || {};
+    return { url: y.url || '', anonKey: y.anonKey || '' };
+  }
+  function loadCloudMeta() {
+    try {
+      var raw = localStorage.getItem(CLOUD_META_KEY);
+      var m = raw ? JSON.parse(raw) : {};
+      return Object.assign({ lastSyncAt: 0, lastRemoteAt: 0, pending: false, ownerId: null, deletions: [] }, m || {});
+    } catch (e) {
+      return { lastSyncAt: 0, lastRemoteAt: 0, pending: false, ownerId: null, deletions: [] };
+    }
+  }
+  function saveCloudMeta() {
+    try { localStorage.setItem(CLOUD_META_KEY, JSON.stringify(CLOUD)); } catch (e) { /* ignore */ }
+  }
+  function saveState(opts) {
+    opts = opts || {};
+    if (opts.touch !== false) state.updatedAt = Date.now();
     try { localStorage.setItem(LS_KEY, JSON.stringify(state)); }
     catch (e) { toast('本地存储空间不足，记录可能未保存'); }
+    if (opts.cloud !== false) scheduleCloudPush();
   }
   function getP(id) { return state.progress[id] || {}; }
   function ensureP(id) {
@@ -278,7 +318,7 @@
       return new Promise(function (resolve, reject) {
         var tx = db.transaction('traces', 'readwrite');
         var store = tx.objectStore('traces');
-        var req = store.add({ qid: qid, blob: blob, name: name || 'trace.jpg', createdAt: Date.now() });
+        var req = store.add({ qid: qid, blob: blob, name: name || 'trace.jpg', createdAt: Date.now(), cloudId: null, cloudPath: null, synced: false });
         req.onsuccess = function () { resolve(req.result); };
         req.onerror = function () { reject(req.error || new Error('保存失败')); };
       });
@@ -307,6 +347,46 @@
         var req = tx.objectStore('traces').delete(id);
         req.onsuccess = function () { resolve(); };
         req.onerror = function () { reject(req.error || new Error('删除失败')); };
+      });
+    });
+  }
+  function getTrace(id) {
+    return openMediaDB().then(function (db) {
+      return new Promise(function (resolve, reject) {
+        var req = db.transaction('traces', 'readonly').objectStore('traces').get(id);
+        req.onsuccess = function () { resolve(req.result || null); };
+        req.onerror = function () { reject(req.error || new Error('读取失败')); };
+      });
+    });
+  }
+  function updateTrace(id, patch) {
+    return openMediaDB().then(function (db) {
+      return new Promise(function (resolve, reject) {
+        var tx = db.transaction('traces', 'readwrite');
+        var store = tx.objectStore('traces');
+        var get = store.get(id);
+        get.onsuccess = function () {
+          var rec = get.result;
+          if (!rec) { resolve(null); return; }
+          Object.assign(rec, patch || {});
+          var put = store.put(rec);
+          put.onsuccess = function () { resolve(rec); };
+          put.onerror = function () { reject(put.error || new Error('更新失败')); };
+        };
+        get.onerror = function () { reject(get.error || new Error('读取失败')); };
+      });
+    });
+  }
+  function listAllTraces() {
+    return openMediaDB().then(function (db) {
+      return new Promise(function (resolve, reject) {
+        var req = db.transaction('traces', 'readonly').objectStore('traces').getAll();
+        req.onsuccess = function () {
+          var arr = req.result || [];
+          arr.sort(function (a, b) { return (a.createdAt || 0) - (b.createdAt || 0); });
+          resolve(arr);
+        };
+        req.onerror = function () { reject(req.error || new Error('读取失败')); };
       });
     });
   }
@@ -436,10 +516,342 @@
       var gallery = document.querySelector('[data-trace-gallery="' + qid + '"]');
       if (gallery) loadTraceGallery(gallery);
       toast('已保存 ' + res.length + ' 张作答图片');
+      if (CLOUD_USER && navigator.onLine) cloudSyncAll();
     }).catch(function (e) {
       input.value = '';
       toast(e.message || '图片保存失败');
     });
+  }
+
+  /* ---------------- Supabase cloud sync ---------------- */
+  function cloudConfigured() {
+    return !!(CLOUD_CFG && CLOUD_CFG.url && CLOUD_CFG.anonKey);
+  }
+  function cloudBaseUrl() {
+    return location.origin + location.pathname;
+  }
+  function cloudErrorText(e) {
+    if (!e) return '未知错误';
+    var m = e.message || e.error_description || String(e);
+    if (/Invalid login credentials/i.test(m)) return '邮箱或密码不正确';
+    if (/Email not confirmed/i.test(m)) return '邮箱还没确认，请先点邮件里的确认链接';
+    if (/User already registered/i.test(m)) return '这个邮箱已经注册过了，直接登录即可';
+    if (/Password should be at least/i.test(m)) return '密码至少 6 位';
+    if (/rate limit/i.test(m)) return '操作太频繁，稍等一会儿再试';
+    return m;
+  }
+  function initCloud() {
+    updateAccountTop();
+    if (!cloudConfigured()) return;
+    if (!window.supabase || typeof window.supabase.createClient !== 'function') {
+      console.warn('Supabase SDK 未加载');
+      return;
+    }
+    try {
+      CLOUD_SB = window.supabase.createClient(CLOUD_CFG.url, CLOUD_CFG.anonKey, {
+        auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
+      });
+    } catch (e) {
+      console.error('Supabase 初始化失败', e);
+      return;
+    }
+    CLOUD_SB.auth.getSession().then(function (res) {
+      setCloudUser(res.data && res.data.session ? res.data.session.user : null);
+    }).catch(function (e) { console.warn('读取登录状态失败', e); });
+    CLOUD_SB.auth.onAuthStateChange(function (event, session) {
+      // 避免在 Supabase 回调里直接再调 Supabase（会死锁）
+      setTimeout(function () { setCloudUser(session && session.user ? session.user : null, event); }, 0);
+    });
+    window.addEventListener('online', function () {
+      if (!CLOUD_USER) return;
+      toast('网络已恢复，正在同步云端…');
+      startCloudRealtime();
+      cloudSyncAll();
+    });
+    window.addEventListener('offline', function () { updateAccountTop(); });
+  }
+  function setCloudUser(user, event) {
+    var prev = CLOUD_USER;
+    if (user && prev && user.id === prev.id) { updateAccountTop(); return; }
+    CLOUD_USER = user || null;
+    if (!CLOUD_USER) {
+      stopCloudRealtime();
+      updateAccountTop();
+      if (CLOUD_ACCOUNT_ROUTE || parseRoute().name === 'settings') render();
+      return;
+    }
+    if (CLOUD.ownerId && CLOUD.ownerId !== CLOUD_USER.id) {
+      toast('这个浏览器已绑定另一个云账号；请先导出并清空本地记录，再登录新账号');
+      setTimeout(function () { CLOUD_SB.auth.signOut(); }, 50);
+      return;
+    }
+    CLOUD.ownerId = CLOUD_USER.id;
+    saveCloudMeta();
+    updateAccountTop();
+    startCloudRealtime();
+    cloudSyncAll({ initial: true });
+    if (CLOUD_ACCOUNT_ROUTE || parseRoute().name === 'settings') render();
+  }
+  function updateAccountTop() {
+    var a = document.getElementById('accountTop');
+    if (!a) return;
+    if (CLOUD_USER) {
+      var email = CLOUD_USER.email || '已登录';
+      a.textContent = email.length > 16 ? email.slice(0, 14) + '…' : email;
+      a.title = '账号与云同步：' + email;
+      a.classList.add('on');
+      if (CLOUD.pending) a.textContent = '待同步';
+    } else {
+      a.textContent = cloudConfigured() ? '登录' : '云同步';
+      a.title = cloudConfigured() ? '登录以同步进度' : '配置 Supabase 云同步';
+      a.classList.remove('on');
+    }
+  }
+  function stopCloudRealtime() {
+    if (CLOUD_CHANNEL && CLOUD_SB) {
+      try { CLOUD_SB.removeChannel(CLOUD_CHANNEL); } catch (e) { /* ignore */ }
+    }
+    CLOUD_CHANNEL = null;
+  }
+  function startCloudRealtime() {
+    stopCloudRealtime();
+    if (!CLOUD_SB || !CLOUD_USER) return;
+    var uid = CLOUD_USER.id;
+    CLOUD_CHANNEL = CLOUD_SB.channel('maq-cloud-' + uid)
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'user_state', filter: 'user_id=eq.' + uid }, function (payload) {
+        if (payload && payload.new) handleRemoteState(payload.new);
+      })
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'traces', filter: 'user_id=eq.' + uid }, function (payload) {
+        if (payload && payload.new) downloadCloudTraceRow(payload.new);
+      })
+      .on('postgres_changes', { event: 'DELETE', schema: 'public', table: 'traces', filter: 'user_id=eq.' + uid }, function (payload) {
+        if (payload && payload.old && payload.old.id) removeLocalTraceByCloudId(payload.old.id);
+      })
+      .subscribe(function (status) {
+        if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') console.warn('云同步实时连接异常：', status);
+      });
+  }
+
+  /* ---------------- merge / push / pull ---------------- */
+  function normalizeCloudState(obj) {
+    var s = Object.assign(defaults(), obj || {});
+    s.progress = s.progress && typeof s.progress === 'object' ? s.progress : {};
+    s.sessions = Array.isArray(s.sessions) ? s.sessions : [];
+    s.reviews = s.reviews && typeof s.reviews === 'object' ? s.reviews : {};
+    s.checkins = s.checkins && typeof s.checkins === 'object' ? s.checkins : {};
+    s.settings = Object.assign({}, DEFAULT_SETTINGS, s.settings || {});
+    s.updatedAt = s.updatedAt || s.createdAt || 0;
+    return s;
+  }
+  function mergeStates(local, remote) {
+    remote = normalizeCloudState(remote);
+    Object.keys(remote.progress).forEach(function (id) {
+      var a = local.progress[id], b = remote.progress[id];
+      if (!a) { local.progress[id] = b; return; }
+      if (!b) return;
+      if ((b.updatedAt || 0) > (a.updatedAt || 0)) local.progress[id] = b;
+      else if ((b.updatedAt || 0) === (a.updatedAt || 0)) {
+        a.attempts = Math.max(a.attempts || 0, b.attempts || 0);
+        a.correct = Math.max(a.correct || 0, b.correct || 0);
+        a.wrong = Math.max(a.wrong || 0, b.wrong || 0);
+        a.favorite = !!(a.favorite || b.favorite);
+        a.flagged = !!(a.flagged || b.flagged);
+        a.inWrongBook = !!(a.inWrongBook || b.inWrongBook);
+        if (!a.note && b.note) a.note = b.note;
+        a.updatedAt = Math.max(a.updatedAt || 0, b.updatedAt || 0);
+      }
+    });
+    Object.keys(remote.reviews).forEach(function (id) {
+      var a = local.reviews[id], b = remote.reviews[id];
+      if (!a) { local.reviews[id] = b; return; }
+      if (!b) return;
+      if ((b.lastAt || 0) > (a.lastAt || 0) || (b.stage || 0) > (a.stage || 0)) local.reviews[id] = b;
+    });
+    var byId = {};
+    local.sessions.forEach(function (s) { if (s && s.id) byId[s.id] = s; });
+    remote.sessions.forEach(function (s) {
+      if (!s || !s.id) return;
+      var a = byId[s.id];
+      if (!a || (s.at || 0) > (a.at || 0)) byId[s.id] = s;
+    });
+    local.sessions = Object.keys(byId).map(function (k) { return byId[k]; }).sort(function (a, b) { return (b.at || 0) - (a.at || 0); }).slice(0, 300);
+    Object.keys(remote.checkins).forEach(function (k) {
+      var a = local.checkins[k], b = remote.checkins[k];
+      if (!a || (b.count || 0) > (a.count || 0)) local.checkins[k] = b;
+    });
+    local.v = Math.max(local.v || 1, remote.v || 1);
+    local.createdAt = Math.min(local.createdAt || Date.now(), remote.createdAt || Date.now());
+    local.updatedAt = Math.max(local.updatedAt || 0, remote.updatedAt || 0);
+    return local;
+  }
+  function applyCloudRow(row, replace) {
+    if (!row || !row.data) return false;
+    CLOUD_APPLYING = true;
+    var localSettings = state.settings;
+    if (replace) state = normalizeCloudState(row.data);
+    else mergeStates(state, row.data);
+    state.settings = Object.assign({}, DEFAULT_SETTINGS, localSettings || {});
+    state.updatedAt = Math.max(state.updatedAt || 0, row.client_updated_at || 0);
+    saveState({ cloud: false, touch: false });
+    CLOUD.lastRemoteAt = Math.max(CLOUD.lastRemoteAt || 0, row.client_updated_at || 0);
+    CLOUD.lastSyncAt = Date.now();
+    saveCloudMeta();
+    CLOUD_APPLYING = false;
+    updateAccountTop();
+    render();
+    return true;
+  }
+  function handleRemoteState(row) {
+    if (!row || !row.data || CLOUD_APPLYING) return;
+    var ts = row.client_updated_at || 0;
+    if (ts <= (state.updatedAt || 0)) return;
+    applyCloudRow(row, false);
+    toast('已从云端同步最新进度');
+  }
+  function isLocalStateEmpty() {
+    return !Object.keys(state.progress).length && !state.sessions.length && !Object.keys(state.checkins).length;
+  }
+  function scheduleCloudPush() {
+    if (!CLOUD_USER || CLOUD_APPLYING) return;
+    if (!navigator.onLine) {
+      CLOUD.pending = true; saveCloudMeta(); updateAccountTop(); return;
+    }
+    clearTimeout(CLOUD_PUSH_TIMER);
+    CLOUD_PUSH_TIMER = setTimeout(function () { cloudSyncAll(); }, 1100);
+  }
+  async function cloudSyncAll(opts) {
+    opts = opts || {};
+    if (!CLOUD_SB || !CLOUD_USER) return;
+    if (!navigator.onLine) { CLOUD.pending = true; saveCloudMeta(); updateAccountTop(); return; }
+    if (CLOUD_SYNCING) { CLOUD.pending = true; saveCloudMeta(); return; }
+    CLOUD_SYNCING = true;
+    updateAccountTop();
+    try {
+      var uid = CLOUD_USER.id;
+      var q = await CLOUD_SB.from('user_state').select('*').eq('user_id', uid).maybeSingle();
+      if (q.error) throw q.error;
+      var row = q.data;
+      if (row && row.data && !opts.forcePush) {
+        if (opts.forcePull || isLocalStateEmpty() || (row.client_updated_at || 0) > (state.updatedAt || 0)) {
+          applyCloudRow(row, opts.forcePull || isLocalStateEmpty());
+        }
+      }
+      var payload = { user_id: uid, data: state, client_updated_at: state.updatedAt || Date.now() };
+      var up = await CLOUD_SB.from('user_state').upsert(payload, { onConflict: 'user_id' });
+      if (up.error) throw up.error;
+      CLOUD.lastSyncAt = Date.now();
+      CLOUD.lastRemoteAt = Math.max(CLOUD.lastRemoteAt || 0, payload.client_updated_at);
+      CLOUD.pending = false;
+      saveCloudMeta();
+      await flushCloudDeletions();
+      await uploadCloudTraces();
+      await downloadCloudTraces();
+      updateAccountTop();
+      if (CLOUD_ACCOUNT_ROUTE) render();
+    } catch (e) {
+      console.warn('云同步失败', e);
+      CLOUD.pending = true; saveCloudMeta(); updateAccountTop();
+      toast('云同步暂未完成：' + cloudErrorText(e));
+    } finally {
+      CLOUD_SYNCING = false;
+      if (CLOUD.pending && navigator.onLine) {
+        clearTimeout(CLOUD_PUSH_TIMER);
+        CLOUD_PUSH_TIMER = setTimeout(function () { cloudSyncAll(); }, 2500);
+      }
+    }
+  }
+
+  /* ---------------- cloud trace images ---------------- */
+  async function uploadCloudTraces() {
+    if (!CLOUD_SB || !CLOUD_USER || !navigator.onLine) return;
+    var userId = CLOUD_USER.id;
+    var items = await listAllTraces().catch(function () { return []; });
+    for (var i = 0; i < items.length; i++) {
+      var rec = items[i];
+      if (!rec || !rec.blob || rec.cloudId) continue;
+      try {
+        var path = userId + '/' + rec.qid + '/' + uid() + '.jpg';
+        var up = await CLOUD_SB.storage.from('traces').upload(path, rec.blob, { contentType: 'image/jpeg', upsert: false });
+        if (up.error) throw up.error;
+        var ins = await CLOUD_SB.from('traces').insert({
+          user_id: uid, qid: rec.qid, storage_path: path, name: rec.name || 'trace.jpg'
+        }).select().single();
+        if (ins.error) throw ins.error;
+        await updateTrace(rec.id, { cloudId: ins.data.id, cloudPath: path, synced: true, ownerId: uid });
+      } catch (e) {
+        console.warn('图片上传失败，稍后重试', e);
+        CLOUD.pending = true;
+        saveCloudMeta();
+        updateAccountTop();
+        break;
+      }
+    }
+  }
+  async function downloadCloudTraces() {
+    if (!CLOUD_SB || !CLOUD_USER || !navigator.onLine) return;
+    var rows = await CLOUD_SB.from('traces').select('*').eq('user_id', CLOUD_USER.id);
+    if (rows.error || !rows.data) return;
+    var local = await listAllTraces().catch(function () { return []; });
+    var have = {};
+    local.forEach(function (x) { if (x.cloudId) have[x.cloudId] = true; });
+    for (var i = 0; i < rows.data.length; i++) {
+      var r = rows.data[i];
+      if (have[r.id]) continue;
+      await downloadCloudTraceRow(r);
+    }
+  }
+  async function downloadCloudTraceRow(row) {
+    if (!CLOUD_SB || !CLOUD_USER || !row || !row.storage_path) return;
+    try {
+      var local = await listAllTraces();
+      if (local.some(function (x) { return x.cloudId === row.id; })) return;
+      var dl = await CLOUD_SB.storage.from('traces').download(row.storage_path);
+      if (dl.error) throw dl.error;
+      var id = await addTrace(row.qid, dl.data, row.name || 'trace.jpg');
+      await updateTrace(id, { cloudId: row.id, cloudPath: row.storage_path, synced: true, ownerId: CLOUD_USER.id });
+      // 下载完成后刷新当前页面里的缩略图
+      refreshTraceGalleries(document);
+    } catch (e) {
+      console.warn('图片下载失败', e);
+      CLOUD.pending = true;
+      saveCloudMeta();
+      updateAccountTop();
+    }
+  }
+  async function flushCloudDeletions() {
+    if (!CLOUD_SB || !CLOUD_USER || !navigator.onLine) return;
+    if (!CLOUD.deletions || !CLOUD.deletions.length) return;
+    var rest = [];
+    for (var i = 0; i < CLOUD.deletions.length; i++) {
+      var d = CLOUD.deletions[i];
+      try {
+        if (d.path) await CLOUD_SB.storage.from('traces').remove([d.path]);
+        if (d.cloudId) await CLOUD_SB.from('traces').delete().eq('id', d.cloudId);
+      } catch (e) { rest.push(d); }
+    }
+    CLOUD.deletions = rest;
+    saveCloudMeta();
+  }
+  function queueCloudDeletion(rec) {
+    if (!rec || !rec.cloudId) return;
+    CLOUD.deletions = CLOUD.deletions || [];
+    CLOUD.deletions.push({ cloudId: rec.cloudId, path: rec.cloudPath });
+    saveCloudMeta();
+    if (navigator.onLine) flushCloudDeletions();
+  }
+  async function clearAllLocalTraces() {
+    var items = await listAllTraces().catch(function () { return []; });
+    items.forEach(function (rec) { if (rec.cloudId) queueCloudDeletion(rec); });
+    await clearTraces();
+  }
+  async function removeLocalTraceByCloudId(cloudId) {
+    if (!cloudId) return;
+    var items = await listAllTraces().catch(function () { return []; });
+    var rec = items.find(function (x) { return x.cloudId === cloudId; });
+    if (rec) {
+      await deleteTrace(rec.id);
+      refreshTraceGalleries(document);
+    }
   }
 
   function loadSession() {
@@ -618,13 +1030,13 @@
     var p = getP(q.id);
     var open = p.note ? ' open' : '';
     return '<details class="note-wrap"' + open + '><summary>文字痕迹 / 笔记<span class="saved" data-saved="' + q.id + '"></span></summary>' +
-      '<textarea data-note data-qid="' + q.id + '" placeholder="写下思路、关键步骤、错因或疑问，自动保存在本机…">' + esc(p.note || '') + '</textarea></details>';
+      '<textarea data-note data-qid="' + q.id + '" placeholder="写下思路、关键步骤、错因或疑问，自动保存…">' + esc(p.note || '') + '</textarea></details>';
   }
   function traceBlock(q) {
     return '<div class="trace-block" data-trace-block="' + q.id + '">' +
       '<div class="trace-head"><b>我的作答痕迹</b>' +
         '<label class="btn sm trace-upload">＋ 上传图片<input type="file" accept="image/*" multiple data-trace-input data-qid="' + q.id + '"></label>' +
-        '<span class="tiny faint">图片只保存在本机，导出错题文档时会一并打包</span></div>' +
+        '<span class="tiny faint">未登录只存本机；登录后会同步到云端</span></div>' +
       '<div class="trace-gallery" data-trace-gallery="' + q.id + '"><span class="tiny faint">加载中…</span></div></div>';
   }
   function qCard(q, idx, opts) {
@@ -963,7 +1375,7 @@
           '<li>你自己写的文字痕迹与上传的作答图片</li>' +
           (readExportOptions().full ? '<li>完整解析</li>' : '<li>可选：勾选“包含完整解析”后附完整解析</li>') +
         '</ul>' +
-        '<div class="export-tip" style="margin-top:12px">图片痕迹保存在浏览器 IndexedDB 中；导出时会转成文档内嵌图片，不会上传服务器。</div>' +
+        '<div class="export-tip" style="margin-top:12px">图片痕迹默认存在本机 IndexedDB；登录云同步后会跨设备。导出文档时仍会转成内嵌图片，单文件可离线查看。</div>' +
       '</div></div>';
   }
   function textToMathML(text) {
@@ -1129,6 +1541,141 @@
     }
   }
 
+  /* ---------------- views: account / cloud sync ---------------- */
+  function viewAccount() {
+    var head = '<div class="page-head"><div><h1>账号与云同步</h1><div class="sub">登录后，做题进度、错题、笔记和作答图片会在手机/电脑之间同步。</div></div></div>';
+    if (!cloudConfigured()) {
+      return head + '<div class="card card-pad" style="max-width:760px">' +
+        '<h3 style="font-size:18px;margin-bottom:6px">先配置 Supabase</h3>' +
+        '<p class="small muted">云同步使用 Supabase（免费额度足够个人用）。它负责账号、数据库和图片存储；GitHub Pages 仍然只放前端页面。</p>' +
+        '<ol class="small" style="line-height:2;padding-left:20px;margin:12px 0;color:var(--ink-2)">' +
+          '<li>打开 <a href="https://supabase.com" target="_blank" rel="noopener">supabase.com</a>，新建一个免费项目。</li>' +
+          '<li>进入 SQL Editor，运行仓库里的 <a href="supabase/schema.sql" target="_blank">supabase/schema.sql</a>（整段复制运行一次）。</li>' +
+          '<li>Project Settings → API，复制 <b>Project URL</b> 和 <b>anon public</b> key。</li>' +
+          '<li>填到下面并保存。不要填 service_role key。</li>' +
+        '</ol>' +
+        '<form data-supabase-config class="cloud-config-form">' +
+          '<label class="field-label">Project URL</label><input class="input" name="url" placeholder="https://xxxx.supabase.co" value="' + esc(CLOUD_CFG.url || '') + '" required>' +
+          '<label class="field-label">anon public key</label><input class="input" name="anonKey" placeholder="eyJhbGciOi..." value="' + esc(CLOUD_CFG.anonKey || '') + '" required>' +
+          '<div class="btn-row" style="margin-top:12px"><button class="btn primary" type="submit">保存配置并重载</button><a class="btn" href="https://supabase.com/dashboard" target="_blank" rel="noopener">打开 Supabase</a></div>' +
+        '</form>' +
+        '<div class="export-tip" style="margin-top:14px">anon key 是公开的，受数据库 RLS 保护；每个用户只能读写自己的数据。图片存在私有 Storage 桶里，不会公开。</div>' +
+      '</div>';
+    }
+    if (!CLOUD_SB) {
+      return head + '<div class="empty"><div class="big">!</div><h3>Supabase SDK 没有加载</h3><p>请检查 assets/vendor/supabase/supabase.js 是否存在，然后刷新页面。</p></div>';
+    }
+    if (!CLOUD_USER) {
+      return head + '<div class="account-grid"><div class="card card-pad">' +
+        '<h3 style="font-size:18px;margin-bottom:10px">登录</h3>' +
+        '<p class="small muted">用邮箱和密码登录后，自动开始云同步。</p>' +
+        '<form data-auth-form="login" class="auth-form"><label class="field-label">邮箱</label><input class="input" type="email" name="email" autocomplete="email" required>' +
+          '<label class="field-label">密码</label><input class="input" type="password" name="password" autocomplete="current-password" required>' +
+          '<div class="btn-row" style="margin-top:12px"><button class="btn primary" type="submit">登录</button><button class="btn" type="button" data-auth-reset>忘记密码</button></div></form></div>' +
+        '<div class="card card-pad"><h3 style="font-size:18px;margin-bottom:10px">注册新账号</h3>' +
+        '<p class="small muted">建议用常用邮箱。若 Supabase 开启了邮箱确认，需要先点邮件里的链接。</p>' +
+        '<form data-auth-form="signup" class="auth-form"><label class="field-label">昵称（可选）</label><input class="input" name="name" autocomplete="nickname">' +
+          '<label class="field-label">邮箱</label><input class="input" type="email" name="email" autocomplete="email" required>' +
+          '<label class="field-label">密码（至少 6 位）</label><input class="input" type="password" name="password" autocomplete="new-password" minlength="6" required>' +
+          '<div class="btn-row" style="margin-top:12px"><button class="btn primary" type="submit">注册</button></div></form></div></div><div class="auth-msg" id="authMsg" style="max-width:760px"></div>';
+    }
+    var email = CLOUD_USER.email || '';
+    var last = CLOUD.lastSyncAt ? fmtDate(CLOUD.lastSyncAt) : '还没同步过';
+    return head + '<div class="account-grid"><div class="card card-pad">' +
+      '<div class="account-badge">已登录</div><h3 style="font-size:20px;margin:6px 0 2px">' + esc(email) + '</h3>' +
+      '<p class="small muted">账号 ID：' + esc(CLOUD_USER.id.slice(0, 8)) + '…</p>' +
+      '<div class="cloud-stat-grid"><div><b>' + last + '</b><span>上次同步</span></div><div><b>' + (CLOUD.pending ? '待补传' : (CLOUD.lastSyncAt ? '已同步' : '未同步')) + '</b><span>状态</span></div><div><b>' + Object.keys(state.progress).length + '</b><span>本机练过</span></div></div>' +
+      '<p class="small muted" style="margin-top:10px">联网时自动实时同步；断网期间改动会先留在本机，恢复网络后自动补传。</p>' +
+      '<div class="btn-row" style="margin-top:12px"><button class="btn primary" data-cloud-action="sync">立即同步</button><button class="btn" data-cloud-action="logout">退出登录</button></div>' +
+    '</div><div class="card card-pad"><h3 style="font-size:17px;margin-bottom:6px">冲突与恢复</h3>' +
+      '<p class="small muted">默认按每道题的更新时间合并，不会整份覆盖。换设备或想强制对齐时，用下面两个按钮：</p>' +
+      '<div class="btn-row" style="margin-top:10px"><button class="btn" data-cloud-action="force-pull">用云端覆盖本机</button><button class="btn" data-cloud-action="force-push">用本机覆盖云端</button></div>' +
+      '<div class="export-tip" style="margin-top:12px">当前浏览器会绑定这个云账号，避免把 A 的进度传到 B。要换账号，请先导出数据、退出登录，再在设置里清空本地记录。</div>' +
+    '</div></div>';
+  }
+
+  function setAuthMsg(text, kind) {
+    var el = document.getElementById('authMsg');
+    if (!el) { toast(text); return; }
+    el.textContent = text;
+    el.className = 'auth-msg' + (kind ? ' ' + kind : '');
+  }
+  function saveCloudConfig(form) {
+    var url = String(form.url.value || '').trim().replace(/\/+$/, '');
+    var key = String(form.anonKey.value || '').trim();
+    if (!/^https:\/\/.+\.supabase\.co$/i.test(url)) { toast('Project URL 格式不对，应类似 https://xxxx.supabase.co'); return; }
+    if (key.length < 20) { toast('anon key 看起来不完整'); return; }
+    try {
+      localStorage.setItem(CLOUD_CFG_KEY, JSON.stringify({ url: url, anonKey: key }));
+      toast('配置已保存，正在重载…');
+      setTimeout(function () { location.reload(); }, 450);
+    } catch (e) { toast('保存配置失败'); }
+  }
+  async function handleAuth(form, mode) {
+    if (!CLOUD_SB) { toast('云同步还没配置'); return; }
+    var emailEl = form.querySelector('[name="email"]');
+    var passEl = form.querySelector('[name="password"]');
+    var email = String(emailEl ? emailEl.value : '').trim();
+    var password = String(passEl ? passEl.value : '');
+    if (!email || !password) { setAuthMsg('请填写邮箱和密码', 'err'); return; }
+    var btn = form.querySelector('button[type="submit"]');
+    if (btn) { btn.disabled = true; btn.dataset.old = btn.textContent; btn.textContent = '处理中…'; }
+    setAuthMsg(mode === 'login' ? '正在登录…' : '正在注册…', '');
+    try {
+      if (mode === 'login') {
+        var r = await CLOUD_SB.auth.signInWithPassword({ email: email, password: password });
+        if (r.error) throw r.error;
+        setAuthMsg('登录成功，正在同步…', 'ok');
+      } else {
+        var nameEl = form.querySelector('[name="name"]');
+        var name = nameEl ? String(nameEl.value || '').trim() : '';
+        var s = await CLOUD_SB.auth.signUp({
+          email: email, password: password,
+          options: { data: { display_name: name || email.split('@')[0] }, emailRedirectTo: cloudBaseUrl() }
+        });
+        if (s.error) throw s.error;
+        if (s.data && s.data.session) setAuthMsg('注册成功，正在登录…', 'ok');
+        else setAuthMsg('注册成功。请到邮箱点确认链接，然后再回来登录。', 'ok');
+      }
+    } catch (e) {
+      setAuthMsg(cloudErrorText(e), 'err');
+    } finally {
+      if (btn) { btn.disabled = false; btn.textContent = btn.dataset.old || (mode === 'login' ? '登录' : '注册'); }
+    }
+  }
+  async function handleCloudAction(action) {
+    if (action === 'logout') {
+      if (!CLOUD_SB) return;
+      await CLOUD_SB.auth.signOut();
+      stopCloudRealtime();
+      CLOUD_USER = null;
+      updateAccountTop();
+      toast('已退出云同步；本机记录仍然保留');
+      render();
+      return;
+    }
+    if (!CLOUD_USER) { toast('请先登录'); return; }
+    if (action === 'sync') {
+      toast('正在同步…');
+      await cloudSyncAll();
+      toast(CLOUD.pending ? '还有改动待补传，稍后会自动重试' : '云同步完成');
+      return;
+    }
+    if (action === 'force-pull') {
+      if (!confirm('用云端进度覆盖本机？本机尚未同步的改动会丢失。')) return;
+      toast('正在从云端恢复…');
+      await cloudSyncAll({ forcePull: true });
+      toast(CLOUD.pending ? '同步未完成，请检查网络后重试' : '已用云端进度覆盖本机');
+      return;
+    }
+    if (action === 'force-push') {
+      if (!confirm('用本机进度覆盖云端？其他设备未同步的改动会丢失。')) return;
+      toast('正在上传本机进度…');
+      await cloudSyncAll({ forcePush: true });
+      toast(CLOUD.pending ? '同步未完成，请检查网络后重试' : '已用本机进度覆盖云端');
+    }
+  }
+
   /* ---------------- views: settings ---------------- */
   function viewSettings() {
     var size = 0;
@@ -1151,8 +1698,14 @@
           '<div class="btn-row" style="margin-top:12px"><a class="btn" href="#/export">导出错题文档</a><button class="btn" data-action="export-data">导出备份</button>' +
             '<button class="btn" data-action="import-data">导入备份</button>' +
             '<button class="btn" data-action="print-all">打印题库</button></div>' +
-          '<p class="small muted" style="margin-top:9px">图片作答痕迹保存在浏览器 IndexedDB，会随“导出错题文档”内嵌导出；JSON 备份只含文字与进度。</p>' +
+          '<p class="small muted" style="margin-top:9px">图片作答痕迹保存在 IndexedDB，登录后会同步到云端；导出错题文档时也会内嵌。JSON 备份只含文字与进度。</p>' +
           '<input type="file" id="importFile" accept="application/json,.json" class="hide">' +
+        '</div>' +
+        '<div class="card card-pad"><h3 style="font-size:17px;margin-bottom:6px">云同步</h3>' +
+          '<p class="small muted">' + (cloudConfigured()
+            ? (CLOUD_USER ? '已登录：' + esc(CLOUD_USER.email || '') + ' · ' + (CLOUD.pending ? '有待补传改动' : '自动同步已开启') : 'Supabase 已配置，登录后即可同步。')
+            : '还没有配置 Supabase；配置后可在手机和电脑之间同步进度与图片。') + '</p>' +
+          '<div class="btn-row" style="margin-top:12px"><a class="btn primary" href="#/account">打开账号与云同步</a></div>' +
         '</div>' +
         '<div class="card card-pad danger-zone"><h3 style="font-size:17px;margin-bottom:6px;color:var(--red)">危险操作</h3>' +
           '<p class="small muted">清空所有练习记录、错题、收藏和笔记，不可恢复。</p>' +
@@ -1786,9 +2339,12 @@
   }
   function resetData() {
     if (!confirm('确定清空所有练习记录、错题、收藏和笔记？此操作不可恢复。')) return;
+    if (CLOUD_USER && !confirm('你已登录云同步：清空本地后会同步覆盖云端进度，确定继续？')) return;
     if (!confirm('再确认一次：真的要全部清空吗？')) return;
     state = defaults(); S = null; saveState(); saveSession();
-    clearTraces().catch(function () { /* IndexedDB 不可用时忽略 */ });
+    CLOUD.ownerId = null;
+    saveCloudMeta();
+    clearAllLocalTraces().catch(function () { /* IndexedDB 不可用时忽略 */ });
     applyTheme(); applyFont(); render(); toast('已清空');
   }
   function printAll() {
@@ -1833,6 +2389,7 @@
       case 'favorites': html = viewFavorites(); break;
       case 'stats': html = viewStats(); break;
       case 'export': html = viewExport(); break;
+      case 'account': html = viewAccount(); break;
       case 'settings': html = viewSettings(); break;
       case 'q': html = viewDetail(route); break;
       case 'search': html = viewSearch(route); break;
@@ -1845,6 +2402,8 @@
     app.innerHTML = html;
     renderMath(app);
     refreshTraceGalleries(app);
+    CLOUD_ACCOUNT_ROUTE = route.name === 'account';
+    updateAccountTop();
     if (route.name === 'export') updateExportPreview();
     if (route.name === 'session') {
       var counts = sessionCounts();
@@ -1873,6 +2432,29 @@
 
   /* ---------------- events ---------------- */
   document.addEventListener('click', function (e) {
+    var cloudBtn = e.target.closest('[data-cloud-action]');
+    if (cloudBtn) {
+      e.preventDefault();
+      handleCloudAction(cloudBtn.dataset.cloudAction);
+      return;
+    }
+    var resetBtn = e.target.closest('[data-auth-reset]');
+    if (resetBtn) {
+      e.preventDefault();
+      var form = resetBtn.closest('form');
+      var emailEl = form ? form.querySelector('[name="email"]') : null;
+      var email = emailEl ? String(emailEl.value || '').trim() : '';
+      if (!email) { setAuthMsg('先填邮箱，再点忘记密码', 'err'); return; }
+      if (!CLOUD_SB) { setAuthMsg('云同步还没配置', 'err'); return; }
+      CLOUD_SB.auth.resetPasswordForEmail(email, { redirectTo: cloudBaseUrl() }).then(function (r) {
+        if (r.error) setAuthMsg(cloudErrorText(r.error), 'err');
+        else setAuthMsg('重置密码邮件已发送，请查收邮箱。', 'ok');
+      });
+      return;
+    }
+  });
+
+  document.addEventListener('click', function (e) {
     var el = e.target.closest('[data-action]');
     if (!el) return;
     var a = el.dataset.action;
@@ -1897,7 +2479,10 @@
         if (!confirm('删除这张作答图片？')) break;
         var tid = parseInt(el.dataset.id, 10);
         var gal = el.closest('[data-trace-gallery]');
-        deleteTrace(tid).then(function () {
+        getTrace(tid).then(function (rec) {
+          if (rec) queueCloudDeletion(rec);
+          return deleteTrace(tid);
+        }).then(function () {
           if (gal) loadTraceGallery(gal);
           toast('已删除图片');
         }).catch(function () { toast('删除失败'); });
@@ -2029,6 +2614,16 @@
   });
 
   document.addEventListener('submit', function (e) {
+    if (e.target.matches('[data-supabase-config]')) {
+      e.preventDefault();
+      saveCloudConfig(e.target);
+      return;
+    }
+    if (e.target.matches('[data-auth-form]')) {
+      e.preventDefault();
+      handleAuth(e.target, e.target.dataset.authForm);
+      return;
+    }
     if (e.target.matches('[data-search-form]')) {
       e.preventDefault();
       var val = e.target.querySelector('input[name="q"]').value.trim();
@@ -2185,6 +2780,7 @@
 
   /* ---------------- init ---------------- */
   applyTheme(); applyFont(); render(); startTimer();
+  initCloud();
   if ('serviceWorker' in navigator && /^https?:/.test(location.protocol)) {
     navigator.serviceWorker.register('sw.js').catch(function () { /* ignore */ });
   }

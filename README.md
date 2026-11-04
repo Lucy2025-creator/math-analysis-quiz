@@ -4,7 +4,7 @@
 
 在线访问：<https://lucy2025-creator.github.io/math-analysis-quiz/>
 
-纯静态站点，无后端、无构建步骤；文字记录保存在浏览器 `localStorage`，作答图片保存在 `IndexedDB`。
+纯静态站点，无构建步骤；文字记录优先保存在浏览器 `localStorage`，作答图片保存在 `IndexedDB`。登录后通过 Supabase 做账号与云同步（可选，未配置时一切照旧本地使用）。
 
 ## 功能
 
@@ -24,6 +24,7 @@
 - **收藏与笔记**：收藏想二刷的题；每题可写文字痕迹 / 笔记，自动保存。
 - **作答痕迹**：每题可上传多张答题纸、草稿或订正照片；图片压缩后保存在本机 IndexedDB，可点开大图、删除。
 - **错题复习文档**：按“最近 7/30/90 天 / 全部 + 章节”导出近期错题，自动带上题型总结、答题模板 / 关键步骤、本题思路、答案、教材引用，以及自己的文字痕迹和图片；生成单个手机友好的 HTML，公式为 MathML、图片内嵌，可离线打开或打印成 PDF。
+- **账号与云同步**：Supabase 邮箱注册 / 登录 / 找回密码；进度、错题、笔记与作答图片跨设备同步。联网时保存后自动推送并用 Realtime 接收其他设备改动；断网时只写本地，恢复网络后自动补传。支持“用云端覆盖本机 / 用本机覆盖云端”。
 - **艾宾浩斯复习**：首次作答后自动排入 7 次复习（1、2、4、7、15、30、60 天）；答对到期题推进，答错回到第 0 次；首页 / 统计页有“今日复习”入口。
 - **每日打卡**：作答即打卡，统计页有最近 30 天打卡日历与连续打卡天数。
 - **统计**：章节覆盖度、累计正确率、最近 14 天练习量、最近练习记录、7 次复习进度。
@@ -48,13 +49,26 @@ python -m http.server 8765
 
 `.nojekyll` 已加入，避免 Jekyll 处理静态资源。
 
+## 配置云同步（可选）
+
+1. 新建 Supabase 项目；
+2. 在 SQL Editor 运行 [`supabase/schema.sql`](supabase/schema.sql)；
+3. 在 Authentication → URL Configuration 填线上地址；
+4. 打开站点 `#/account`，或在 `assets/js/supabase-config.js` 填 Project URL 与 anon public key。
+
+完整步骤见 [`supabase/README.md`](supabase/README.md)。只使用 anon key，不要把 service_role key 放进前端。
+
 ## 目录
 
 ```
 index.html                 页面外壳
 assets/css/style.css       样式（含深色主题、响应式、打印）
-assets/js/app.js           全部交互逻辑（hash 路由、会话、错题本、统计、复习）
+assets/js/app.js           全部交互逻辑（hash 路由、会话、错题本、统计、复习、云同步）
 assets/js/data.js          题库 + 解析 + 题型聚类（window.MAQ_DATA）
+assets/js/supabase-config.js  Supabase URL / anon key（可留空，在页面里配置）
+assets/vendor/supabase/    Supabase JS SDK 本地资源
+supabase/schema.sql        数据库、RLS、Storage、Realtime 初始化脚本
+supabase/README.md         云同步配置步骤
 clusters.json              23 个题型聚类：题号、知识点总结、答题模板、代表题
 references.json            教材定理原文与所引题目结论
 question_refs.json         题号 → 引用条目映射

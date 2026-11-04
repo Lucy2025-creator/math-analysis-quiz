@@ -685,6 +685,23 @@ html[data-theme="dark"] .check-cell.on{color:#101418}
 .export-preview b{font-family:var(--serif);font-size:24px;color:var(--accent);margin-right:3px}
 .export-tip{background:var(--amber-soft);color:var(--amber);border-radius:8px;padding:8px 11px;font-size:12.5px;line-height:1.7}
 
+/* ---------- account / cloud ---------- */
+.account-top{white-space:nowrap;max-width:150px;overflow:hidden;text-overflow:ellipsis;margin-right:2px}
+.account-top.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.account-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+.account-badge{display:inline-block;font-size:10px;letter-spacing:.12em;color:var(--green);background:var(--green-soft);border-radius:4px;padding:2px 7px}
+.auth-form{display:flex;flex-direction:column;margin-top:8px}
+.field-label{display:block;font-size:11px;letter-spacing:.06em;color:var(--muted);margin:10px 0 4px}
+.auth-form .field-label:first-child{margin-top:0}
+.auth-msg{min-height:20px;font-size:12.5px;color:var(--muted);margin-top:10px;line-height:1.6}
+.auth-msg.ok{color:var(--green)}.auth-msg.err{color:var(--red)}
+.cloud-stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.cloud-stat-grid>div{background:var(--card-2);border:1px solid var(--line);border-radius:8px;padding:8px 9px;min-width:0}
+.cloud-stat-grid b{display:block;font-family:var(--serif);font-size:15px;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cloud-stat-grid span{display:block;font-size:10px;color:var(--faint);margin-top:2px}
+.cloud-config-form{max-width:560px}
+.cloud-config-form .input{width:100%;margin-bottom:2px;box-sizing:border-box}
+
 /* ---------- responsive ---------- */
 @media (max-width:960px){
   .stats-grid{grid-template-columns:repeat(2,1fr)}
@@ -730,6 +747,9 @@ html[data-theme="dark"] .check-cell.on{color:#101418}
   .ref-item{grid-template-columns:1fr;gap:1px}
   .trace-gallery{grid-template-columns:repeat(3,minmax(0,1fr))}
   .export-grid{grid-template-columns:1fr}
+  .account-grid{grid-template-columns:1fr}
+  .account-top{max-width:86px;font-size:11px;padding:5px 8px}
+  .cloud-stat-grid{grid-template-columns:1fr 1fr}
   .review-panel{padding:16px 18px;gap:12px}
   .review-actions{width:100%}
   .review-actions .btn{flex:1}
