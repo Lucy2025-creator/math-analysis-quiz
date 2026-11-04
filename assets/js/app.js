@@ -996,6 +996,14 @@
     var dateStr = today.getFullYear() + '-' + pad(today.getMonth() + 1) + '-' + pad(today.getDate());
     var traces = opts.images ? (opts._traces || await getTracesFor(qs.map(function (q) { return q.id; }))) : {};
     var fig = qs.some(function (q) { return q.body.indexOf('[[FIG1_4]]') >= 0; }) ? await fetchDataURL('assets/img/fig-1-4.png') : '';
+    var cstat = {};
+    qs.forEach(function (q) {
+      var c = CMAP[q.cluster];
+      var key = c ? c.name : '未分类';
+      cstat[key] = (cstat[key] || 0) + 1;
+    });
+    var summaryLine = Object.keys(cstat).sort(function (a, b) { return cstat[b] - cstat[a]; })
+      .map(function (k) { return esc(k) + ' ×' + cstat[k]; }).join(' · ');
     var cards = qs.map(function (q, i) {
       var p = getP(q.id);
       var c = CMAP[q.cluster];
@@ -1073,6 +1081,8 @@
       '.doc-imgs figure{margin:0;border:1px solid #e4ddce;border-radius:7px;overflow:hidden;background:#faf7ef}' +
       '.doc-imgs img{width:100%;display:block}.doc-imgs figcaption{font-size:10px;color:#727a84;text-align:center;padding:2px}' +
       '.doc-foot{margin-top:12px;font-size:11px;color:#a0a7b0;border-top:1px solid #e4ddce;padding-top:7px}' +
+      '.doc-summary{background:#fffdf8;border:1px solid #e4ddce;border-radius:10px;padding:10px 14px;margin:0 0 14px;font-size:13px;color:#3c434c}' +
+      '.doc-summary b{display:block;color:#2f5d8a;font-size:11px;letter-spacing:.08em;margin-bottom:3px}.doc-summary p{margin:0;line-height:1.8}' +
       '.doc-end{text-align:center;color:#a0a7b0;font-size:11px;margin:24px 0}' +
       '@media(max-width:600px){body{font-size:16px}.wrap{padding:12px 10px 36px}.doc-card{padding:13px 13px}.doc-head h1{font-size:22px}.doc-imgs{grid-template-columns:1fr}.doc-body{font-size:16px}}' +
       '@media print{body{background:#fff}.toolbar{display:none}.wrap{max-width:none;padding:0}.doc-card{border:0;border-bottom:1px solid #ddd;border-radius:0;padding:10px 0}}' +
@@ -1082,7 +1092,7 @@
         '<p>范围：' + (opts.range === 'all' ? '全部错题' : '最近 ' + opts.range + ' 天') + (opts.marked ? ' · 含标记题' : '') + '</p>' +
         '<div class="stat"><span><b>' + qs.length + '</b>道题</span><span><b>' + Object.keys(qs.reduce(function (m, q) { m[q.cluster] = 1; return m; }, {})).length + '</b>个题型</span><span><b>' + qs.filter(function (q) { return getP(q.id).inWrongBook; }).length + '</b>道错题</span></div>' +
         '<div class="toolbar"><button onclick="window.print()">打印 / 存为 PDF</button><a href="https://lucy2025-creator.github.io/math-analysis-quiz/">回到在线题库</a></div>' +
-      '</header>' + cards +
+      '</header><div class="doc-summary"><b>题型分布</b><p>' + summaryLine + '</p></div>' + cards +
       '<div class="doc-end">共 ' + qs.length + ' 题 · 数分刷题 · 仅供个人学习</div>' +
       '</div></body></html>';
   }
