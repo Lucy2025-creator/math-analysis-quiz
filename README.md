@@ -92,3 +92,5 @@ sw.js / manifest.webmanifest  离线缓存与 PWA
 - `空格`：展开 / 收起解析
 - `1`：做对了
 - `2`：做错了
+
+> 云同步部署后，若 Pages 仍显示旧页面，请强刷或等待 CDN 更新。
