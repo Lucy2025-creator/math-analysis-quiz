@@ -1144,7 +1144,7 @@
    "number": 9,
    "label": "总练习题 9",
    "source": "第一章总练习题",
-   "body": "设 $f$ 和 $g$ 为区间 $(a, b)$ 上的增函数，证明第7题中定义的函数 $\\varphi(x)$ 和 $\\psi(x)$ 也都是 $(a, b)$ 上的增函数.",
+   "body": "设 $f,g$ 为区间 $(a,b)$ 上的增函数，$\\varphi(x)=\\max\\{f(x),g(x)\\}$，$\\psi(x)=\\min\\{f(x),g(x)\\}$（即本章总练习题第 7 题中定义的函数）. 证明：$\\varphi$ 与 $\\psi$ 也都是 $(a,b)$ 上的增函数.",
    "hint": "",
    "tags": [
     "综合题"
@@ -1323,7 +1323,7 @@
    "number": 18,
    "label": "总练习题 18",
    "source": "第一章总练习题",
-   "body": "设 $a > 0, m, n, p$ 为正整数，规定 $a^{\\frac{m}{n}} = (a^{\\frac{1}{n}})^m$ . 证明： $a^{\\frac{pm}{pn}} = (a^{\\frac{1}{pn}})^{pm} = a^{\\frac{m}{n}}$ .\n\n\n第一章自测题",
+   "body": "设 $a > 0, m, n, p$ 为正整数，规定 $a^{\\frac{m}{n}} = (a^{\\frac{1}{n}})^m$ . 证明： $a^{\\frac{pm}{pn}} = (a^{\\frac{1}{pn}})^{pm} = a^{\\frac{m}{n}}$ .",
    "hint": "",
    "tags": [
     "综合题"
@@ -1439,7 +1439,7 @@
    "number": 6,
    "label": "§1 6",
    "source": "习题 2.1",
-   "body": "证明定理2.1, 并应用它证明数列 $\\left\\{1 + \\frac{(-1)^n}{n}\\right\\}$ 的极限是1.",
+   "body": "证明定理 2.1：数列 $\\{a_n\\}$ 收敛于 $ 的充要条件是 $\\{a_n-a\\}$ 为无穷小数列；并应用它证明数列 $\\left\\{1+\\dfrac{(-1)^n}{n}\\right\\}$ 的极限是 $.",
    "hint": "",
    "tags": [
     "数列极限"
@@ -2030,7 +2030,7 @@
    "number": 5,
    "label": "总练习题 5",
    "source": "第二章总练习题",
-   "body": "应用上题的结论证明下列各题：\n(1) $\\lim_{n\\to\\infty}\\frac{1+\\frac{1}{2}+\\frac{1}{3}+\\cdots+\\frac{1}{n}}{n}=0;$ (2) $\\lim_{n\\to\\infty}\\sqrt[n]{a}=1(a>0);$ (3) $\\lim_{n\\to\\infty}\\sqrt[n]{n}=1;$ (4) $\\lim_{n\\to\\infty}\\frac{1}{\\sqrt[n]{n!}}=0;$ (5) $\\lim_{n\\to\\infty}\\frac{n}{\\sqrt[n]{n!}}=e;$ (6) $\\lim_{n\\to\\infty}\\frac{1+\\sqrt{2}+\\sqrt[3]{3}+\\cdots+\\sqrt[n]{n}}{n}=1;$ \n(7) 若 $\\lim_{n\\to\\infty}\\frac{b_{n+1}}{b_n}=a\\quad(b_n>0)$ ，则 $\\lim_{n\\to\\infty}\\sqrt[n]{b_n}=a;$ \n(8) 若 $\\lim_{n\\to\\infty}\\left(a_n-a_{n-1}\\right)=d$ ，则 $\\lim_{n\\to\\infty}\\frac{a_n}{n}=d;$ \n(9) $\\lim_{n\\to \\infty}\\frac{\\ln(n!)}{n} = +\\infty .$",
+   "body": "应用第 4 题的结论（平均值与几何平均的极限）证明下列各题：\n(1) $\\lim_{n\\to\\infty}\\frac{1+\\frac{1}{2}+\\frac{1}{3}+\\cdots+\\frac{1}{n}}{n}=0;$ (2) $\\lim_{n\\to\\infty}\\sqrt[n]{a}=1(a>0);$ (3) $\\lim_{n\\to\\infty}\\sqrt[n]{n}=1;$ (4) $\\lim_{n\\to\\infty}\\frac{1}{\\sqrt[n]{n!}}=0;$ (5) $\\lim_{n\\to\\infty}\\frac{n}{\\sqrt[n]{n!}}=e;$ (6) $\\lim_{n\\to\\infty}\\frac{1+\\sqrt{2}+\\sqrt[3]{3}+\\cdots+\\sqrt[n]{n}}{n}=1;$ \n(7) 若 $\\lim_{n\\to\\infty}\\frac{b_{n+1}}{b_n}=a\\quad(b_n>0)$ ，则 $\\lim_{n\\to\\infty}\\sqrt[n]{b_n}=a;$ \n(8) 若 $\\lim_{n\\to\\infty}\\left(a_n-a_{n-1}\\right)=d$ ，则 $\\lim_{n\\to\\infty}\\frac{a_n}{n}=d;$ \n(9) $\\lim_{n\\to \\infty}\\frac{\\ln(n!)}{n} = +\\infty .$",
    "hint": "",
    "tags": [
     "综合题"
@@ -2205,7 +2205,7 @@
    "number": 14,
    "label": "总练习题 14",
    "source": "第二章总练习题",
-   "body": "倘若 $\\{a_{n}\\}, \\{b_{n}\\}$ 都是无界数列, 试问 $\\{a_{n}b_{n}\\}$ 是否必为无界数列?\n(若是,需作证明;若否,需给出反例.)\n\n\n第二章自测题",
+   "body": "倘若 $\\{a_{n}\\}, \\{b_{n}\\}$ 都是无界数列, 试问 $\\{a_{n}b_{n}\\}$ 是否必为无界数列?\n(若是,需作证明;若否,需给出反例.)",
    "hint": "",
    "tags": [
     "综合题"
@@ -3174,7 +3174,7 @@
    "number": 10,
    "label": "总练习题 10",
    "source": "第三章总练习题",
-   "body": "设函数 $f$ 定义在 $(a, +\\infty)$ 上， $f$ 在每一个有限区间 $(a, b)$ 上有界，并满足 $\\lim_{x \\to +\\infty} (f(x + 1) - f(x)) = A.$ 证明：\n$$\n\\lim _ {x \\rightarrow + \\infty} \\frac {f (x)}{x} = A.\n$$\n\n\n第三章自测题",
+   "body": "设函数 $f$ 定义在 $(a, +\\infty)$ 上， $f$ 在每一个有限区间 $(a, b)$ 上有界，并满足 $\\lim_{x \\to +\\infty} (f(x + 1) - f(x)) = A.$ 证明：\n$$\n\\lim _ {x \\rightarrow + \\infty} \\frac {f (x)}{x} = A.\n$$",
    "hint": "",
    "tags": [
     "综合题",
@@ -3669,7 +3669,7 @@
    "number": 16,
    "label": "§2 16",
    "source": "习题 4.2",
-   "body": "设函数 $f$ 满足第 6 题的条件. 证明: $f$ 在 $[a, +\\infty)$ 上一致连续.",
+   "body": "设函数 $f$ 在 $[a,+\\infty)$ 上连续，且 $\\lim_{x\\to+\\infty}f(x)$ 存在（即第 6 题的条件）. 证明：$f$ 在 $[a,+\\infty)$ 上一致连续.",
    "hint": "",
    "tags": [
     "连续函数性质",
