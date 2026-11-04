@@ -184,9 +184,7 @@
    "body": "设 $a$ 为有理数, $x$ 为无理数. 证明:\n(1) $a + x$ 是无理数；(2) 当 $a \\neq 0$ 时， $ax$ 是无理数.",
    "hint": "",
    "tags": [
-    "实数",
-    "不等式",
-    "绝对值"
+    "实数"
    ],
    "type": "证明",
    "difficulty": 1,
@@ -206,8 +204,7 @@
    "hint": "",
    "tags": [
     "实数",
-    "不等式",
-    "绝对值"
+    "不等式"
    ],
    "type": "解答",
    "difficulty": 1,
@@ -226,9 +223,7 @@
    "body": "设 $a, b \\in \\mathbb{R}$ . 证明: 若对任何正数 $\\varepsilon$ , 有 $|a - b| < \\varepsilon$ , 则 $a = b$ .",
    "hint": "",
    "tags": [
-    "实数",
-    "不等式",
-    "绝对值"
+    "实数"
    ],
    "type": "证明",
    "difficulty": 1,
@@ -247,9 +242,7 @@
    "body": "设 $x \\neq 0$ , 证明 $\\left|x + \\frac{1}{x}\\right| \\geqslant 2$ , 并说明其中等号何时成立.",
    "hint": "",
    "tags": [
-    "实数",
-    "不等式",
-    "绝对值"
+    "实数"
    ],
    "type": "证明",
    "difficulty": 1,
@@ -268,9 +261,7 @@
    "body": "证明: 对任何 $x \\in \\mathbb{R}$ , 有\n(1) $|x - 1| + |x - 2| \\geqslant 1$ ; (2) $|x - 1| + |x - 2| + |x - 3| \\geqslant 2$ . 并说明等号何时成立.",
    "hint": "",
    "tags": [
-    "实数",
-    "不等式",
-    "绝对值"
+    "实数"
    ],
    "type": "证明",
    "difficulty": 1,
@@ -290,8 +281,7 @@
    "hint": "",
    "tags": [
     "实数",
-    "不等式",
-    "绝对值"
+    "不等式"
    ],
    "type": "证明",
    "difficulty": 1,
@@ -310,9 +300,7 @@
    "body": "设 $x > 0, b > 0, a \\neq b$ . 证明: $\\frac{a + x}{b + x}$ 介于 1 与 $\\frac{a}{b}$ 之间.",
    "hint": "",
    "tags": [
-    "实数",
-    "不等式",
-    "绝对值"
+    "实数"
    ],
    "type": "证明",
    "difficulty": 1,
@@ -331,9 +319,7 @@
    "body": "设 p 为正整数. 证明: 若 p 不是完全平方数, 则 $\\sqrt{p}$ 是无理数.",
    "hint": "",
    "tags": [
-    "实数",
-    "不等式",
-    "绝对值"
+    "实数"
    ],
    "type": "证明",
    "difficulty": 1,
@@ -374,8 +360,6 @@
    "hint": "",
    "tags": [
     "确界",
-    "数集",
-    "区间",
     "不等式"
    ],
    "type": "解答",
@@ -395,9 +379,7 @@
    "body": "设 S 为非空数集. 试对下列概念给出定义:\n(1) S 无上界；(2) S 无界.",
    "hint": "",
    "tags": [
-    "确界",
-    "数集",
-    "区间"
+    "确界"
    ],
    "type": "解答",
    "difficulty": 2,
@@ -416,9 +398,7 @@
    "body": "设 $S=\\{y\\mid y=2-x^{2},\\ x\\in\\mathbb{R}\\}$（即 §2 正文中的 (3) 式）. 证明：数集 $S$ 有上界而无下界.",
    "hint": "",
    "tags": [
-    "确界",
-    "数集",
-    "区间"
+    "确界"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -437,9 +417,7 @@
    "body": "求下列数集的上、下确界，并依定义加以验证：\n(1) $S = \\{x\\mid x^2 < 2\\}$ ；(2) $S = \\{x\\mid x = n!,n\\in \\mathbb{N}_+\\}$ ； \n(3) $S = \\{x \\mid x$ 为 $(0,1)$ 上的无理数；(4) $S = \\left\\{x \\mid x = 1 - \\frac{1}{2^n}, n \\in \\mathbb{N}_+\\right\\}$ .",
    "hint": "",
    "tags": [
-    "确界",
-    "数集",
-    "区间"
+    "确界"
    ],
    "type": "计算",
    "difficulty": 2,
@@ -458,9 +436,7 @@
    "body": "设 $S$ 为非空有下界数集. 证明：\ninf $S = \\xi \\in S \\Leftrightarrow \\xi = \\min S$ .",
    "hint": "",
    "tags": [
-    "确界",
-    "数集",
-    "区间"
+    "确界"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -479,9 +455,7 @@
    "body": "设 $S$ 为非空数集, 定义 $S^{-} = \\{x \\mid -x \\in S\\}$ . 证明:\n(1) $\\inf S^{-} = -\\sup S$ ; (2) $\\sup S^{-} = -\\inf S$ .",
    "hint": "",
    "tags": [
-    "确界",
-    "数集",
-    "区间"
+    "确界"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -501,8 +475,6 @@
    "hint": "",
    "tags": [
     "确界",
-    "数集",
-    "区间",
     "有界性"
    ],
    "type": "证明",
@@ -523,8 +495,6 @@
    "hint": "",
    "tags": [
     "函数",
-    "初等函数",
-    "反函数",
     "函数图像"
    ],
    "type": "作图",
@@ -545,8 +515,6 @@
    "hint": "",
    "tags": [
     "函数",
-    "初等函数",
-    "反函数",
     "函数图像"
    ],
    "type": "作图",
@@ -566,9 +534,7 @@
    "body": "根据图1-4写出定义在 $[0,1]$ 上的分段函数 $f_{1}(x)$ 和 $f_{2}(x)$ 的解析表示式.\n\n[[FIG1_4]]",
    "hint": "",
    "tags": [
-    "函数",
-    "初等函数",
-    "反函数"
+    "函数"
    ],
    "type": "解答",
    "difficulty": 1,
@@ -588,8 +554,7 @@
    "hint": "",
    "tags": [
     "函数",
-    "初等函数",
-    "反函数"
+    "初等函数"
    ],
    "type": "解答",
    "difficulty": 1,
@@ -608,9 +573,7 @@
    "body": "设函数\n\n$$\nf (x) = \\left\\{ \\begin{array}{l l} 2 + x, & x \\leqslant 0, \\\\ 2 ^ {x}, & x > 0. \\end{array} \\right.\n$$\n\n\n求：(1) $f(-3), f(0), f(1)$ ; (2) $f(\\Delta x) - f(0), f(-\\Delta x) - f(0) (\\Delta x > 0)$ .",
    "hint": "",
    "tags": [
-    "函数",
-    "初等函数",
-    "反函数"
+    "函数"
    ],
    "type": "计算",
    "difficulty": 1,
@@ -629,9 +592,7 @@
    "body": "设函数 $f(x) = \\frac{1}{1 + x}$ ，求 $f(2 + x), f(2x), f(x^2), f(f(x)), f\\left(\\frac{1}{f(x)}\\right)$ .",
    "hint": "",
    "tags": [
-    "函数",
-    "初等函数",
-    "反函数"
+    "函数"
    ],
    "type": "计算",
    "difficulty": 1,
@@ -651,8 +612,8 @@
    "hint": "",
    "tags": [
     "函数",
-    "初等函数",
-    "反函数"
+    "复合函数",
+    "初等函数"
    ],
    "type": "辨析",
    "difficulty": 1,
@@ -672,7 +633,6 @@
    "hint": "",
    "tags": [
     "函数",
-    "初等函数",
     "反函数"
    ],
    "type": "解答",
@@ -693,8 +653,6 @@
    "hint": "",
    "tags": [
     "函数",
-    "初等函数",
-    "反函数",
     "函数图像"
    ],
    "type": "作图",
@@ -714,9 +672,7 @@
    "body": "试问下列等式是否成立：\n(1) $\\tan (\\arctan x) = x, x \\in \\mathbb{R}$ ; \n(2) $\\arctan (\\tan x) = x, x \\neq k\\pi + \\frac{\\pi}{2}, k = 0, \\pm 1, \\pm 2, \\dots.$",
    "hint": "",
    "tags": [
-    "函数",
-    "初等函数",
-    "反函数"
+    "函数"
    ],
    "type": "辨析",
    "difficulty": 1,
@@ -736,8 +692,7 @@
    "hint": "",
    "tags": [
     "函数",
-    "初等函数",
-    "反函数"
+    "初等函数"
    ],
    "type": "辨析",
    "difficulty": 1,
@@ -757,8 +712,6 @@
    "hint": "",
    "tags": [
     "函数",
-    "初等函数",
-    "反函数",
     "不等式"
    ],
    "type": "证明",
@@ -778,10 +731,8 @@
    "body": "证明： $f(x) = \\frac{x}{x^2 + 1}$ 是 R 上的有界函数.",
    "hint": "",
    "tags": [
-    "有界性",
-    "单调性",
-    "奇偶性",
-    "周期性"
+    "函数性质",
+    "有界性"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -800,10 +751,7 @@
    "body": "（1）叙述无界函数的定义；\n(2) 证明: $f(x) = \\frac{1}{x^2}$ 为(0,1)上的无界函数;\n(3) 举出函数 f 的例子, 使 f 为闭区间 $[0,1]$ 上的无界函数.",
    "hint": "",
    "tags": [
-    "有界性",
-    "单调性",
-    "奇偶性",
-    "周期性"
+    "函数性质"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -822,10 +770,8 @@
    "body": "证明下列函数在指定区间上的单调性：\n(1) $y = 3x - 1$ 在 $(-∞, +∞)$ 上严格递增；\n(2) $y = \\sin x$ 在 $\\left[-\\frac{\\pi}{2}, \\frac{\\pi}{2}\\right]$ 上严格递增；\n(3) $y = \\cos x$ 在 $[0, \\pi]$ 上严格递减.",
    "hint": "",
    "tags": [
-    "有界性",
-    "单调性",
-    "奇偶性",
-    "周期性"
+    "函数性质",
+    "单调性"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -844,10 +790,7 @@
    "body": "判别下列函数的奇偶性：\n(1) $f(x) = \\frac{1}{2} x^4 + x^2 - 1$ ; (2) $f(x) = x + \\sin x$ ; (3) $f(x) = x^2 e^{-x^2}$ ; (4) $f(x) = \\lg (x + \\sqrt{1 + x^2})$ .",
    "hint": "",
    "tags": [
-    "有界性",
-    "单调性",
-    "奇偶性",
-    "周期性"
+    "函数性质"
    ],
    "type": "解答",
    "difficulty": 2,
@@ -866,9 +809,7 @@
    "body": "求下列函数的周期：\n(1) $\\cos^2 x$ ; (2) $\\tan 3x$ ; (3) $\\cos \\frac{x}{2} + 2\\sin \\frac{x}{3}$ .",
    "hint": "",
    "tags": [
-    "有界性",
-    "单调性",
-    "奇偶性",
+    "函数性质",
     "周期性"
    ],
    "type": "计算",
@@ -888,10 +829,8 @@
    "body": "设函数 $f$ 定义在 $[-a, a]$ 上，证明：\n(1) $F(x) = f(x) + f(-x), x \\in [-a, a]$ 为偶函数；\n(2) $G(x) = f(x) - f(-x), x \\in [-a, a]$ 为奇函数；\n(3) f 可表示为某个奇函数与某个偶函数之和.",
    "hint": "",
    "tags": [
-    "有界性",
-    "单调性",
-    "奇偶性",
-    "周期性"
+    "函数性质",
+    "奇偶性"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -910,10 +849,7 @@
    "body": "由三角函数的两角和(差)公式\n$$\n\\begin{array}{l} \\sin (\\alpha \\pm \\beta) = \\sin \\alpha \\cos \\beta \\pm \\sin \\beta \\cos \\alpha , \\\\ \\cos (\\alpha \\pm \\beta) = \\cos \\alpha \\cos \\beta \\mp \\sin \\alpha \\sin \\beta , \\end{array}\n$$\n推出：\n(1) 和差化积公式\n$$\n\\sin \\alpha + \\sin \\beta = 2 \\sin \\frac {\\alpha + \\beta}{2} \\cos \\frac {\\alpha - \\beta}{2},\n$$\n$$\n\\sin \\alpha - \\sin \\beta = 2 \\sin \\frac {\\alpha - \\beta}{2} \\cos \\frac {\\alpha + \\beta}{2},\n$$\n$$\n\\cos \\alpha + \\cos \\beta = 2 \\cos \\frac {\\alpha + \\beta}{2} \\cos \\frac {\\alpha - \\beta}{2},\n$$\n$$\n\\cos \\alpha - \\cos \\beta = - 2 \\sin \\frac {\\alpha + \\beta}{2} \\sin \\frac {\\alpha - \\beta}{2};\n$$\n(2) 积化和差公式\n$$\n\\sin \\alpha \\sin \\beta = \\frac {1}{2} (\\cos (\\alpha - \\beta) - \\cos (\\alpha + \\beta)),\n$$\n$$\n\\sin \\alpha \\cos \\beta = \\frac {1}{2} (\\sin (\\alpha + \\beta) + \\sin (\\alpha - \\beta)),\n$$\n$$\n\\cos \\alpha \\cos \\beta = \\frac {1}{2} (\\cos (\\alpha + \\beta) + \\cos (\\alpha - \\beta)).\n$$",
    "hint": "",
    "tags": [
-    "有界性",
-    "单调性",
-    "奇偶性",
-    "周期性"
+    "函数性质"
    ],
    "type": "解答",
    "difficulty": 3,
@@ -932,11 +868,8 @@
    "body": "设 $f, g$ 为定义在 $D$ 上的有界函数，满足\n$$\nf (x) \\leqslant g (x), \\quad x \\in D.\n$$\n证明：(1) $\\sup_{x\\in D}f(x)\\leqslant \\sup_{x\\in D}g(x)$ ；(2) $\\inf_{x\\in D}f(x)\\leqslant \\inf_{x\\in D}g(x)$ .",
    "hint": "",
    "tags": [
-    "有界性",
-    "单调性",
-    "奇偶性",
-    "周期性",
-    "确界"
+    "函数性质",
+    "有界性"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -955,10 +888,8 @@
    "body": "设 $f$ 为定义在 $D$ 上的有界函数, 证明:\n$$\n(1) \\sup _ {x \\in D} \\{- f (x) \\} = - \\inf _ {x \\in D} f (x); \\quad (2) \\inf _ {x \\in D} \\{- f (x) \\} = - \\sup _ {x \\in D} f (x).\n$$",
    "hint": "",
    "tags": [
+    "函数性质",
     "有界性",
-    "单调性",
-    "奇偶性",
-    "周期性",
     "确界"
    ],
    "type": "证明",
@@ -978,10 +909,8 @@
    "body": "证明: $\\tan x$ 在 $\\left(-\\frac{\\pi}{2}, \\frac{\\pi}{2}\\right)$ 上无界, 而在任一闭区间 $[a, b] \\subset \\left(-\\frac{\\pi}{2}, \\frac{\\pi}{2}\\right)$ 上有界.",
    "hint": "",
    "tags": [
-    "有界性",
-    "单调性",
-    "奇偶性",
-    "周期性"
+    "函数性质",
+    "有界性"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -1000,11 +929,10 @@
    "body": "讨论狄利克雷函数\n$$\nD (x) = \\left\\{ \\begin{array}{l l} 1, & x \\text {为有理数}, \\\\ 0, & x \\text {为无理数} \\end{array} \\right.\n$$\n的有界性、单调性与周期性.",
    "hint": "",
    "tags": [
-    "有界性",
+    "函数性质",
     "单调性",
-    "奇偶性",
     "周期性",
-    "狄利克雷函数"
+    "有界性"
    ],
    "type": "讨论",
    "difficulty": 2,
@@ -1023,10 +951,7 @@
    "body": "证明： $f(x) = x + \\sin x$ 在 R 上严格增.",
    "hint": "",
    "tags": [
-    "有界性",
-    "单调性",
-    "奇偶性",
-    "周期性"
+    "函数性质"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -1045,10 +970,9 @@
    "body": "设定义在 $[a, +\\infty)$ 上的函数 $f$ 在任何闭区间 $[a, b]$ 上有界. 定义 $[a, +\\infty)$ 上的函数：\n$$\nm (x) = \\inf _ {a \\leqslant y \\leqslant x} f (y), \\quad M (x) = \\sup _ {a \\leqslant y \\leqslant x} f (y).\n$$\n试讨论 $m(x)$ 与 $M(x)$ 的图像, 其中\n$$\n(1) f (x) = \\cos x, x \\in [ 0, + \\infty); (2) f (x) = x ^ {2}, x \\in [ - 1, + \\infty).\n$$",
    "hint": "",
    "tags": [
+    "函数性质",
     "有界性",
-    "单调性",
-    "奇偶性",
-    "周期性",
+    "函数图像",
     "确界"
    ],
    "type": "讨论",
@@ -1282,7 +1206,6 @@
    "hint": "",
    "tags": [
     "综合题",
-    "确界",
     "有界性"
    ],
    "type": "证明",
@@ -1303,7 +1226,6 @@
    "hint": "",
    "tags": [
     "综合题",
-    "确界",
     "有界性"
    ],
    "type": "证明",
@@ -1324,7 +1246,6 @@
    "hint": "",
    "tags": [
     "综合题",
-    "确界",
     "奇偶性"
    ],
    "type": "解答",
@@ -1366,8 +1287,8 @@
    "hint": "",
    "tags": [
     "综合题",
-    "确界",
-    "有界性"
+    "有界性",
+    "确界"
    ],
    "type": "证明",
    "difficulty": 3,
@@ -1424,8 +1345,7 @@
    "body": "设 $a_{n}=\\frac{1+(-1)^{n}}{n}, n=1,2,\\cdots,a=0.$ \n(1) 对下列 $\\varepsilon$ 分别求出极限定义中相应的 N:\n$$\n\\varepsilon_ {1} = 0. 1, \\quad \\varepsilon_ {2} = 0. 0 1, \\quad \\varepsilon_ {3} = 0. 0 0 1;\n$$\n(2) 对 $\\varepsilon_{1}, \\varepsilon_{2}, \\varepsilon_{3}$ 可找到相应的 N，这是否证明了 $a_{n}$ 趋于 0？应该怎样做才对？\n(3) 对给定的 $\\varepsilon$ 是否只能找到一个 N?",
    "hint": "",
    "tags": [
-    "数列极限",
-    "ε-N 定义"
+    "数列极限"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -1445,8 +1365,7 @@
    "hint": "",
    "tags": [
     "数列极限",
-    "ε-N 定义",
-    "确界"
+    "ε-N 定义"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -1466,8 +1385,6 @@
    "hint": "",
    "tags": [
     "数列极限",
-    "ε-N 定义",
-    "确界",
     "无穷小量"
    ],
    "type": "计算",
@@ -1487,9 +1404,7 @@
    "body": "证明：若 $\\lim_{n\\to\\infty}a_n=a$，则对任一正整数 $k$，有 $\\lim_{n\\to\\infty}a_{n+k}=a$.",
    "hint": "",
    "tags": [
-    "数列极限",
-    "ε-N 定义",
-    "确界"
+    "数列极限"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -1508,8 +1423,7 @@
    "body": "证明：\\n(1) 数列 $\\left\\{\\frac{1}{n}\\right\\}$ 不以 1 为极限；\\n(2) 数列 $\\{n^{(-1)^{n}}\\}$ 发散.",
    "hint": "",
    "tags": [
-    "数列极限",
-    "ε-N 定义"
+    "数列极限"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -1528,8 +1442,7 @@
    "body": "证明定理2.1, 并应用它证明数列 $\\left\\{1 + \\frac{(-1)^n}{n}\\right\\}$ 的极限是1.",
    "hint": "",
    "tags": [
-    "数列极限",
-    "ε-N 定义"
+    "数列极限"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -1549,9 +1462,8 @@
    "hint": "",
    "tags": [
     "数列极限",
-    "ε-N 定义",
-    "有界性",
-    "无穷大量"
+    "无穷大量",
+    "有界性"
    ],
    "type": "解答",
    "difficulty": 2,
@@ -1570,9 +1482,7 @@
    "body": "证明: 若 $\\lim_{n \\to \\infty} a_n = a$ , 则 $\\lim_{n \\to \\infty} |a_n| = |a|$ . 当且仅当 $a$ 为何值时反之也成立?",
    "hint": "",
    "tags": [
-    "数列极限",
-    "ε-N 定义",
-    "确界"
+    "数列极限"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -1592,8 +1502,7 @@
    "hint": "",
    "tags": [
     "数列极限",
-    "ε-N 定义",
-    "确界"
+    "ε-N 定义"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -1612,9 +1521,7 @@
    "body": "设 $a_{n} \\neq 0$ . 证明: $\\lim_{n \\to \\infty} a_{n} = 0$ 的充要条件是 $\\lim_{n \\to \\infty} \\frac{1}{a_{n}} = \\infty$ .",
    "hint": "",
    "tags": [
-    "数列极限",
-    "ε-N 定义",
-    "确界"
+    "数列极限"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -1633,9 +1540,7 @@
    "body": "求下列极限：\n(1) $\\lim_{n\\to\\infty}\\frac{n^{3}+3n^{2}+1}{4n^{3}+2n+3};$ (2) $\\lim_{n\\to\\infty}\\frac{1+2n}{n^{2}};$ (3) $\\lim_{n\\to\\infty}\\frac{(-2)^{n}+3^{n}}{(-2)^{n+1}+3^{n+1}};$ (4) $\\lim_{n\\to\\infty}\\left(\\sqrt{n^{2}+n}-n\\right);$ (5) $\\lim_{n\\to\\infty}\\left(\\sqrt[n]{1}+\\sqrt[n]{2}+\\cdots+\\sqrt[n]{10}\\right);$ (6) $\\lim_{n\\to\\infty}\\frac{\\frac{1}{2}+\\frac{1}{2^{2}}+\\cdots+\\frac{1}{2^{n}}}{\\frac{1}{3}+\\frac{1}{3^{2}}+\\cdots+\\frac{1}{3^{n}}}.$",
    "hint": "",
    "tags": [
-    "收敛数列",
-    "极限运算",
-    "确界"
+    "收敛数列"
    ],
    "type": "计算",
    "difficulty": 2,
@@ -1655,9 +1560,8 @@
    "hint": "",
    "tags": [
     "收敛数列",
-    "极限运算",
-    "有界性",
-    "无穷小量"
+    "无穷小量",
+    "有界性"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -1673,12 +1577,10 @@
    "number": 3,
    "label": "§2 3",
    "source": "习题 2.2",
-   "body": "求下列极限：\n(1) $\\lim_{n\\to\\infty}\\left(\\frac{1}{1\\cdot2}+\\frac{1}{2\\cdot3}+\\cdots+\\frac{1}{n(n+1)}\\right)$ ; (2) $\\lim_{n\\to\\infty}\\left(\\sqrt{2}\\sqrt[4]{2}\\sqrt[8]{2}\\cdots\\sqrt[2^{n}}2\\right)$ ;\n(3) $\\lim_{n\\to\\infty}\\left(\\frac{1}{2}+\\frac{3}{2^{2}}+\\cdots+\\frac{2n-1}{2^{n}}\\right)$ ; (4) $\\lim_{n\\to\\infty}\\sqrt[n]{1-\\frac{1}{n}}$ ;\n(5) $\\lim_{n\\to \\infty}\\left(\\frac{1}{n^2} +\\frac{1}{(n + 1)^2} +\\dots +\\frac{1}{(2n)^2}\\right);$ \n(6) $\\lim_{n\\to \\infty}\\left(\\frac{1}{\\sqrt{n^2 + 1}} +\\frac{1}{\\sqrt{n^2 + 2}} +\\dots +\\frac{1}{\\sqrt{n^2 + n}}\\right).$",
+   "body": "求下列极限：\n(1) $\\lim_{n\\to\\infty}\\left(\\frac{1}{1\\cdot2}+\\frac{1}{2\\cdot3}+\\cdots+\\frac{1}{n(n+1)}\\right)$ ; (2) $\\lim_{n\\to\\infty}\\left(\\sqrt{2}\\sqrt[4]{2}\\sqrt[8]{2}\\cdots\\sqrt[2^{n}]{2}\\right)$ ;\n(3) $\\lim_{n\\to\\infty}\\left(\\frac{1}{2}+\\frac{3}{2^{2}}+\\cdots+\\frac{2n-1}{2^{n}}\\right)$ ; (4) $\\lim_{n\\to\\infty}\\sqrt[n]{1-\\frac{1}{n}}$ ;\n(5) $\\lim_{n\\to \\infty}\\left(\\frac{1}{n^2} +\\frac{1}{(n + 1)^2} +\\dots +\\frac{1}{(2n)^2}\\right);$ \n(6) $\\lim_{n\\to \\infty}\\left(\\frac{1}{\\sqrt{n^2 + 1}} +\\frac{1}{\\sqrt{n^2 + 2}} +\\dots +\\frac{1}{\\sqrt{n^2 + n}}\\right).$",
    "hint": "",
    "tags": [
-    "收敛数列",
-    "极限运算",
-    "确界"
+    "收敛数列"
    ],
    "type": "计算",
    "difficulty": 3,
@@ -1697,8 +1599,7 @@
    "body": "设 $\\{a_{n}\\}$ 与 $\\{b_{n}\\}$ 中一个是收敛数列, 另一个是发散数列. 证明 $\\{a_{n} \\pm b_{n}\\}$ 是发散数列. 又问 $\\{a_{n} b_{n}\\}$ 和 $\\left\\{\\frac{a_{n}}{b_{n}}\\right\\} (b_{n} \\neq 0)$ 是否必为发散数列?",
    "hint": "",
    "tags": [
-    "收敛数列",
-    "极限运算"
+    "收敛数列"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -1717,8 +1618,7 @@
    "body": "证明以下数列发散：\n(1) $\\left\\{(-1)^{n}\\frac{n}{n+1}\\right\\}$ ; (2) $\\left\\{n^{(-1)^{n}}\\right\\}$ ; (3) $\\left\\{\\cos\\frac{n\\pi}{4}\\right\\}$ .",
    "hint": "",
    "tags": [
-    "收敛数列",
-    "极限运算"
+    "收敛数列"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -1737,8 +1637,7 @@
    "body": "判断以下结论是否成立(若成立,说明理由;若不成立,举出反例):\n(1) 若 $\\{a_{2k-1}\\}$ 和 $\\{a_{2k}\\}$ 都收敛，则 $\\{a_{n}\\}$ 收敛；\n(2) 若 $\\{a_{3k-2}\\}$ , $\\{a_{3k-1}\\}$ 和 $\\{a_{3k}\\}$ 都收敛, 且有相同极限, 则 $\\{a_{n}\\}$ 收敛.",
    "hint": "",
    "tags": [
-    "收敛数列",
-    "极限运算"
+    "收敛数列"
    ],
    "type": "辨析",
    "difficulty": 2,
@@ -1757,9 +1656,7 @@
    "body": "求下列极限：\n(1) $\\lim_{n\\to\\infty}\\frac{1}{2}\\cdot\\frac{3}{4}\\cdot\\cdots\\cdot\\frac{2n-1}{2n};$ (2) $\\lim_{n\\to\\infty}\\frac{\\sum_{p=1}^{n}p!}{n!};$ \n(3) $\\lim_{n\\to \\infty}\\left((n + 1)^{\\alpha} - n^{\\alpha}\\right),\\quad 0 <   \\alpha <  1;$ \n(4) $\\lim_{n\\to\\infty}(1+\\alpha)(1+\\alpha^{2})\\cdots(1+\\alpha^{2^{n}}),\\quad|\\alpha|<1.$",
    "hint": "",
    "tags": [
-    "收敛数列",
-    "极限运算",
-    "确界"
+    "收敛数列"
    ],
    "type": "计算",
    "difficulty": 2,
@@ -1778,9 +1675,7 @@
    "body": "设 $a_{1}, a_{2}, \\cdots, a_{m}$ 为 m 个正数，证明：\n$$\n\\lim _ {n \\rightarrow \\infty} \\sqrt [ n ]{a _ {1} ^ {n} + a _ {2} ^ {n} + \\dots + a _ {m} ^ {n}} = \\max \\left\\{a _ {1}, a _ {2}, \\dots , a _ {m} \\right\\}.\n$$",
    "hint": "",
    "tags": [
-    "收敛数列",
-    "极限运算",
-    "确界"
+    "收敛数列"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -1799,9 +1694,7 @@
    "body": "设 $\\lim_{n\\to \\infty}a_n = a.$ 证明：\n(1) $\\lim_{n\\to \\infty}\\frac{[na_n]}{n} = a;$ \n(2) 若 $a > 0, a_n > 0$ ，则 $\\lim_{n \\to \\infty} \\sqrt[n]{a_n} = 1$ .",
    "hint": "",
    "tags": [
-    "收敛数列",
-    "极限运算",
-    "确界"
+    "收敛数列"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -1820,10 +1713,7 @@
    "body": "利用 $\\lim_{n\\to \\infty}\\left(1 + \\frac{1}{n}\\right)^n = e$ 求下列极限：  \n（1） $\\lim_{n\\to \\infty}\\left(1 - \\frac{1}{n}\\right)^n;$ （2） $\\lim_{n\\to \\infty}\\left(1 + \\frac{1}{n}\\right)^{n + 1};$ （3） $\\lim_{n\\to \\infty}\\left(1 + \\frac{1}{n + 1}\\right)^n;$ (4） $\\lim_{n\\to \\infty}\\left(1 + \\frac{1}{2n}\\right)^n;$ （5） $\\lim_{n\\to \\infty}\\left(1 + \\frac{1}{n^2}\\right)^n.$",
    "hint": "",
    "tags": [
-    "单调有界",
-    "柯西准则",
-    "重要极限",
-    "确界"
+    "数列极限"
    ],
    "type": "计算",
    "difficulty": 3,
@@ -1842,10 +1732,7 @@
    "body": "试问下面的解题方法是否正确：\n$$\n\\lim _ {n \\rightarrow \\infty} 2 ^ {n}.\n$$\n解 设 $a_{n} = 2^{n}$ 及 $\\lim_{n\\to \\infty}a_n = a.$ 由于 $a_{n} = 2a_{n - 1}$ ，两边取极限 $(n\\rightarrow \\infty)$ 得 $a = 2a$ ，所以 $a = 0$",
    "hint": "",
    "tags": [
-    "单调有界",
-    "柯西准则",
-    "重要极限",
-    "确界"
+    "数列极限"
    ],
    "type": "辨析",
    "difficulty": 3,
@@ -1864,9 +1751,7 @@
    "body": "证明下列数列极限存在并求其值：\n(1) 设 $a_{1}=\\sqrt{2}$ , $a_{n+1}=\\sqrt{2a_{n}}$ , $n=1,2,\\cdots;$ \n(2) 设 $a_{1}=\\sqrt{c}\\quad(c>0)$ , $a_{n+1}=\\sqrt{c+a_{n}}$ , $n=1,2,\\cdots;$ \n(3) $a_{n} = \\frac{c^{n}}{n!}$ （ $c > 0$ ）， $n = 1,2,\\dots .$",
    "hint": "",
    "tags": [
-    "单调有界",
-    "柯西准则",
-    "重要极限"
+    "数列极限"
    ],
    "type": "证明",
    "difficulty": 3,
@@ -1885,9 +1770,8 @@
    "body": "利用 $\\left\\{\\left(1 + \\frac{1}{n}\\right)^n\\right\\}$ 为递增数列的结论，证明： $\\left\\{\\left(1 + \\frac{1}{n + 1}\\right)^n\\right\\}$ 为递增数列.",
    "hint": "",
    "tags": [
-    "单调有界",
-    "柯西准则",
-    "重要极限"
+    "数列极限",
+    "单调性"
    ],
    "type": "证明",
    "difficulty": 3,
@@ -1906,9 +1790,8 @@
    "body": "应用柯西收敛准则，证明以下数列 $\\{a_{n}\\}$ 收敛：\n(1) $a_{n}=\\frac{\\sin1}{2}+\\frac{\\sin2}{2^{2}}+\\cdots+\\frac{\\sin n}{2^{n}};$ (2) $a_{n}=1+\\frac{1}{2^{2}}+\\frac{1}{3^{2}}+\\cdots+\\frac{1}{n^{2}}.$",
    "hint": "",
    "tags": [
-    "单调有界",
-    "柯西准则",
-    "重要极限"
+    "数列极限",
+    "柯西准则"
    ],
    "type": "证明",
    "difficulty": 3,
@@ -1927,9 +1810,8 @@
    "body": "证明: 若单调数列 $\\{a_{n}\\}$ 含有一个收敛子列, 则 $\\{a_{n}\\}$ 收敛.",
    "hint": "",
    "tags": [
+    "数列极限",
     "单调有界",
-    "柯西准则",
-    "重要极限",
     "单调性"
    ],
    "type": "证明",
@@ -1949,10 +1831,7 @@
    "body": "证明: 若 $a_{n} > 0$ , 且 $\\lim_{n \\to \\infty} \\frac{a_{n}}{a_{n+1}} = l > 1$ , 则 $\\lim_{n \\to \\infty} a_{n} = 0$ .",
    "hint": "",
    "tags": [
-    "单调有界",
-    "柯西准则",
-    "重要极限",
-    "确界"
+    "数列极限"
    ],
    "type": "证明",
    "difficulty": 3,
@@ -1971,10 +1850,9 @@
    "body": "证明：若 $\\{a_{n}\\}$ 为递增（递减）有界数列，则\n$$\n\\lim _ {n \\rightarrow \\infty} a _ {n} = \\sup \\left\\{a _ {n} \\right\\} (\\inf \\left\\{a _ {n} \\right\\}).\n$$\n又问逆命题成立否？",
    "hint": "",
    "tags": [
+    "数列极限",
     "单调有界",
-    "柯西准则",
-    "重要极限",
-    "确界",
+    "单调性",
     "有界性"
    ],
    "type": "证明",
@@ -1994,11 +1872,10 @@
    "body": "利用不等式\n$$\nb ^ {n + 1} - a ^ {n + 1} > (n + 1) a ^ {n} (b - a), \\quad b > a > 0,\n$$\n证明： $\\left\\{\\left(1 + \\frac{1}{n}\\right)^{n + 1}\\right\\}$ 为递减数列，并由此推出 $\\left\\{\\left(1 + \\frac{1}{n}\\right)^n\\right\\}$ 为有界数列.",
    "hint": "",
    "tags": [
+    "数列极限",
     "单调有界",
-    "柯西准则",
-    "重要极限",
-    "有界性",
-    "不等式"
+    "单调性",
+    "有界性"
    ],
    "type": "证明",
    "difficulty": 3,
@@ -2017,9 +1894,7 @@
    "body": "证明： $\\left|e-\\left(1+\\frac{1}{n}\\right)^{n}\\right|<\\frac{3}{n}.$",
    "hint": "利用上题可知 $e<\\left(1+\\frac{1}{n}\\right)^{n+1}$ ，又易证 $\\left(1+\\frac{1}{n}\\right)^{n+1}<\\frac{3}{n}+\\left(1+\\frac{1}{n}\\right)^{n}$ .",
    "tags": [
-    "单调有界",
-    "柯西准则",
-    "重要极限"
+    "数列极限"
    ],
    "type": "证明",
    "difficulty": 3,
@@ -2038,10 +1913,7 @@
    "body": "给定两正数 $a_1$ 与 $b_1(a_1 > b_1)$ , 作出其等差中项 $a_2 = \\frac{a_1 + b_1}{2}$ 与等比中项 $b_2 = \\sqrt{a_1b_1}$ , 一般地令\n$$\na _ {n + 1} = \\frac {a _ {n} + b _ {n}}{2}, \\quad b _ {n + 1} = \\sqrt {a _ {n} b _ {n}}, \\quad n = 1, 2, \\dots .\n$$\n证明： $\\lim_{n\\to \\infty}a_n$ 与 $\\lim_{n\\to \\infty}b_n$ 皆存在且相等.",
    "hint": "",
    "tags": [
-    "单调有界",
-    "柯西准则",
-    "重要极限",
-    "确界"
+    "数列极限"
    ],
    "type": "证明",
    "difficulty": 3,
@@ -2060,11 +1932,10 @@
    "body": "设 $\\{a_{n}\\}$ 为有界数列，记\n$$\n\\overline {{{a}}} _ {n} = \\sup \\left\\{a _ {n}, a _ {n + 1}, \\dots \\right\\}, \\quad \\underline {{{a}}} _ {n} = \\inf \\left\\{a _ {n}, a _ {n + 1}, \\dots \\right\\}.\n$$\n证明：\n(1) 对任何正整数 $n, \\overline{a}_{n} \\geqslant \\underline{a}_{n}$ ;\n(2) $\\{\\overline{a}_n\\}$ 为递减有界数列, $\\{\\underline{a}_n\\}$ 为递增有界数列, 且对任何正整数 $n, m$ , 有 $\\overline{a}_n \\geqslant \\underline{a}_m$ ;\n(3) 设 $\\overline{a}$ 和 $\\underline{a}$ 分别是 $\\{\\overline{a}_{n}\\}$ 和 $\\{\\underline{a}_{n}\\}$ 的极限，则 $\\overline{a} \\geqslant \\underline{a}$ ;\n(4) $\\{a_{n}\\}$ 收敛的充要条件是 $\\overline{a} = \\underline{a}$ .",
    "hint": "",
    "tags": [
-    "单调有界",
-    "柯西准则",
-    "重要极限",
-    "确界",
-    "有界性"
+    "数列极限",
+    "单调性",
+    "有界性",
+    "确界"
    ],
    "type": "证明",
    "difficulty": 3,
@@ -2083,8 +1954,7 @@
    "body": "求下列数列的极限：\n(1) $\\lim_{n\\to \\infty}\\sqrt[n]{n^3 + 3^n}$ ; (2) $\\lim_{n\\to \\infty}\\frac{n^5}{e^n}$ ; \n(3) $\\lim_{n\\to \\infty}\\left(\\sqrt{n + 2} -2\\sqrt{n + 1} +\\sqrt{n}\\right).$",
    "hint": "",
    "tags": [
-    "综合题",
-    "确界"
+    "综合题"
    ],
    "type": "计算",
    "difficulty": 3,
@@ -2103,8 +1973,7 @@
    "body": "证明：\n(1) $\\lim_{n\\to \\infty}n^2 q^n = 0(|q| < 1)$ ; (2) $\\lim_{n\\to \\infty}\\frac{\\lg n}{n^\\alpha} = 0(\\alpha \\geqslant 1)$ .",
    "hint": "",
    "tags": [
-    "综合题",
-    "确界"
+    "综合题"
    ],
    "type": "证明",
    "difficulty": 3,
@@ -2124,8 +1993,8 @@
    "hint": "",
    "tags": [
     "综合题",
-    "确界",
-    "Stolz 定理"
+    "Stolz 定理",
+    "单调性"
    ],
    "type": "证明",
    "difficulty": 3,
@@ -2145,7 +2014,6 @@
    "hint": "",
    "tags": [
     "综合题",
-    "确界",
     "Stolz 定理"
    ],
    "type": "证明",
@@ -2165,8 +2033,7 @@
    "body": "应用上题的结论证明下列各题：\n(1) $\\lim_{n\\to\\infty}\\frac{1+\\frac{1}{2}+\\frac{1}{3}+\\cdots+\\frac{1}{n}}{n}=0;$ (2) $\\lim_{n\\to\\infty}\\sqrt[n]{a}=1(a>0);$ (3) $\\lim_{n\\to\\infty}\\sqrt[n]{n}=1;$ (4) $\\lim_{n\\to\\infty}\\frac{1}{\\sqrt[n]{n!}}=0;$ (5) $\\lim_{n\\to\\infty}\\frac{n}{\\sqrt[n]{n!}}=e;$ (6) $\\lim_{n\\to\\infty}\\frac{1+\\sqrt{2}+\\sqrt[3]{3}+\\cdots+\\sqrt[n]{n}}{n}=1;$ \n(7) 若 $\\lim_{n\\to\\infty}\\frac{b_{n+1}}{b_n}=a\\quad(b_n>0)$ ，则 $\\lim_{n\\to\\infty}\\sqrt[n]{b_n}=a;$ \n(8) 若 $\\lim_{n\\to\\infty}\\left(a_n-a_{n-1}\\right)=d$ ，则 $\\lim_{n\\to\\infty}\\frac{a_n}{n}=d;$ \n(9) $\\lim_{n\\to \\infty}\\frac{\\ln(n!)}{n} = +\\infty .$",
    "hint": "",
    "tags": [
-    "综合题",
-    "确界"
+    "综合题"
    ],
    "type": "证明",
    "difficulty": 3,
@@ -2186,7 +2053,7 @@
    "hint": "",
    "tags": [
     "综合题",
-    "确界"
+    "单调性"
    ],
    "type": "证明",
    "difficulty": 3,
@@ -2224,8 +2091,7 @@
    "body": "设 $a>0,\\ \\sigma>0,\\ a_1=\\frac{1}{2}\\left(a+\\frac{\\sigma}{a}\\right),\\ a_{n+1}=\\frac{1}{2}\\left(a_n+\\frac{\\sigma}{a_n}\\right),\\ n=1,2,\\cdots$. 证明：数列 $\\{a_n\\}$ 收敛，且 $\\lim_{n\\to\\infty}a_n=\\sqrt{\\sigma}$.",
    "hint": "",
    "tags": [
-    "综合题",
-    "确界"
+    "综合题"
    ],
    "type": "证明",
    "difficulty": 3,
@@ -2283,8 +2149,7 @@
    "body": "设 $\\lim_{n\\to \\infty}a_n = a,\\lim_{n\\to \\infty}b_n = b.$ 记\n$$\nS _ {n} = \\max \\left\\{a _ {n}, b _ {n} \\right\\}, \\quad T _ {n} = \\min \\left\\{a _ {n}, b _ {n} \\right\\}, \\quad n = 1, 2, \\dots .\n$$\n证明：（1） $\\lim_{n\\to \\infty}S_n = \\max \\{a,b\\}$ ；(2） $\\lim_{n\\to \\infty}T_n = \\min \\{a,b\\}$",
    "hint": "参考第一章总练习题 1.",
    "tags": [
-    "综合题",
-    "确界"
+    "综合题"
    ],
    "type": "证明",
    "difficulty": 3,
@@ -2304,7 +2169,6 @@
    "hint": "",
    "tags": [
     "综合题",
-    "确界",
     "无穷大量"
    ],
    "type": "证明",
@@ -2363,9 +2227,7 @@
    "body": "按定义证明下列极限：\n(1) $\\lim_{x\\to +\\infty}\\frac{6x + 5}{x} = 6;\\quad (2)\\lim_{x\\to 2}(x^2 -6x + 10) = 2;\\quad (3)\\lim_{x\\to \\infty}\\frac{x^2 - 5}{x^2 - 1} = 1;$ \n(4) $\\lim_{x\\to 2^{-}}\\sqrt{4 - x^2} = 0;$ (5) $\\lim_{x\\to x_0}\\cos x = \\cos x_0.$",
    "hint": "",
    "tags": [
-    "函数极限",
-    "ε-δ 定义",
-    "确界"
+    "函数极限"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -2384,8 +2246,7 @@
    "body": "根据定义 2 叙述 $\\lim_{x \\to x_0} f(x) \\neq A$ .",
    "hint": "",
    "tags": [
-    "函数极限",
-    "ε-δ 定义"
+    "函数极限"
    ],
    "type": "解答",
    "difficulty": 2,
@@ -2404,8 +2265,7 @@
    "body": "设 $\\lim_{x\\to x_0}f(x) = A$ ，证明： $\\lim_{h\\to 0}f(x_0 + h) = A.$",
    "hint": "",
    "tags": [
-    "函数极限",
-    "ε-δ 定义"
+    "函数极限"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -2424,8 +2284,7 @@
    "body": "证明: 若 $\\lim_{x \\to x_0} f(x) = A$ , 则 $\\lim_{x \\to x_0} |f(x)| = |A|$ . 当且仅当 $A$ 为何值时反之也成立?",
    "hint": "",
    "tags": [
-    "函数极限",
-    "ε-δ 定义"
+    "函数极限"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -2444,8 +2303,7 @@
    "body": "设函数 $f$ 在点 $x_0$ 的某空心邻域内有定义. 证明定理 3.1：$$\\lim_{x\\to x_0}f(x)=A\\iff \\lim_{x\\to x_0^+}f(x)=\\lim_{x\\to x_0^-}f(x)=A.$$",
    "hint": "",
    "tags": [
-    "函数极限",
-    "ε-δ 定义"
+    "函数极限"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -2464,8 +2322,7 @@
    "body": "讨论下列函数在 $x \\to 0$ 时的极限或左、右极限：(1) $f(x) = \\frac{|x|}{x}$ ; (2) $f(x) = [x]$ ; (3) $f(x) = \\begin{cases} 2^x, & x > 0, \\\\ 0, & x = 0, \\\\ 1 + x^2, & x < 0. \\end{cases}$",
    "hint": "",
    "tags": [
-    "函数极限",
-    "ε-δ 定义"
+    "函数极限"
    ],
    "type": "讨论",
    "difficulty": 2,
@@ -2484,9 +2341,7 @@
    "body": "设 $\\lim_{x\\to+\\infty}f(x)=A$ , 证明: $\\lim_{x\\to0^{+}}f\\left(\\frac{1}{x}\\right)=A.$",
    "hint": "",
    "tags": [
-    "函数极限",
-    "ε-δ 定义",
-    "确界"
+    "函数极限"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -2506,7 +2361,6 @@
    "hint": "",
    "tags": [
     "函数极限",
-    "ε-δ 定义",
     "黎曼函数"
    ],
    "type": "证明",
@@ -2526,9 +2380,7 @@
    "body": "求下列极限：\n(1) $\\lim_{x\\to \\frac{\\pi}{2}}2(\\sin x - \\cos x - x^2)$ ; \n(2) $\\lim_{x\\to 0}\\frac{x^2 - 1}{2x^2 - x - 1};$ \n(3) $\\lim_{x\\to 1}\\frac{x^2 - 1}{2x^2 - x - 1};$ \n(4) $\\lim_{x\\to 0}\\frac{(x - 1)^3 + (1 - 3x)}{x^2 + 2x^3};$ \n(5) $\\lim_{x\\to1}\\frac{x^{n}-1}{x^{m}-1}$ (n,m 为正整数);\n(6) $\\lim_{x\\to 4}\\frac{\\sqrt{1 + 2x} - 3}{\\sqrt{x} - 2};$ \n(7) $\\lim_{x\\to 0}\\frac{\\sqrt{a^2 + x} - a}{x} (a > 0)$ ; \n(8) $\\lim_{x\\to +\\infty}\\frac{(3x + 6)^{70}(8x - 5)^{20}}{(5x - 1)^{90}}.$",
    "hint": "",
    "tags": [
-    "极限性质",
-    "迫敛性",
-    "确界"
+    "极限性质"
    ],
    "type": "计算",
    "difficulty": 2,
@@ -2547,9 +2399,7 @@
    "body": "利用迫敛性求极限：\n(1) $\\lim_{x\\to -\\infty}\\frac{x - \\cos x}{x};$ \n(2) $\\lim_{x\\to +\\infty}\\frac{x\\sin x}{x^2 - 4}.$",
    "hint": "",
    "tags": [
-    "极限性质",
-    "迫敛性",
-    "确界"
+    "极限性质"
    ],
    "type": "计算",
    "difficulty": 2,
@@ -2568,8 +2418,7 @@
    "body": "设 $\\lim_{x\\to x_0}f(x) = A, \\lim_{x\\to x_0}g(x) = B.$ 证明：\n(1) $\\lim_{x\\to x_0}(f(x)\\pm g(x)) = A\\pm B;$ \n(2) $\\lim_{x\\to x_0}(f(x)g(x)) = AB;$ \n(3) $\\lim_{x\\to x_0}\\frac{f(x)}{g(x)} = \\frac{A}{B}$ （当 $B\\neq 0$ 时）.",
    "hint": "",
    "tags": [
-    "极限性质",
-    "迫敛性"
+    "极限性质"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -2588,9 +2437,7 @@
    "body": "设\n$$\nf (x) = \\frac {a _ {m} x ^ {m} + a _ {m - 1} x ^ {m - 1} + \\cdots + a _ {1} x + a _ {0}}{b _ {n} x ^ {n} + b _ {n - 1} x ^ {n - 1} + \\cdots + b _ {1} x + b _ {0}}, a _ {m} \\neq 0, b _ {n} \\neq 0, m \\leqslant n,\n$$\n试求 $\\lim_{x\\to+\\infty}f(x)$ .",
    "hint": "",
    "tags": [
-    "极限性质",
-    "迫敛性",
-    "确界"
+    "极限性质"
    ],
    "type": "计算",
    "difficulty": 2,
@@ -2609,8 +2456,7 @@
    "body": "设 $f(x) > 0, \\lim_{x \\to x_0} f(x) = A$ . 证明：\n$$\n\\lim _ {x \\rightarrow x _ {0}} \\sqrt [ n ]{f (x)} = \\sqrt [ n ]{A},\n$$\n其中 $n \\geqslant 2$ 为正整数.",
    "hint": "",
    "tags": [
-    "极限性质",
-    "迫敛性"
+    "极限性质"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -2629,8 +2475,7 @@
    "body": "证明 $\\lim_{x\\to 0}a^x = 1(0 < a < 1)$ .",
    "hint": "",
    "tags": [
-    "极限性质",
-    "迫敛性"
+    "极限性质"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -2649,8 +2494,7 @@
    "body": "设 $\\lim_{x\\to x_0}f(x) = A, \\lim_{x\\to x_0}g(x) = B.$ \n(1) 若在某 $U^{\\circ}(x_{0})$ 上有 $f(x) < g(x)$ ，问是否必有 A < B？为什么？\n(2) 证明: 若 A > B，则在某 $U^{\\circ}(x_{0})$ 上有 $f(x) > g(x)$ .",
    "hint": "",
    "tags": [
-    "极限性质",
-    "迫敛性"
+    "极限性质"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -2669,9 +2513,7 @@
    "body": "求下列极限(其中 n 皆为正整数):\n(1) $\\lim_{x\\to 0^{-}}\\frac{|x|}{x}\\frac{1}{1 + x^n};$ \n(2) $\\lim_{x\\to 0^{+}}\\frac{|x|}{x}\\frac{1}{1 + x^n};$ \n(3) $\\lim_{x\\to -1}\\left(\\frac{1}{x + 1} -\\frac{3}{x^3 + 1}\\right)$ \n(4) $\\lim_{x\\to 0}\\frac{\\sqrt[n]{1 + x} - 1}{x};$ \n(5) $\\lim_{x\\to\\infty}\\frac{\\left[x\\right]}{x}$ (提示:参照例1).",
    "hint": "",
    "tags": [
-    "极限性质",
-    "迫敛性",
-    "确界"
+    "极限性质"
    ],
    "type": "计算",
    "difficulty": 2,
@@ -2690,8 +2532,7 @@
    "body": "（1）证明：若 $\\lim_{x\\to 0}f(x^3)$ 存在，则 $\\lim_{x\\to 0}f(x) = \\lim_{x\\to 0}f(x^3).$ \n(2) 若 $\\lim_{x\\to0}f(x^{2})$ 存在, 试问是否成立 $\\lim_{x\\to0}f(x)=\\lim_{x\\to0}f(x^{2})$ ?",
    "hint": "",
    "tags": [
-    "极限性质",
-    "迫敛性"
+    "极限性质"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -2711,7 +2552,7 @@
    "hint": "",
    "tags": [
     "极限性质",
-    "迫敛性"
+    "复合函数"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -2730,9 +2571,8 @@
    "body": "叙述函数极限 $\\lim_{x\\to +\\infty}f(x)$ 的归结原则，并应用它证明 $\\lim_{x\\to +\\infty}\\cos x$ 不存在.",
    "hint": "",
    "tags": [
-    "归结原则",
-    "柯西准则",
-    "确界"
+    "函数极限",
+    "归结原则"
    ],
    "type": "证明",
    "difficulty": 3,
@@ -2751,9 +2591,7 @@
    "body": "设 $f$ 为定义在 $[a, +\\infty)$ 上的增（减）函数. 证明： $\\lim_{x \\to +\\infty} f(x)$ 存在的充要条件是 $f$ 在 $[a, +\\infty)$ 上有上（下）界.",
    "hint": "",
    "tags": [
-    "归结原则",
-    "柯西准则",
-    "确界"
+    "函数极限"
    ],
    "type": "证明",
    "difficulty": 3,
@@ -2772,9 +2610,8 @@
    "body": "（1）叙述极限 $\\lim_{x\\to -\\infty}f(x)$ 的柯西准则；\n(2) 根据柯西准则叙述 $\\lim_{x \\to -\\infty} f(x)$ 不存在的充要条件, 并应用它证明 $\\lim_{x \\to -\\infty} \\sin x$ 不存在.",
    "hint": "",
    "tags": [
-    "归结原则",
-    "柯西准则",
-    "确界"
+    "函数极限",
+    "柯西准则"
    ],
    "type": "证明",
    "difficulty": 3,
@@ -2793,9 +2630,8 @@
    "body": "设 $f$ 在 $U^{\\circ}(x_0)$ 上有定义. 证明: 若对任何数列 $\\{x_{n}\\} \\subset U^{\\circ}(x_0)$ 且 $\\lim_{n\\to \\infty}x_n = x_0$ ，极限 $\\lim_{n\\to \\infty}f(x_n)$ 都存在，则所有这些极限都相等.",
    "hint": "",
    "tags": [
-    "归结原则",
-    "柯西准则",
-    "确界"
+    "函数极限",
+    "归结原则"
    ],
    "type": "证明",
    "difficulty": 3,
@@ -2814,8 +2650,8 @@
    "body": "设 $f$ 为 $U^{\\circ}(x_0)$ 上的递增函数. 证明: $f(x_0 - 0)$ 和 $f(x_0 + 0)$ 都存在, 且\n$$\nf (x _ {0} - 0) = \\sup _ {x \\in U _ {-} ^ {\\circ} (x _ {0})} f (x), \\quad f (x _ {0} + 0) = \\inf _ {x \\in U _ {+} ^ {\\circ} (x _ {0})} f (x).\n$$",
    "hint": "",
    "tags": [
-    "归结原则",
-    "柯西准则",
+    "函数极限",
+    "单调性",
     "确界"
    ],
    "type": "证明",
@@ -2835,8 +2671,7 @@
    "body": "设 $D(x)$ 为狄利克雷函数, $x_0 \\in \\mathbb{R}$ . 证明: $\\lim D(x)$ 不存在.",
    "hint": "",
    "tags": [
-    "归结原则",
-    "柯西准则",
+    "函数极限",
     "狄利克雷函数"
    ],
    "type": "证明",
@@ -2856,9 +2691,7 @@
    "body": "证明: 若 f 为周期函数, 且 $\\lim_{x\\to+\\infty}f(x)=0$ , 则 $f(x)\\equiv0$ .",
    "hint": "",
    "tags": [
-    "归结原则",
-    "柯西准则",
-    "确界",
+    "函数极限",
     "周期性"
    ],
    "type": "证明",
@@ -2878,8 +2711,8 @@
    "body": "设函数 $f$ 在点 $x_0$ 的某空心右邻域 $U_+^{\\circ}(x_0)$ 上有定义. 证明定理 3.10：$\\lim_{x\\to x_0^+}f(x)=A$ 的充要条件是：对任何以 $x_0$ 为极限的递减数列 $\\{x_n\\}\\subset U_+^{\\circ}(x_0)$，有 $\\lim_{n\\to\\infty}f(x_n)=A$.",
    "hint": "",
    "tags": [
-    "归结原则",
-    "柯西准则"
+    "函数极限",
+    "单调性"
    ],
    "type": "证明",
    "difficulty": 3,
@@ -2898,9 +2731,7 @@
    "body": "求下列极限：\n(1) $\\lim_{x\\to 0}\\frac{\\sin 2x}{x};$ \n(2) $\\lim_{x\\to 0}\\frac{\\sin x^3}{(\\sin x)^2};$ \n(3) $\\lim_{x\\to \\frac{\\pi}{2}}\\frac{\\cos x}{x - \\frac{\\pi}{2}};$ \n(4) $\\lim_{x\\to 0}\\frac{\\tan x}{x};$ \n(5) $\\lim_{x\\to 0}\\frac{\\tan x - \\sin x}{x^3};$ \n(6) $\\lim_{x\\to 0}\\frac{\\arctan x}{x};$ \n(7) $\\lim_{x\\to +\\infty}x\\sin \\frac{1}{x};$ \n(8) $\\lim_{x\\to a}\\frac{\\sin^2x - \\sin^2a}{x - a};$ \n(9) $\\lim_{x\\to 0}\\frac{\\sin 4x}{\\sqrt{x + 1} - 1};$ \n(10) $\\lim_{x\\to 0}\\frac{\\sqrt{1 - \\cos x^2}}{1 - \\cos x}.$",
    "hint": "",
    "tags": [
-    "两个重要极限",
-    "三角极限",
-    "确界"
+    "重要极限"
    ],
    "type": "计算",
    "difficulty": 1,
@@ -2919,9 +2750,7 @@
    "body": "求下列极限：\n(1) $\\lim_{x\\to \\infty}\\left(1 - \\frac{2}{x}\\right)^{-x};$ \n(2) $\\lim_{x\\to 0}(1 + \\alpha x)^{\\frac{1}{x}}$ （ $\\alpha$ 为给定实数）；\n(3) $\\lim_{x\\to 0}(1 + \\tan x)^{\\cot x}$ ; \n(4) $\\lim_{x\\to 0}\\left(\\frac{1 + x}{1 - x}\\right)^{\\frac{1}{x}};$ \n(5) $\\lim_{x\\to +\\infty}\\left(\\frac{3x + 2}{3x - 1}\\right)^{2x - 1};$ \n(6) $\\lim_{x\\to +\\infty}\\left(1 + \\frac{\\alpha}{x}\\right)^{\\beta x}(\\alpha ,\\beta$ 为给定实数）.",
    "hint": "",
    "tags": [
-    "两个重要极限",
-    "三角极限",
-    "确界"
+    "重要极限"
    ],
    "type": "计算",
    "difficulty": 1,
@@ -2940,9 +2769,7 @@
    "body": "证明： $\\lim_{x\\to 0}\\left(\\lim_{n\\to \\infty}\\left(\\cos x\\cos \\frac{x}{2}\\cos \\frac{x}{2^2}\\dots \\cos \\frac{x}{2^n}\\right)\\right) = 1.$",
    "hint": "",
    "tags": [
-    "两个重要极限",
-    "三角极限",
-    "确界"
+    "重要极限"
    ],
    "type": "证明",
    "difficulty": 1,
@@ -2961,9 +2788,7 @@
    "body": "利用归结原则计算下列极限：\n(1) $\\lim_{n\\to\\infty}\\sqrt{n}\\sin\\frac{\\pi}{n};$ (2) $\\lim_{n\\to\\infty}\\left(1+\\frac{1}{n}+\\frac{1}{n^{2}}\\right)^{n}.$",
    "hint": "",
    "tags": [
-    "两个重要极限",
-    "三角极限",
-    "确界"
+    "重要极限"
    ],
    "type": "解答",
    "difficulty": 1,
@@ -2982,10 +2807,7 @@
    "body": "证明下列各式：\n(1) $2x - x^{2} = O(x)(x \\to 0)$ ; (2) $x\\sin \\sqrt{x} = O(x^{\\frac{3}{2}})(x \\to 0^{+})$ ; \n(3) $\\sqrt{1 + x} - 1 = o(1) (x \\to 0)$ ; \n(4) $(1 + x)^n = 1 + nx + o(x)(x \\to 0)$ （ $n$ 为正整数）；\n(5) $2x^{3}+x^{2}=O(x^{3})$ $(x\\to\\infty)$ ; \n(6) $o(g(x)) \\pm o(g(x)) = o(g(x))(x \\to x_0)$ ①; \n(7) $o(g_1(x)) \\cdot o(g_2(x)) = o(g_1(x)g_2(x)) (x \\to x_0)$ .",
    "hint": "",
    "tags": [
-    "无穷小",
-    "无穷大",
-    "渐近线",
-    "确界"
+    "无穷小量"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -3004,10 +2826,7 @@
    "body": "应用定理 3.13 求下列极限：\n(1) $\\lim_{x\\to \\infty}\\frac{x\\arctan{\\frac{1}{x}}}{x - \\cos{x}};$ \n(2) $\\lim_{x\\to 0}\\frac{\\sqrt{1 + x^2} - 1}{1 - \\cos x}.$",
    "hint": "",
    "tags": [
-    "无穷小",
-    "无穷大",
-    "渐近线",
-    "确界"
+    "无穷小量"
    ],
    "type": "计算",
    "difficulty": 2,
@@ -3026,9 +2845,8 @@
    "body": "证明定理 3.14：(i) 设 $f$ 在 $U^{\\circ}(x_0)$ 上有定义且不等于 $0$. 若 $f$ 为 $x\\to x_0$ 时的无穷小量，则 $\\dfrac1f$ 为 $x\\to x_0$ 时的无穷大量；(ii) 若 $g$ 为 $x\\to x_0$ 时的无穷大量，则 $\\dfrac1g$ 为 $x\\to x_0$ 时的无穷小量.",
    "hint": "",
    "tags": [
-    "无穷小",
-    "无穷大",
-    "渐近线"
+    "无穷小量",
+    "无穷大量"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -3047,8 +2865,7 @@
    "body": "求下列函数所表示曲线的渐近线：\n(1) $y=\\frac{1}{x}$ ; (2) $y=\\arctan x$ ; (3) $y=\\frac{3x^{3}+4}{x^{2}-2x}$ .",
    "hint": "",
    "tags": [
-    "无穷小",
-    "无穷大",
+    "无穷小量",
     "渐近线"
    ],
    "type": "计算",
@@ -3068,10 +2885,8 @@
    "body": "试确定 $\\alpha$ 的值, 使下列函数与 $x^{\\alpha}$ 当 $x \\to 0$ 时为同阶无穷小量: (1) $\\sin 2x - 2\\sin x$ ; (2) $\\frac{1}{1 + x} - (1 - x)$ ; (3) $\\sqrt{1 + \\tan x} - \\sqrt{1 - \\sin x}$ ; (4) $\\sqrt[5]{3x^2 - 4x^3}$ .",
    "hint": "",
    "tags": [
-    "无穷小",
-    "无穷大",
-    "渐近线",
-    "无穷小量"
+    "无穷小量",
+    "阶的比较"
    ],
    "type": "解答",
    "difficulty": 2,
@@ -3090,10 +2905,8 @@
    "body": "试确定 $\\alpha$ 的值, 使下列函数与 $x^{\\alpha}$ 当 $x \\to \\infty$ 时为同阶无穷大量: (1) $\\sqrt{x^2 + x^5}$ ; (2) $x + x^2(2 + \\sin x)$ ; (3) $(1 + x)(1 + x^2) \\cdots (1 + x^n)$ .",
    "hint": "",
    "tags": [
-    "无穷小",
-    "无穷大",
-    "渐近线",
-    "确界",
+    "无穷小量",
+    "阶的比较",
     "无穷大量"
    ],
    "type": "解答",
@@ -3113,10 +2926,8 @@
    "body": "证明: 若 $S$ 为无上界数集, 则存在一递增数列 $\\{x_{n}\\} \\subset S$ , 使得 $x_{n} \\to +\\infty (n \\to \\infty)$ .",
    "hint": "",
    "tags": [
-    "无穷小",
-    "无穷大",
-    "渐近线",
-    "确界"
+    "无穷小量",
+    "单调性"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -3135,10 +2946,7 @@
    "body": "设 $\\lim_{x \\to x_0} f(x) = \\infty, \\lim_{x \\to x_0} g(x) = b \\neq 0$ . 证明: $\\lim_{x \\to x_0} f(x) g(x) = \\infty$ .",
    "hint": "",
    "tags": [
-    "无穷小",
-    "无穷大",
-    "渐近线",
-    "确界"
+    "无穷小量"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -3157,9 +2965,7 @@
    "body": "设 $f(x) \\sim g(x) (x \\to x_0)$ ，证明： $f(x) - g(x) = o(f(x))$ 或 $f(x) - g(x) = o(g(x))$ .",
    "hint": "",
    "tags": [
-    "无穷小",
-    "无穷大",
-    "渐近线"
+    "无穷小量"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -3178,10 +2984,8 @@
    "body": "写出并证明 $\\lim_{x\\to +\\infty}f(x) = +\\infty$ 的归结原则.",
    "hint": "",
    "tags": [
-    "无穷小",
-    "无穷大",
-    "渐近线",
-    "确界"
+    "无穷小量",
+    "归结原则"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -3200,8 +3004,7 @@
    "body": "求下列极限：\n(1) $\\lim_{x\\to3^{-}}(x-[x])$ ; (2) $\\lim_{x\\to1^{+}}([x]+1)^{-1}$ ;\n(3) $\\lim_{x\\to+\\infty}\\left(\\sqrt{(a+x)(b+x)}-\\sqrt{(a-x)(b-x)}\\right)$ ;\n(4) $\\lim_{x\\to+\\infty}\\frac{x}{\\sqrt{x^{2}-a^{2}}}$ ; (5) $\\lim_{x\\to-\\infty}\\frac{x}{\\sqrt{x^{2}-a^{2}}}$ ;\n(6) $\\lim_{x\\to0}\\frac{\\sqrt{1+x}-\\sqrt{1-x}}{\\sqrt[3]{1+x}-\\sqrt[3]{1-x}}$ ; (7) $\\lim_{x\\to1}\\left(\\frac{m}{1-x^{m}}-\\frac{n}{1-x^{n}}\\right)$ , m, n 为正整数.",
    "hint": "",
    "tags": [
-    "综合题",
-    "确界"
+    "综合题"
    ],
    "type": "计算",
    "difficulty": 3,
@@ -3220,8 +3023,7 @@
    "body": "分别求出满足下述条件的常数 $a$ 与 $b$ : (1) $\\lim_{x \\to +\\infty} \\left( \\frac{x^2 + 1}{x + 1} - ax - b \\right) = 0$ ; (2) $\\lim_{x \\to -\\infty} (\\sqrt{x^2 - x + 1} - ax - b) = 0$ ;\n(3) $\\lim_{x\\to +\\infty}\\left(\\sqrt{x^2 - x + 1} -ax - b\\right) = 0.$",
    "hint": "",
    "tags": [
-    "综合题",
-    "确界"
+    "综合题"
    ],
    "type": "计算",
    "difficulty": 3,
@@ -3297,8 +3099,7 @@
    "body": "设 $f(x) = x \\cos x$ . 试作数列\n(1) $\\{x_{n}\\}$ 使得 $x_{n} \\to \\infty$ ( $n \\to \\infty$ ), $f(x_{n}) \\to 0$ ( $n \\to \\infty$ );\n(2) $\\{y_{n}\\}$ 使得 $y_{n} \\to \\infty (n \\to \\infty)$ , $f(y_{n}) \\to +\\infty (n \\to \\infty)$ ;\n(3) $\\{z_{n}\\}$ 使得 $z_{n} \\to \\infty$ ( $n \\to \\infty$ ), $f(z_{n}) \\to -\\infty$ ( $n \\to \\infty$ ).",
    "hint": "",
    "tags": [
-    "综合题",
-    "确界"
+    "综合题"
    ],
    "type": "解答",
    "difficulty": 3,
@@ -3318,6 +3119,7 @@
    "hint": "",
    "tags": [
     "综合题",
+    "单调性",
     "确界"
    ],
    "type": "证明",
@@ -3337,8 +3139,7 @@
    "body": "设函数 $f$ 在 $(0, +\\infty)$ 上满足方程 $f(2x) = f(x)$ ，且 $\\lim_{x \\to +\\infty} f(x) = A$ 。证明： $f(x) \\equiv A$ ， $x \\in (0, +\\infty)$ 。",
    "hint": "",
    "tags": [
-    "综合题",
-    "确界"
+    "综合题"
    ],
    "type": "证明",
    "difficulty": 3,
@@ -3357,8 +3158,7 @@
    "body": "设函数 $f$ 在 $(0, +\\infty)$ 上满足方程 $f(x^2) = f(x)$ ，且\n$$\n\\lim _ {x \\rightarrow 0 ^ {+}} f (x) = \\lim _ {x \\rightarrow + \\infty} f (x) = f (1).\n$$\n证明： $f(x) \\equiv f(1), x \\in (0, +\\infty)$ .",
    "hint": "",
    "tags": [
-    "综合题",
-    "确界"
+    "综合题"
    ],
    "type": "证明",
    "difficulty": 3,
@@ -3378,7 +3178,6 @@
    "hint": "",
    "tags": [
     "综合题",
-    "确界",
     "有界性"
    ],
    "type": "证明",
@@ -3398,8 +3197,7 @@
    "body": "按定义证明下列函数在其定义域内连续：\n(1) $f(x) = \\frac{1}{x}$ ; (2) $f(x) = |x|$ .",
    "hint": "",
    "tags": [
-    "连续性",
-    "间断点"
+    "连续性"
    ],
    "type": "证明",
    "difficulty": 1,
@@ -3419,8 +3217,7 @@
    "hint": "",
    "tags": [
     "连续性",
-    "间断点",
-    "确界"
+    "间断点"
    ],
    "type": "解答",
    "difficulty": 1,
@@ -3439,8 +3236,7 @@
    "body": "延拓下列函数, 使其在 $\\mathbb{R}$ 上连续:\n(1) $f(x) = \\frac{x^3 - 8}{x - 2}$ ; (2) $f(x) = \\frac{1 - \\cos x}{x^2}$ ; (3) $f(x) = x\\cos \\frac{1}{x}$ .",
    "hint": "",
    "tags": [
-    "连续性",
-    "间断点"
+    "连续性"
    ],
    "type": "解答",
    "difficulty": 1,
@@ -3459,8 +3255,7 @@
    "body": "证明: 若 $f$ 在点 $x_0$ 连续, 则 $|f|$ 与 $f^2$ 也在点 $x_0$ 连续. 又问: 如果 $|f|$ 或 $f^2$ 在 $I$ 上连续, 那么 $f$ 在 $I$ 上是否必连续?",
    "hint": "",
    "tags": [
-    "连续性",
-    "间断点"
+    "连续性"
    ],
    "type": "证明",
    "difficulty": 1,
@@ -3479,8 +3274,7 @@
    "body": "设当 $x \\neq 0$ 时, $f(x) \\equiv g(x)$ , 而 $f(0) \\neq g(0)$ . 证明: $f$ 与 $g$ 两者中至多有一个在 $x = 0$ 连续.",
    "hint": "",
    "tags": [
-    "连续性",
-    "间断点"
+    "连续性"
    ],
    "type": "证明",
    "difficulty": 1,
@@ -3541,7 +3335,6 @@
    "hint": "",
    "tags": [
     "连续性",
-    "间断点",
     "单调性"
    ],
    "type": "证明",
@@ -3582,8 +3375,6 @@
    "hint": "",
    "tags": [
     "连续函数性质",
-    "一致连续",
-    "介值定理",
     "复合函数"
    ],
    "type": "讨论",
@@ -3603,9 +3394,7 @@
    "body": "设 $f, g$ 在点 $x_0$ 连续，证明：\n(1) 若 $f(x_{0}) > g(x_{0})$ ，则存在 $U(x_{0}; \\delta)$ ，使在其上有 $f(x) > g(x)$ ;\n(2) 若在某 $U^{\\circ}(x_{0})$ 上有 $f(x) > g(x)$ ，则 $f(x_{0}) \\geqslant g(x_{0})$ .",
    "hint": "",
    "tags": [
-    "连续函数性质",
-    "一致连续",
-    "介值定理"
+    "连续函数性质"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -3625,8 +3414,7 @@
    "hint": "利用第一章总练习题 1.",
    "tags": [
     "连续函数性质",
-    "一致连续",
-    "介值定理"
+    "最值定理"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -3646,8 +3434,7 @@
    "hint": "$F(x) = \\max\\{-c, \\min\\{c, f(x)\\}\\}$ .",
    "tags": [
     "连续函数性质",
-    "一致连续",
-    "介值定理"
+    "最值定理"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -3667,8 +3454,6 @@
    "hint": "",
    "tags": [
     "连续函数性质",
-    "一致连续",
-    "介值定理",
     "复合函数"
    ],
    "type": "证明",
@@ -3689,10 +3474,8 @@
    "hint": "",
    "tags": [
     "连续函数性质",
-    "一致连续",
-    "介值定理",
-    "确界",
-    "有界性"
+    "有界性",
+    "最值定理"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -3711,9 +3494,7 @@
    "body": "若对任何充分小的 $\\varepsilon > 0, f$ 在 $[a + \\varepsilon, b - \\varepsilon]$ 上连续，能否由此推出 $f$ 在 $(a, b)$ 上连续？",
    "hint": "",
    "tags": [
-    "连续函数性质",
-    "一致连续",
-    "介值定理"
+    "连续函数性质"
    ],
    "type": "解答",
    "difficulty": 2,
@@ -3732,9 +3513,7 @@
    "body": "求极限：\n(1) $\\lim_{x\\to \\frac{\\pi}{4}}(\\pi -x)\\tan x;$ (2) $\\lim_{x\\to 1^{+}}\\frac{x\\sqrt{1 + 2x} - \\sqrt{x^2 - 1}}{x + 1}.$",
    "hint": "",
    "tags": [
-    "连续函数性质",
-    "一致连续",
-    "介值定理"
+    "连续函数性质"
    ],
    "type": "计算",
    "difficulty": 2,
@@ -3753,9 +3532,7 @@
    "body": "证明: 若 $f$ 在 $[a, b]$ 上连续, 且对任何 $x \\in [a, b]$ , $f(x) \\neq 0$ , 则 $f$ 在 $[a, b]$ 上恒正或恒负.",
    "hint": "",
    "tags": [
-    "连续函数性质",
-    "一致连续",
-    "介值定理"
+    "连续函数性质"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -3775,8 +3552,8 @@
    "hint": "",
    "tags": [
     "连续函数性质",
-    "一致连续",
-    "介值定理"
+    "零点定理",
+    "方程根"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -3796,8 +3573,7 @@
    "hint": "",
    "tags": [
     "连续函数性质",
-    "一致连续",
-    "介值定理"
+    "一致连续"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -3817,9 +3593,7 @@
    "hint": "$[0, + \\infty) = [0,1]\\cup [1, + \\infty)$ ，利用定理4.9和例12的结论.",
    "tags": [
     "连续函数性质",
-    "一致连续",
-    "介值定理",
-    "确界"
+    "一致连续"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -3839,9 +3613,7 @@
    "hint": "",
    "tags": [
     "连续函数性质",
-    "一致连续",
-    "介值定理",
-    "确界"
+    "一致连续"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -3861,8 +3633,7 @@
    "hint": "",
    "tags": [
     "连续函数性质",
-    "一致连续",
-    "介值定理"
+    "一致连续"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -3882,9 +3653,7 @@
    "hint": "利用不等式 $\\left|\\sin x^{\\prime}-\\sin x^{\\prime\\prime}\\right|\\leqslant\\left|x^{\\prime}-x^{\\prime\\prime}\\right|$ (见第三章 §1 例 4).",
    "tags": [
     "连续函数性质",
-    "一致连续",
-    "介值定理",
-    "确界"
+    "一致连续"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -3904,9 +3673,7 @@
    "hint": "",
    "tags": [
     "连续函数性质",
-    "一致连续",
-    "介值定理",
-    "确界"
+    "一致连续"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -3926,7 +3693,6 @@
    "hint": "",
    "tags": [
     "连续函数性质",
-    "一致连续",
     "介值定理"
    ],
    "type": "证明",
@@ -3946,9 +3712,7 @@
    "body": "设 $f$ 为 $[a, b]$ 上的增函数，其值域为 $[f(a), f(b)]$ . 证明： $f$ 在 $[a, b]$ 上连续.",
    "hint": "",
    "tags": [
-    "连续函数性质",
-    "一致连续",
-    "介值定理"
+    "连续函数性质"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -3968,7 +3732,6 @@
    "hint": "",
    "tags": [
     "连续函数性质",
-    "一致连续",
     "介值定理"
    ],
    "type": "证明",
@@ -3989,9 +3752,7 @@
    "hint": "$[0, + \\infty) = [0,1]\\cup [1, + \\infty)$ .在 $[1, + \\infty)$ 上成立不等式",
    "tags": [
     "连续函数性质",
-    "一致连续",
-    "介值定理",
-    "确界"
+    "一致连续"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -4011,8 +3772,7 @@
    "hint": "",
    "tags": [
     "连续函数性质",
-    "一致连续",
-    "介值定理"
+    "一致连续"
    ],
    "type": "证明",
    "difficulty": 2,
@@ -4031,9 +3791,7 @@
    "body": "求下列极限：\n(1) $\\lim_{x\\to 0}\\frac{\\mathrm{e}^x\\cos x + 5}{1 + x^2 + \\ln(1 - x)};$ (2) $\\lim_{x\\to +\\infty}\\left(\\sqrt{x + \\sqrt{x + \\sqrt{x}}} -\\sqrt{x}\\right);$ \n(3) $\\lim_{x\\to 0^{+}}\\left(\\sqrt{\\frac{1}{x} + \\sqrt{\\frac{1}{x} + \\sqrt{\\frac{1}{x}}}} -\\sqrt{\\frac{1}{x} - \\sqrt{\\frac{1}{x} + \\sqrt{\\frac{1}{x}}}}\\right);$ \n(4) $\\lim_{x\\to +\\infty}\\frac{\\sqrt{x + \\sqrt{x + \\sqrt{x}}}}{\\sqrt{x + 1}};$ (5) $\\lim_{x\\to 0}(1 + \\sin x)^{\\cot x}.$",
    "hint": "",
    "tags": [
-    "初等函数",
-    "连续性",
-    "确界"
+    "初等函数"
    ],
    "type": "计算",
    "difficulty": 1,
@@ -4052,9 +3810,7 @@
    "body": "设 $\\lim_{n\\to \\infty}a_n = a > 0,\\lim_{n\\to \\infty}b_n = b.$ 证明： $\\lim_{n\\to \\infty}\\left(a_n\\right)^{b_n} = a^b.$",
    "hint": "$(a_{n})^{b_{n}} = \\mathrm{e}^{b_{n}\\ln a_{n}}$",
    "tags": [
-    "初等函数",
-    "连续性",
-    "确界"
+    "初等函数"
    ],
    "type": "证明",
    "difficulty": 1,
@@ -4074,7 +3830,8 @@
    "hint": "",
    "tags": [
     "综合题",
-    "有界性"
+    "有界性",
+    "最值定理"
    ],
    "type": "证明",
    "difficulty": 3,
@@ -4094,7 +3851,7 @@
    "hint": "",
    "tags": [
     "综合题",
-    "确界"
+    "最值定理"
    ],
    "type": "证明",
    "difficulty": 3,
@@ -4132,7 +3889,8 @@
    "body": "设 $a_1,a_2,a_3$ 为正数，$\\lambda_1<\\lambda_2<\\lambda_3$. 证明：方程\\n$$\\frac{a_1}{x-\\lambda_1}+\\frac{a_2}{x-\\lambda_2}+\\frac{a_3}{x-\\lambda_3}=0$$\\n在区间 $(\\lambda_1,\\lambda_2)$ 与 $(\\lambda_2,\\lambda_3)$ 上各有一个根.",
    "hint": "",
    "tags": [
-    "综合题"
+    "综合题",
+    "方程根"
    ],
    "type": "证明",
    "difficulty": 3,
@@ -4189,8 +3947,7 @@
    "body": "设 $f$ 在 $[0, +\\infty)$ 上连续，满足 $0 \\leqslant f(x) \\leqslant x, x \\in [0, +\\infty)$ . 设 $a_1 \\geqslant 0, a_{n+1} = f(a_n), n = 1, 2, \\cdots$ . 证明：\n(1) $\\{a_{n}\\}$ 为收敛数列；\n(2) 设 $\\lim_{n\\to\\infty}a_{n}=t$ ，则有 $f(t)=t$ ;\n(3) 若条件改为 $0 \\leqslant f(x) < x, x \\in (0, +\\infty)$ ，则 t = 0.",
    "hint": "",
    "tags": [
-    "综合题",
-    "确界"
+    "综合题"
    ],
    "type": "证明",
    "difficulty": 3,
@@ -4267,8 +4024,7 @@
    "hint": "",
    "tags": [
     "综合题",
-    "一致连续",
-    "确界"
+    "一致连续"
    ],
    "type": "证明",
    "difficulty": 3,
@@ -4287,7 +4043,9 @@
    "body": "设 $f(x)$ 是区间 $[a, b]$ 上的一个非常数的连续函数， $M, m$ 分别是最大、最小值。证明：存在 $[\\alpha, \\beta] \\subset [a, b]$ ，使得\n(1) $m < f(x) < M, x \\in (\\alpha, \\beta)$ ; \n(2) $f(\\alpha), f(\\beta)$ 恰好是 $f(x)$ 在 $[a, b]$ 上的最大、最小值（最小、最大值）.",
    "hint": "",
    "tags": [
-    "综合题"
+    "综合题",
+    "介值定理",
+    "最值定理"
    ],
    "type": "证明",
    "difficulty": 3,

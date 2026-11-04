@@ -263,6 +263,7 @@
     });
     return n;
   }
+  function secLabel(id) { return id.indexOf('.rev') >= 0 ? '总练习' : id; }
   function qStatus(id) {
     var p = getP(id);
     if (p.inWrongBook) return 'wrong';
@@ -354,7 +355,7 @@
       var cs = chapterStats(c.n);
       var pct = cs.total ? Math.round(cs.attempted * 100 / cs.total) : 0;
       var secs = c.sections.map(function (s) {
-        return '<button class="tag" data-action="start-section" data-sec="' + s.id + '" title="练这一节">' + esc(s.id.replace('.rev', ' 总练习')) + ' · ' + s.count + '</button>';
+        return '<button class="tag" data-action="start-section" data-sec="' + s.id + '" title="练这一节">' + esc(secLabel(s.id)) + ' · ' + s.count + '</button>';
       }).join('');
       return '<article class="chapter-card">' +
         '<div class="chapter-top"><div class="chapter-num">' + c.n + '</div>' +
@@ -674,12 +675,13 @@
     var b = document.getElementById('sessBar');
     if (t) t.textContent = c.graded + ' / ' + c.total;
     if (b) b.style.width = pct + '%';
-    $$('.sheet-grid button[data-index]').forEach(function (btn) {
-      var q = S.qids[parseInt(btn.dataset.index, 10)];
+    $$('.sheet-grid button[data-index], .pager button[data-index]').forEach(function (btn) {
+      var idx = parseInt(btn.dataset.index, 10);
+      var q = S.qids[idx];
       var st = S.results[q] ? S.results[q].status : '';
       btn.classList.toggle('ok', st === 'correct');
       btn.classList.toggle('no', st === 'wrong');
-      btn.classList.toggle('cur', parseInt(btn.dataset.index, 10) === S.index);
+      if (btn.closest('.sheet-grid')) btn.classList.toggle('cur', idx === S.index);
     });
   }
   function setGrade(qid, result) {
@@ -793,7 +795,7 @@
       '</div></div></div>' +
       '<div class="section-title"><h2>本组错题</h2><span class="line"></span></div>' +
       '<div class="bank-list">' + wrongHTML + '</div>' +
-      '<div class="section-title"><h2>本组题目</h2><span class="line"></span><button class="btn sm ghost" data-action="print-all">打印</button></div>' +
+      '<div class="section-title"><h2>本组题目</h2><span class="line"></span></div>' +
       '<div class="q-list">' + (rec.qids || []).map(function (id, i) {
         var q = QMAP[id]; if (!q) return '';
         return qCard(q, i, { num: i + 1, grade: false, note: false, alwaysSolution: true });
@@ -849,7 +851,7 @@
       var someOn = c.sections.some(function (s) { return p.sections.has(s.id); });
       var chips = c.sections.map(function (s) {
         return '<label class="chip ' + (p.sections.has(s.id) ? 'on' : '') + '"><input type="checkbox" data-scope-sec="' + s.id + '"' + (p.sections.has(s.id) ? ' checked' : '') + '>' +
-          esc(s.id.replace('.rev', ' 总练习')) + ' <span class="n">' + s.count + '</span></label>';
+          esc(secLabel(s.id)) + ' <span class="n">' + s.count + '</span></label>';
       }).join('');
       return '<div class="scope-ch"><label class="scope-ch-head"><input type="checkbox" data-scope-ch="' + c.n + '"' + (allOn ? ' checked' : '') + (someOn && !allOn ? ' data-indeterminate="1"' : '') + '>' +
         '<span>' + esc(c.title) + '</span><span class="cnt">' + c.count + ' 题</span></label>' +
@@ -1043,7 +1045,7 @@
   function printAll() {
     if (parseRoute().name === 'print') { window.print(); return; }
     navigate('#/print');
-    setTimeout(function () { window.print(); }, 1400);
+    setTimeout(function () { window.print(); }, 3000);
   }
 
   /* ---------------- answer sheet ---------------- */

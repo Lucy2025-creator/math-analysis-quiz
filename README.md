@@ -2,6 +2,8 @@
 
 华东师范大学《数学分析》第六版（上册）**第 1–4 章课后习题**在线刷题页。
 
+在线访问：<https://lucy2025-creator.github.io/math-analysis-quiz/>
+
 纯静态站点，无后端、无构建步骤，所有学习记录保存在浏览器 `localStorage`。
 
 ## 功能
