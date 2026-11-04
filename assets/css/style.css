@@ -348,6 +348,7 @@ html[data-theme="dark"] .btn.primary:hover{color:#0e1620}
 }
 .q-body p{margin:.5em 0}
 .q-body .katex-display{margin:.75em 0;overflow-x:auto;overflow-y:hidden;padding:2px 0}
+.q-body .katex-display > .katex,.solution-body .katex-display > .katex{display:block;text-align:center;white-space:nowrap}
 .q-body .q-fig{margin:14px 0;padding:10px;background:var(--card-2);border:1px solid var(--line);border-radius:10px;max-width:520px}
 .q-body .q-fig img{width:100%;display:block;border-radius:4px;mix-blend-mode:multiply}
 html[data-theme="dark"] .q-body .q-fig img{mix-blend-mode:normal;filter:invert(.88) hue-rotate(180deg)}
@@ -376,7 +377,7 @@ html[data-theme="dark"] .grade-btn.on-correct,html[data-theme="dark"] .grade-btn
   color:var(--accent);font-weight:700;border-bottom:1px solid color-mix(in srgb,var(--accent) 14%,var(--line));
 }
 .solution-body{padding:13px 15px 15px;font-size:calc(14.5px * var(--q-scale));line-height:1.9;color:var(--ink-2);white-space:pre-wrap}
-.solution-body .katex-display{margin:.6em 0;overflow-x:auto}
+.solution-body .katex-display{margin:.6em 0;overflow-x:auto;overflow-y:hidden}
 .answer-box{
   display:flex;gap:9px;padding:9px 14px;background:color-mix(in srgb,var(--accent) 7%,transparent);
   border-bottom:1px solid color-mix(in srgb,var(--accent) 12%,var(--line));font-size:14px;
