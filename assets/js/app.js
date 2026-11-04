@@ -14,8 +14,20 @@
   var CLUSTERS = META.clusters || [];
   var CMAP = {};
   CLUSTERS.forEach(function (c) { CMAP[c.id] = c; });
+  var REFS = META.refs || {};
+  var TYPES = ['证明', '计算', '讨论', '辨析', '作图', '解答'];
   var DAY = 86400000;
   var REVIEW_DAYS = [1, 2, 4, 7, 15, 30, 60];
+  var VOCAB = (function () {
+    var counts = {};
+    QS.forEach(function (q) {
+      var list = q.knowledge || q.tags || [];
+      list.forEach(function (k) { counts[k] = (counts[k] || 0) + 1; });
+    });
+    return Object.keys(counts).sort(function (a, b) { return counts[b] - counts[a] || a.localeCompare(b); })
+      .filter(function (k) { return k !== '综合题'; })
+      .map(function (k) { return { k: k, n: counts[k] }; });
+  })();
 
   var LS_KEY = 'maq.state.v1';
   var SESSION_KEY = 'maq.active.v1';
@@ -354,6 +366,7 @@
     return n;
   }
   function secLabel(id) { return id.indexOf('.rev') >= 0 ? '总练习' : id; }
+  function complexityLabel(n) { return n === 1 ? '小题' : n === 2 ? '中题' : '大题'; }
   function qStatus(id) {
     var p = getP(id);
     if (p.inWrongBook) return 'wrong';
@@ -372,8 +385,24 @@
     var FIG = '@@FIG1_4@@';
     b = b.replace(/\[\[FIG1_4\]\]/g, FIG);
     b = esc(b);
+    if (q.refs && q.refs.length) {
+      b = b.replace(/(定理\s*\d+(?:\.\d+)?)/g, '$1<sup class="ref-pin">引</sup>');
+      b = b.replace(/(第\s*\d+\s*题)/g, '$1<sup class="ref-pin">引</sup>');
+    }
     return b.replace(FIG,
       '<figure class="q-fig"><img src="assets/img/fig-1-4.png" alt="图 1-4：两条折线，f1 过 (0,0)、(1/2,2)、(1,0)，f2 过 (0,0)、(1/4,4)、(1/2,0)"><figcaption>图 1-4</figcaption></figure>');
+  }
+  function refBlock(q) {
+    var ids = q.refs || [];
+    if (!ids.length) return '';
+    var items = ids.map(function (id) {
+      var r = REFS[id];
+      if (!r) return '';
+      var label = r.qid ? '<a href="#/q/' + r.qid + '">' + esc(r.label) + '</a>' : esc(r.label);
+      return '<div class="ref-item"><span class="ref-label">' + label + '</span><div class="ref-text">' + esc(r.text) + '</div></div>';
+    }).join('');
+    if (!items) return '';
+    return '<div class="ref-box"><div class="ref-head">题目引用 · 教材原文</div>' + items + '</div>';
   }
   function clusterBox(q) {
     var c = CMAP[q.cluster];
@@ -430,7 +459,7 @@
           '<button class="icon-btn ' + (p.favorite ? 'on' : '') + '" data-action="fav" data-qid="' + q.id + '" aria-label="收藏" title="收藏">' + (p.favorite ? '★' : '☆') + '</button>' +
         '</div>' +
       '</header>' +
-      '<div class="q-body">' + bodyHTML(q) + '</div>' +
+      '<div class="q-body">' + bodyHTML(q) + '</div>' + refBlock(q) +
       (q.hint ? '<div class="q-hint"><b>提示</b> ' + esc(q.hint) + '</div>' : '') +
       ((opts.alwaysSolution || opts.hideFoot) ? '' : '<div class="q-foot no-print">' +
         '<button class="btn sm ghost" data-action="reveal" data-qid="' + q.id + '">' + (revealed ? '收起解析' : '查看解析') + '</button>' +
@@ -730,7 +759,7 @@
       '<button class="btn" data-action="toggle-wrong" data-qid="' + q.id + '">' + (p.inWrongBook ? '移出错题本' : '加入错题本') + '</button></div></div>' +
       '<div class="detail-grid"><div>' +
         '<article class="q-card" style="margin:0">' +
-          '<div class="q-body">' + bodyHTML(q) + '</div>' +
+          '<div class="q-body">' + bodyHTML(q) + '</div>' + refBlock(q) +
           (q.hint ? '<div class="q-hint"><b>提示</b> ' + esc(q.hint) + '</div>' : '') +
           renderSolution(q) + noteBlock(q) +
         '</article>' +
@@ -739,7 +768,7 @@
           '<a class="btn sm" href="#/q/' + (next ? next.id : q.id) + '">下一题 →</a></div>' +
       '</div><aside class="detail-side">' +
         '<div class="side-card"><h4>题目信息</h4><dl><dt>题号</dt><dd>' + q.id + '</dd><dt>来源</dt><dd>' + esc(q.source) + ' 第 ' + q.number + ' 题</dd><dt>类型</dt><dd>' + esc(q.type) + '</dd>' +
-          '<dt>难度</dt><dd>' + '●'.repeat(q.difficulty) + '○'.repeat(3 - q.difficulty) + '</dd><dt>练习</dt><dd>' + (p.attempts ? '练过 ' + p.attempts + ' 次 · 对 ' + (p.correct || 0) + ' / 错 ' + (p.wrong || 0) : '还没练过') + '</dd></dl></div>' +
+          '<dt>难度</dt><dd>' + '●'.repeat(q.difficulty) + '○'.repeat(3 - q.difficulty) + '</dd><dt>复杂度</dt><dd>' + complexityLabel(q.complexity) + '</dd><dt>练习</dt><dd>' + (p.attempts ? '练过 ' + p.attempts + ' 次 · 对 ' + (p.correct || 0) + ' / 错 ' + (p.wrong || 0) : '还没练过') + '</dd></dl></div>' +
         '<div class="side-card"><h4>记忆训练</h4><dl><dt>状态</dt><dd>' + reviewStageText(r) + '</dd><dt>下次复习</dt><dd>' + nextReviewText(r) + '</dd></dl>' +
           (r && (r.stage || 0) < 7 ? '<button class="btn sm" style="margin-top:9px" data-action="start-one" data-qid="' + q.id + '">复习本题</button>' : '') + '</div>' +
         (cl ? '<div class="side-card"><h4>题型</h4><div class="small" style="font-weight:600">' + esc(cl.name) + '</div><div class="tiny muted" style="margin-top:3px">代表题 <a href="#/q/' + cl.rep + '">' + cl.rep + '</a></div></div>' : '') +
@@ -1008,26 +1037,85 @@
     if (preset.section) secs = new Set([preset.section]);
     return {
       sections: secs, mode: preset.mode || 'random', count: preset.count || 10,
-      order: 'shuffle', display: preset.display || 'single', custom: new Set(), chapter: preset.chapter || 0
+      order: 'shuffle', display: preset.display || 'single', custom: new Set(), chapter: preset.chapter || 0,
+      difficulty: new Set([1, 2, 3]), complexity: new Set([1, 2, 3]),
+      recency: 'all', knowledge: [],
+      ratios: { '证明': 40, '计算': 30, '讨论': 10, '辨析': 8, '作图': 6, '解答': 6 }
     };
+  }
+  function setupFilters(q) {
+    var p = setupState;
+    if (!p.difficulty.has(q.difficulty)) return false;
+    if (!p.complexity.has(q.complexity)) return false;
+    var pr = getP(q.id), last = pr.lastAt || 0, now = Date.now();
+    if (p.recency === 'never' && pr.attempts) return false;
+    if (p.recency === '7d' && !(last && now - last <= 7 * DAY)) return false;
+    if (p.recency === '30d' && !(last && now - last > 7 * DAY && now - last <= 30 * DAY)) return false;
+    if (p.recency === 'old' && !(last && now - last > 30 * DAY)) return false;
+    if (p.knowledge.length) {
+      var hay = ((q.knowledge || []).join(' ') + ' ' + q.body + ' ' + q.tags.join(' ')).toLowerCase();
+      var hit = p.knowledge.some(function (k) { return hay.indexOf(String(k).toLowerCase()) >= 0; });
+      if (!hit) return false;
+    }
+    return true;
+  }
+  function orderedBase(arr) {
+    var p = setupState;
+    if (p.order === 'oldest') return arr.slice().sort(function (a, b) { return (getP(a.id).lastAt || 0) - (getP(b.id).lastAt || 0); });
+    if (p.order === 'original') return arr.slice();
+    return shuffle(arr);
+  }
+  function typeCounts(arr) {
+    var map = {};
+    TYPES.forEach(function (t) { map[t] = 0; });
+    arr.forEach(function (q) { if (map[q.type] != null) map[q.type]++; });
+    return map;
+  }
+  function selectByRatio(base, count) {
+    var p = setupState;
+    var weights = {};
+    var sum = 0;
+    TYPES.forEach(function (t) {
+      weights[t] = Math.max(0, Number(p.ratios[t]) || 0);
+      sum += weights[t];
+    });
+    if (sum <= 0) {
+      TYPES.forEach(function (t) { weights[t] = 1; sum += 1; });
+    }
+    var pools = TYPES.map(function (t) {
+      return { t: t, w: weights[t], list: orderedBase(base.filter(function (q) { return q.type === t; })) };
+    });
+    var desired = pools.map(function (x) { return count * x.w / sum; });
+    var alloc = pools.map(function (x, i) { return Math.min(Math.floor(desired[i]), x.list.length); });
+    var used = alloc.reduce(function (a, b) { return a + b; }, 0);
+    var remaining = Math.min(count, base.length) - used;
+    while (remaining > 0) {
+      var candidates = pools.map(function (x, i) {
+        return { i: i, deficit: desired[i] - alloc[i], cap: x.list.length - alloc[i], w: x.w };
+      }).filter(function (c) { return c.cap > 0 && c.w > 0; });
+      if (!candidates.length) break;
+      candidates.sort(function (a, b) { return b.deficit - a.deficit || b.w - a.w; });
+      alloc[candidates[0].i]++;
+      remaining--;
+    }
+    var out = [];
+    pools.forEach(function (x, i) { out = out.concat(x.list.slice(0, alloc[i])); });
+    return shuffle(out);
   }
   function poolForSetup() {
     var p = setupState;
-    var base;
     if (p.mode === 'custom') {
-      base = QS.filter(function (q) { return p.custom.has(q.id); });
-    } else {
-      base = QS.filter(function (q) { return p.sections.has(q.section); });
-      if (p.mode === 'wrong') base = base.filter(function (q) { return getP(q.id).inWrongBook; });
-      else if (p.mode === 'unseen') base = base.filter(function (q) { return !getP(q.id).attempts; });
-      else if (p.mode === 'favorites') base = base.filter(function (q) { return getP(q.id).favorite; });
-      else if (p.mode === 'flagged') base = base.filter(function (q) { return getP(q.id).flagged; });
+      return orderedBase(QS.filter(function (q) { return p.custom.has(q.id); }));
     }
-    var ordered = p.order === 'shuffle' ? shuffle(base) : base.slice();
-    if (p.mode === 'all') return ordered;
-    if (p.mode === 'custom') return ordered;
-    var n = clamp(parseInt(p.count, 10) || 10, 1, ordered.length);
-    return ordered.slice(0, n);
+    var base = QS.filter(function (q) { return p.sections.has(q.section) && setupFilters(q); });
+    if (p.mode === 'wrong') base = base.filter(function (q) { return getP(q.id).inWrongBook; });
+    else if (p.mode === 'unseen') base = base.filter(function (q) { return !getP(q.id).attempts; });
+    else if (p.mode === 'favorites') base = base.filter(function (q) { return getP(q.id).favorite; });
+    else if (p.mode === 'flagged') base = base.filter(function (q) { return getP(q.id).flagged; });
+    var n = clamp(parseInt(p.count, 10) || 10, 1, Math.max(1, base.length));
+    if (p.mode === 'all') return orderedBase(base);
+    if (p.mode === 'ratio') return selectByRatio(base, n);
+    return orderedBase(base).slice(0, n);
   }
   function scopeLabel() {
     var n = setupState.sections.size;
@@ -1057,22 +1145,65 @@
       ['unseen', '○', '只练未做', '跳过做过的题'],
       ['custom', '☑', '自定义勾选', '手动选题并打乱'],
       ['favorites', '★', '只练收藏', '从收藏夹取题'],
-      ['flagged', '⚑', '只练标记', '标记过的重点题']
+      ['flagged', '⚑', '只练标记', '标记过的重点题'],
+      ['ratio', '⚖', '按题型比例', '自定计算/证明等比例']
     ].map(function (m) {
       return '<label class="mode ' + (p.mode === m[0] ? 'on' : '') + '"><input type="radio" name="setupMode" value="' + m[0] + '"' + (p.mode === m[0] ? ' checked' : '') + '>' +
         '<span class="mi">' + m[1] + '</span><span><b>' + m[2] + '</b><small>' + m[3] + '</small></span></label>';
     }).join('');
     var showCount = p.mode !== 'all' && p.mode !== 'custom';
-    var countBlock = showCount ? '<div class="setup-block"><h4>数量</h4><div class="count-line"><input class="input" type="number" id="setupCount" min="1" max="' + QS.length + '" value="' + p.count + '"> <span class="small muted">题（当前范围最多 ' + QS.filter(function (q) { return p.sections.has(q.section); }).length + ' 题）</span></div>' +
+    var countBlock = showCount ? '<div class="setup-block"><h4>数量</h4><div class="count-line"><input class="input" type="number" id="setupCount" min="1" max="' + QS.length + '" value="' + p.count + '"> <span class="small muted">题（当前范围最多 ' + QS.filter(function (q) { return p.sections.has(q.section) && setupFilters(q); }).length + ' 题）</span></div>' +
       '<div class="count-presets">' + [5, 10, 20, 30].map(function (n) { return '<button data-count="' + n + '">' + n + '</button>'; }).join('') + '<button data-count="9999">全部</button></div></div>' : '';
     var customBlock = p.mode === 'custom' ? '<div class="setup-block"><h4>自定义题目</h4><button class="btn sm" data-action="pick-open">勾选题目（已选 ' + p.custom.size + ' 题）</button></div>' : '';
+    var diffChips = [1, 2, 3].map(function (d) {
+      return '<label class="chip ' + (p.difficulty.has(d) ? 'on' : '') + '"><input type="checkbox" data-diff="' + d + '"' + (p.difficulty.has(d) ? ' checked' : '') + '>难度 ' + d + '</label>';
+    }).join('');
+    var compChips = [1, 2, 3].map(function (d) {
+      var label = d === 1 ? '小题' : d === 2 ? '中题' : '大题';
+      return '<label class="chip ' + (p.complexity.has(d) ? 'on' : '') + '"><input type="checkbox" data-comp="' + d + '"' + (p.complexity.has(d) ? ' checked' : '') + '>' + label + '</label>';
+    }).join('');
+    var recencySel = '<select id="setupRecency" aria-label="练习时间筛选">' +
+      [['all', '不限时间'], ['never', '从未练过'], ['7d', '最近 7 天'], ['30d', '8–30 天前'], ['old', '30 天以上']].map(function (x) {
+        return '<option value="' + x[0] + '"' + (p.recency === x[0] ? ' selected' : '') + '>' + x[1] + '</option>';
+      }).join('') + '</select>';
+    var kpSel = p.knowledge.map(function (k) {
+      return '<button class="tag accent kp-chip" data-kp-remove="' + esc(k) + '">' + esc(k) + ' ×</button>';
+    }).join('');
+    var kpSuggest = VOCAB.filter(function (v) { return p.knowledge.indexOf(v.k) < 0; }).slice(0, 12).map(function (v) {
+      return '<button class="tag" data-kp-add="' + esc(v.k) + '">＋ ' + esc(v.k) + ' <span class="faint">' + v.n + '</span></button>';
+    }).join('');
+    var kpDatalist = VOCAB.map(function (v) { return '<option value="' + esc(v.k) + '">' + v.n + ' 题</option>'; }).join('');
+    var filterBlock = '<div class="setup-block"><h4>筛选条件 <span class="tiny faint">可叠加</span></h4>' +
+      '<div class="filter-grid"><div><label class="filter-label">难度</label><div class="chip-row">' + diffChips + '</div></div>' +
+        '<div><label class="filter-label">复杂度</label><div class="chip-row">' + compChips + '</div></div>' +
+        '<div><label class="filter-label">练过时间</label>' + recencySel + '</div></div>' +
+      '<div class="kp-filter"><label class="filter-label">知识点（命中任一）</label>' +
+        '<div class="kp-selected">' + (kpSel || '<span class="tiny faint">未选，默认不限</span>') + '</div>' +
+        '<div class="kp-input"><input class="input" id="kpSearch" list="kpList" placeholder="输入关键词，回车添加，例如：确界、一致连续、Stolz"><button class="btn sm" data-action="kp-add">添加</button></div>' +
+        '<datalist id="kpList">' + kpDatalist + '</datalist>' +
+        '<div class="kp-suggest">' + kpSuggest + '</div></div>' +
+      '<div class="tiny faint" style="margin-top:7px">复杂度按题干 + 解析篇幅估算；难度是题目难度估计，可叠加筛选。</div></div>';
+    var ratioSum = TYPES.reduce(function (a, t) { return a + (Number(p.ratios[t]) || 0); }, 0);
+    var ratioAvail = QS.filter(function (q) { return p.sections.has(q.section) && setupFilters(q); });
+    var ratioBlock = p.mode === 'ratio' ? '<div class="setup-block"><h4>题型比例</h4><div class="ratio-grid">' +
+      TYPES.map(function (t) {
+        var n = ratioAvail.filter(function (q) { return q.type === t; }).length;
+        return '<label class="ratio-item"><span>' + t + '</span><input class="input" type="number" min="0" max="100" step="5" data-ratio="' + t + '" value="' + (p.ratios[t] || 0) + '"><span>%</span><em>可抽 ' + n + '</em></label>';
+      }).join('') + '</div>' +
+      '<div class="ratio-sum">合计 <b>' + ratioSum + '%</b> ' + (ratioSum === 100 ? '' : '<span class="tiny amber">（开始时会按比例归一化）</span>') +
+        ' <button class="btn sm" data-action="ratio-equal">平均分配</button></div></div>' : '';
     var pool = poolForSetup();
+    var typeLine = '';
+    if (p.mode === 'ratio') {
+      var tc = typeCounts(pool);
+      typeLine = ' · ' + TYPES.filter(function (t) { return tc[t] > 0; }).map(function (t) { return t + ' ' + tc[t]; }).join(' / ');
+    }
     return '<div class="setup-block"><h4>范围</h4><div class="scope-chapters">' + scope + '</div></div>' +
       '<div class="setup-block"><h4>选题方式</h4><div class="mode-grid">' + modes + '</div></div>' +
-      countBlock + customBlock +
-      '<div class="setup-row"><div class="setup-block"><h4>顺序</h4><div class="seg full"><button data-order="shuffle" class="' + (p.order === 'shuffle' ? 'active' : '') + '">打乱</button><button data-order="original" class="' + (p.order === 'original' ? 'active' : '') + '">原顺序</button></div></div>' +
+      filterBlock + ratioBlock + countBlock + customBlock +
+      '<div class="setup-row"><div class="setup-block"><h4>顺序</h4><div class="seg full"><button data-order="shuffle" class="' + (p.order === 'shuffle' ? 'active' : '') + '">打乱</button><button data-order="original" class="' + (p.order === 'original' ? 'active' : '') + '">原顺序</button><button data-order="oldest" class="' + (p.order === 'oldest' ? 'active' : '') + '">久未练优先</button></div></div>' +
       '<div class="setup-block"><h4>展示</h4><div class="seg full"><button data-display="single" class="' + (p.display === 'single' ? 'active' : '') + '">单题</button><button data-display="paper" class="' + (p.display === 'paper' ? 'active' : '') + '">整卷</button></div></div></div>' +
-      '<div class="small muted" style="border-top:1px dashed var(--line);padding-top:12px">本次将练 <b style="color:var(--accent);font-size:15px">' + pool.length + '</b> 题 · ' + esc(scopeLabel()) + '</div>';
+      '<div class="small muted" style="border-top:1px dashed var(--line);padding-top:12px">本次将练 <b style="color:var(--accent);font-size:15px">' + pool.length + '</b> 题 · ' + esc(scopeLabel()) + typeLine + '</div>';
   }
   function openSetup(preset) {
     setupState = defaultSetup(preset);
@@ -1159,7 +1290,7 @@
   function startSetupSession() {
     var pool = poolForSetup();
     if (!pool.length) { toast('当前范围没有可练的题目，换一下条件吧'); return; }
-    var modeName = { random: '随机', all: '全部', wrong: '错题', unseen: '未做', custom: '自定义', favorites: '收藏', flagged: '标记' }[setupState.mode];
+    var modeName = { random: '随机', all: '全部', wrong: '错题', unseen: '未做', custom: '自定义', favorites: '收藏', flagged: '标记', ratio: '按比例' }[setupState.mode];
     var title = modeName + ' ' + pool.length + ' 题 · ' + scopeLabel();
     var dlg = document.getElementById('setupDialog');
     if (dlg) dlg.close();
@@ -1331,6 +1462,8 @@
       case 'flag': e.preventDefault(); toggleFlag(qid); break;
       case 'checkin': e.preventDefault(); checkinNow(); break;
       case 'start-review': e.preventDefault(); startReview(); break;
+      case 'kp-add': e.preventDefault(); addKpFromInput(); break;
+      case 'ratio-equal': e.preventDefault(); ratioEqual(); break;
       case 'swap': e.preventDefault(); swapQuestion(); break;
       case 'zoom': e.preventDefault(); openZoom(qid); break;
       case 'zoom-close': e.preventDefault(); { var zd = el.closest('dialog'); if (zd) zd.close(); } break;
@@ -1398,6 +1531,20 @@
     } else if (t.matches('#setupCount')) {
       setupState.count = clamp(parseInt(t.value, 10) || 1, 1, QS.length);
       refreshSetup();
+    } else if (t.matches('[data-diff]')) {
+      var d = parseInt(t.dataset.diff, 10);
+      if (t.checked) setupState.difficulty.add(d); else setupState.difficulty.delete(d);
+      refreshSetup();
+    } else if (t.matches('[data-comp]')) {
+      var cp = parseInt(t.dataset.comp, 10);
+      if (t.checked) setupState.complexity.add(cp); else setupState.complexity.delete(cp);
+      refreshSetup();
+    } else if (t.matches('#setupRecency')) {
+      setupState.recency = t.value;
+      refreshSetup();
+    } else if (t.matches('[data-ratio]')) {
+      setupState.ratios[t.dataset.ratio] = clamp(parseInt(t.value, 10) || 0, 0, 100);
+      refreshSetup();
     } else if (t.matches('#bankStatus')) {
       var r = parseRoute();
       var q = Object.assign({}, r.query, { status: t.value });
@@ -1416,6 +1563,13 @@
     if (order && document.getElementById('setupDialog')) { setupState.order = order.dataset.order; refreshSetup(); return; }
     var disp = e.target.closest('[data-display]');
     if (disp && document.getElementById('setupDialog')) { setupState.display = disp.dataset.display; refreshSetup(); return; }
+    var kpa = e.target.closest('[data-kp-add]');
+    if (kpa && document.getElementById('setupDialog')) { addKp(kpa.dataset.kpAdd); return; }
+    var kpr = e.target.closest('[data-kp-remove]');
+    if (kpr && document.getElementById('setupDialog')) {
+      setupState.knowledge = setupState.knowledge.filter(function (x) { return x !== kpr.dataset.kpRemove; });
+      refreshSetup(); return;
+    }
     var close = e.target.closest('[data-close]');
     if (close) { var d = close.closest('dialog'); if (d) d.close(); }
   });
@@ -1472,6 +1626,29 @@
     markCheckin(); saveState(); render();
     toast('今日已打卡，继续加油');
   }
+  function addKp(kw) {
+    kw = String(kw || '').trim();
+    if (!kw) return;
+    if (setupState.knowledge.indexOf(kw) >= 0) { toast('这个知识点已经加过了'); return; }
+    setupState.knowledge.push(kw);
+    refreshSetup();
+    var inp = document.getElementById('kpSearch');
+    if (inp) inp.focus();
+  }
+  function addKpFromInput() {
+    var inp = document.getElementById('kpSearch');
+    if (inp) addKp(inp.value);
+  }
+  function ratioEqual() {
+    var avail = QS.filter(function (q) { return setupState.sections.has(q.section) && setupFilters(q); });
+    var types = TYPES.filter(function (t) { return avail.some(function (q) { return q.type === t; }); });
+    if (!types.length) return;
+    var base = Math.floor(100 / types.length);
+    var rem = 100 - base * types.length;
+    TYPES.forEach(function (t) { setupState.ratios[t] = 0; });
+    types.forEach(function (t, i) { setupState.ratios[t] = base + (i < rem ? 1 : 0); });
+    refreshSetup();
+  }
   function openZoom(qid) {
     var q = QMAP[qid];
     if (!q) return;
@@ -1482,7 +1659,7 @@
     dlg.className = 'zoom-dialog';
     dlg.innerHTML = '<div class="zoom-head"><div><div class="tiny muted">' + esc(q.chapterTitle) + ' · ' + esc(q.source) + ' 第 ' + q.number + ' 题</div>' +
       '<h2>' + q.id + '</h2></div><button class="icon-btn" data-action="zoom-close" aria-label="关闭">✕</button></div>' +
-      '<div class="zoom-body q-body">' + bodyHTML(q) + '</div>' +
+      '<div class="zoom-body q-body">' + bodyHTML(q) + '</div>' + refBlock(q) +
       '<div class="zoom-foot no-print"><button class="btn" data-action="zoom-close">关闭</button>' +
       '<button class="btn primary" data-action="zoom-reveal" data-qid="' + q.id + '">查看解析</button></div>';
     document.body.appendChild(dlg);
@@ -1540,6 +1717,12 @@
     state.settings.theme = cur === 'dark' ? 'light' : 'dark';
     saveState(); applyTheme();
   }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.target.id === 'kpSearch' && e.key === 'Enter') {
+      e.preventDefault(); addKpFromInput(); return;
+    }
+  });
 
   document.addEventListener('keydown', function (e) {
     if (e.target.matches('input,textarea,select')) return;
