@@ -1,0 +1,12 @@
+{
+  "name": "数学分析刷题 · 第六版上册",
+  "short_name": "数分刷题",
+  "description": "华东师范大学《数学分析》第六版上册第 1–4 章课后习题刷题",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f6f2e9",
+  "theme_color": "#2f5d8a",
+  "icons": [
+    { "src": "assets/img/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
