@@ -10,6 +10,6 @@
  * Publishable / anon key 是公开的（受 RLS 保护），不要填 secret / service_role key。
  */
 window.MAQ_SUPABASE = {
-  url: 'https://bggyazwnlsujcbcinm.supabase.co',
+  url: 'https://bggybazwnrlsujcbcinm.supabase.co',
   anonKey: 'sb_publishable_gMlmUOHfHRUK0F2pZUlFfg_NOf8rA-P'
 };
