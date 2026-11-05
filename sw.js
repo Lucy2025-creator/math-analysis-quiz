@@ -1,5 +1,5 @@
 /* 数学分析刷题 · Service Worker（离线缓存） */
-const CACHE = 'maq-v19';
+const CACHE = 'maq-v20';
 const ASSETS = [
   './',
   './index.html',

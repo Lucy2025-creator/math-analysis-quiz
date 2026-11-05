@@ -774,10 +774,10 @@
         var up = await CLOUD_SB.storage.from('traces').upload(path, rec.blob, { contentType: 'image/jpeg', upsert: false });
         if (up.error) throw up.error;
         var ins = await CLOUD_SB.from('traces').insert({
-          user_id: uid, qid: rec.qid, storage_path: path, name: rec.name || 'trace.jpg'
+          user_id: userId, qid: rec.qid, storage_path: path, name: rec.name || 'trace.jpg'
         }).select().single();
         if (ins.error) throw ins.error;
-        await updateTrace(rec.id, { cloudId: ins.data.id, cloudPath: path, synced: true, ownerId: uid });
+        await updateTrace(rec.id, { cloudId: ins.data.id, cloudPath: path, synced: true, ownerId: userId });
       } catch (e) {
         console.warn('图片上传失败，稍后重试', e);
         CLOUD.pending = true;
