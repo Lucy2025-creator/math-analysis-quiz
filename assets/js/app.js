@@ -967,6 +967,7 @@
     });
     return n;
   }
+  function chapterRange() { return '第 1–' + ((META.chapters || [])[META.chapters.length - 1] || { n: 4 }).n + ' 章'; }
   function secLabel(id) { return id.indexOf('.rev') >= 0 ? '总练习' : id; }
   function complexityLabel(n) { return n === 1 ? '小题' : n === 2 ? '中题' : '大题'; }
   function qStatus(id) {
@@ -1019,7 +1020,7 @@
   }
   function renderSolution(q) {
     if (!q.solution && !q.answer) {
-      return '<section class="solution"><div class="solution-head">解析</div><div class="solution-body muted">这道题的解析正在整理中。你可以先对照教材与笔记自行推导。</div></section>';
+      return '<section class="solution"><div class="solution-head">解析</div>' + clusterBox(q) + '<div class="solution-body muted">逐题解析正在整理中。先按上面的题型模板与教材推导，再对照答案自评。</div></section>';
     }
     var ans = q.answer ? '<div class="answer-box"><b>答案</b><div>' + esc(q.answer) + '</div></div>' : '';
     var hint = q.hint ? '<div class="hint-box"><b>教材提示：</b>' + esc(q.hint) + '</div>' : '';
@@ -1064,6 +1065,7 @@
           '</div>' +
         '</div>' +
         '<div class="q-tools no-print">' +
+          (q.chapter >= 5 ? '<a class="icon-btn" href="#/knowledge?ch=' + q.chapter + (q.section.indexOf('.rev') < 0 ? '&sec=' + q.section : '') + '" aria-label="本章知识点" title="查看本章知识点">▤</a>' : '') +
           '<button class="icon-btn ' + (p.flagged ? 'on' : '') + '" data-action="flag" data-qid="' + q.id + '" aria-label="标记" title="标记这道题">' + (p.flagged ? '⚑' : '⚐') + '</button>' +
           '<button class="icon-btn ' + (p.favorite ? 'on' : '') + '" data-action="fav" data-qid="' + q.id + '" aria-label="收藏" title="收藏">' + (p.favorite ? '★' : '☆') + '</button>' +
         '</div>' +
@@ -1116,12 +1118,12 @@
     return '<section class="hero">' +
       '<div class="eyebrow">Mathematical Analysis · 6th Edition</div>' +
       '<h1>把课后题，<em>刷透</em>。</h1>' +
-      '<p class="lede">华东师范大学《数学分析》第六版上册 · 第 1–4 章。随机抽题、整卷或单题、题型总结、错题本与艾宾浩斯复习，学习记录自动保存在本机。</p>' +
+      '<p class="lede">华东师范大学《数学分析》第六版上册 · ' + chapterRange() + '。随机抽题、整卷或单题、题型总结、错题本与艾宾浩斯复习，学习记录自动保存在本机。</p>' +
       '<div class="btn-row"><button class="btn primary lg" data-action="start-setup">开始刷题 →</button>' +
         '<button class="btn lg" data-action="quick-start">随机 10 题</button>' +
         '<a class="btn lg ghost" href="#/bank">浏览题库</a></div>' +
       '<div class="hero-meta"><div><b>' + META.total + '</b><span>课后习题</span></div>' +
-        '<div><b>4</b><span>章节</span></div>' +
+        '<div><b>' + (META.chapters || []).length + '</b><span>章节</span></div>' +
         '<div><b>' + g.attempted + '</b><span>已练题目</span></div>' +
         '<div><b>' + (g.correct + g.wrong ? g.accuracy + '%' : '—') + '</b><span>累计正确率</span></div></div>' +
     '</section>' +
@@ -1203,7 +1205,7 @@
         return '<option value="' + x[0] + '"' + ((q.status || 'all') === x[0] ? ' selected' : '') + '>' + x[1] + '</option>';
       }).join('') + '</select>';
     var search = '<form class="searchbox" data-search-form><input class="input" name="q" value="' + esc(q.q || '') + '" placeholder="搜索题目、知识点…" aria-label="搜索题目"></form>';
-    return '<div class="page-head"><div><h1>题库</h1><div class="sub">第 1–4 章共 ' + QS.length + ' 道课后习题 · 当前 ' + list.length + ' 道</div></div>' +
+    return '<div class="page-head"><div><h1>题库</h1><div class="sub">' + chapterRange() + '共 ' + QS.length + ' 道课后习题 · 当前 ' + list.length + ' 道</div></div>' +
       '<div class="btn-row"><button class="btn primary" data-action="start-setup">选题练习</button><button class="btn" data-action="start-filtered">练当前筛选</button></div></div>' +
       '<div class="filterbar">' + chips + statusSel + search + '</div>' +
       (list.length ? '<div class="bank-list">' + list.map(bankRow).join('') + '</div>' :
@@ -1568,7 +1570,7 @@
       '@media print{body{background:#fff}.toolbar{display:none}.wrap{max-width:none;padding:0}.doc-card{border:0;border-bottom:1px solid #ddd;border-radius:0;padding:10px 0}}' +
       '</style></head><body><div class="wrap">' +
       '<header class="doc-head"><h1>数学分析 · 近期错题复习</h1>' +
-        '<p>华东师大《数学分析》第六版上册 · 第 1–4 章 · 导出于 ' + dateStr + '</p>' +
+        '<p>华东师大《数学分析》第六版上册 · ' + chapterRange() + ' · 导出于 ' + dateStr + '</p>' +
         '<p>范围：' + (opts.range === 'all' ? '全部错题' : '最近 ' + opts.range + ' 天') + (opts.marked ? ' · 含标记题' : '') + '</p>' +
         '<div class="stat"><span><b>' + qs.length + '</b>道题</span><span><b>' + Object.keys(qs.reduce(function (m, q) { m[q.cluster] = 1; return m; }, {})).length + '</b>个题型</span><span><b>' + qs.filter(function (q) { return getP(q.id).inWrongBook; }).length + '</b>道错题</span></div>' +
         '<div class="toolbar"><button onclick="window.print()">打印 / 存为 PDF</button><a href="https://lucy2025-creator.github.io/math-analysis-quiz/">回到在线题库</a></div>' +
@@ -2164,7 +2166,7 @@
     var chs = {};
     allSections.forEach(function (s) { if (setupState.sections.has(s.id)) chs[s.chapter] = true; });
     var chList = Object.keys(chs).map(function (x) { return '第' + x + '章'; }).join('、');
-    if (n === allSections.length) return '第 1–4 章 · 全部小节';
+    if (n === allSections.length) return chapterRange() + ' · 全部小节';
     return chList + ' · ' + n + ' 个小节';
   }
   function setupBodyHTML() {
@@ -2341,7 +2343,7 @@
 
   /* ---------------- print ---------------- */
   function viewPrint() {
-    return '<div class="print-head"><h1>数学分析（第六版·上册）第 1–4 章课后习题</h1><p>共 ' + QS.length + ' 题 · 数分刷题</p></div>' +
+    return '<div class="print-head"><h1>数学分析（第六版·上册）' + chapterRange() + '课后习题</h1><p>共 ' + QS.length + ' 题 · 数分刷题</p></div>' +
       '<div class="q-list">' + QS.map(function (q, i) {
         return qCard(q, i, { num: q.number, grade: false, note: false, hideFoot: true, alwaysSolution: false });
       }).join('') + '</div>';
@@ -2478,7 +2480,7 @@
       var counts = sessionCounts();
       document.title = (S ? S.title + ' · ' : '') + '数分刷题';
     } else {
-      document.title = '数分刷题 · 第 1–4 章';
+      document.title = '数分刷题 · ' + chapterRange();
     }
     enhanceSelects(app);
   }
@@ -2820,7 +2822,7 @@
     startSession(shuffle(ids), { title: '重练错题 · ' + ids.length + ' 题', display: 'single', scope: '错题' });
   }
   function quickStart(n) {
-    startSession(shuffle(QS).slice(0, n).map(function (q) { return q.id; }), { title: '随机 ' + n + ' 题 · 第 1–4 章', display: 'single', scope: '全部' });
+    startSession(shuffle(QS).slice(0, n).map(function (q) { return q.id; }), { title: '随机 ' + n + ' 题 · ' + chapterRange(), display: 'single', scope: '全部' });
   }
   function toggleTheme() {
     var cur = document.documentElement.getAttribute('data-theme');

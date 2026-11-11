@@ -1,8 +1,8 @@
 {
  "meta": {
   "title": "数学分析（第六版·上册）",
-  "subtitle": "第 1–4 章 课后习题",
-  "total": 198,
+  "subtitle": "第 1–6 章 课后习题",
+  "total": 331,
   "chapters": [
    {
     "n": 1,
@@ -166,6 +166,106 @@
       "source": "第四章总练习题",
       "chapter": 4,
       "count": 12
+     }
+    ]
+   },
+   {
+    "n": 5,
+    "title": "第五章 导数和微分",
+    "short": "导数与微分",
+    "count": 51,
+    "sections": [
+     {
+      "id": "5.1",
+      "title": "§1 导数的概念",
+      "source": "习题 5.1",
+      "chapter": 5,
+      "count": 17
+     },
+     {
+      "id": "5.2",
+      "title": "§2 求导法则",
+      "source": "习题 5.2",
+      "chapter": 5,
+      "count": 9
+     },
+     {
+      "id": "5.4",
+      "title": "§4 高阶导数",
+      "source": "习题 5.4",
+      "chapter": 5,
+      "count": 10
+     },
+     {
+      "id": "5.5",
+      "title": "§5 微分",
+      "source": "习题 5.5",
+      "chapter": 5,
+      "count": 6
+     },
+     {
+      "id": "5.rev",
+      "title": "第五章总练习题",
+      "source": "第五章总练习题",
+      "chapter": 5,
+      "count": 9
+     }
+    ]
+   },
+   {
+    "n": 6,
+    "title": "第六章 微分中值定理及其应用",
+    "short": "微分中值定理",
+    "count": 82,
+    "sections": [
+     {
+      "id": "6.1",
+      "title": "§1 拉格朗日中值定理和函数的单调性",
+      "source": "习题 6.1",
+      "chapter": 6,
+      "count": 15
+     },
+     {
+      "id": "6.2",
+      "title": "§2 柯西中值定理和不定式极限",
+      "source": "习题 6.2",
+      "chapter": 6,
+      "count": 11
+     },
+     {
+      "id": "6.3",
+      "title": "§3 泰勒公式",
+      "source": "习题 6.3",
+      "chapter": 6,
+      "count": 5
+     },
+     {
+      "id": "6.4",
+      "title": "§4 函数的极值与最大(小)值",
+      "source": "习题 6.4",
+      "chapter": 6,
+      "count": 13
+     },
+     {
+      "id": "6.5",
+      "title": "§5 函数的凸性与拐点",
+      "source": "习题 6.5",
+      "chapter": 6,
+      "count": 11
+     },
+     {
+      "id": "6.6",
+      "title": "§6 函数图像的讨论",
+      "source": "习题 6.6",
+      "chapter": 6,
+      "count": 8
+     },
+     {
+      "id": "6.rev",
+      "title": "第六章总练习题",
+      "source": "第六章总练习题",
+      "chapter": 6,
+      "count": 19
      }
     ]
    }
@@ -4049,6 +4149,2400 @@
    ],
    "type": "证明",
    "difficulty": 3,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.1-1",
+   "chapter": 5,
+   "section": "5.1",
+   "number": 1,
+   "label": "5.1 1",
+   "source": "习题 5.1",
+   "body": "已知直线运动方程为\n\n$$\ns = 1 0 t + 5 t ^ {2},\n$$\n\n分别令 $\\Delta t = 1,0.1,0.01$ ，求从 $t = 4$ 至 $t = 4 + \\Delta t$ 这一段时间内运动的平均速度及 $t = 4$ 时的瞬时速度.",
+   "hint": "",
+   "tags": [
+    "导数定义",
+    "可导与连续"
+   ],
+   "type": "计算",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.1-2",
+   "chapter": 5,
+   "section": "5.1",
+   "number": 2,
+   "label": "5.1 2",
+   "source": "习题 5.1",
+   "body": "等速旋转的角速度等于旋转角与对应时间的比, 试由此给出变速旋转的角速度的定义.",
+   "hint": "",
+   "tags": [
+    "导数定义",
+    "可导与连续"
+   ],
+   "type": "解答",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.1-3",
+   "chapter": 5,
+   "section": "5.1",
+   "number": 3,
+   "label": "5.1 3",
+   "source": "习题 5.1",
+   "body": "设 $f(x_0) = 0$ , $f'(x_0) = 4$ , 试求极限\n\n$$\n\\lim _ {\\Delta x \\rightarrow 0} \\frac {f (x _ {0} + \\Delta x)}{\\Delta x}.\n$$",
+   "hint": "",
+   "tags": [
+    "导数定义",
+    "可导与连续"
+   ],
+   "type": "计算",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.1-4",
+   "chapter": 5,
+   "section": "5.1",
+   "number": 4,
+   "label": "5.1 4",
+   "source": "习题 5.1",
+   "body": "设 $f(x) = \\begin{cases} x^2, & x \\geqslant 3, \\\\ ax + b, & x < 3, \\end{cases}$ 试确定 $a, b$ 的值，使 $f$ 在 $x = 3$ 处可导.",
+   "hint": "",
+   "tags": [
+    "导数定义",
+    "可导与连续"
+   ],
+   "type": "计算",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.1-5",
+   "chapter": 5,
+   "section": "5.1",
+   "number": 5,
+   "label": "5.1 5",
+   "source": "习题 5.1",
+   "body": "试确定曲线 $y = \\ln x$ 上哪些点的切线平行于下列直线：(1) $y = x - 1$ ; (2) $y = 2x - 3$ .",
+   "hint": "",
+   "tags": [
+    "导数定义",
+    "可导与连续"
+   ],
+   "type": "计算",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.1-6",
+   "chapter": 5,
+   "section": "5.1",
+   "number": 6,
+   "label": "5.1 6",
+   "source": "习题 5.1",
+   "body": "求下列曲线在指定点 $P$ 的切线方程与法线方程：(1) $y = \\frac{x^2}{4}, P(2,1)$ ; (2) $y = \\cos x, P(0,1)$ .",
+   "hint": "",
+   "tags": [
+    "导数定义",
+    "可导与连续"
+   ],
+   "type": "计算",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.1-7",
+   "chapter": 5,
+   "section": "5.1",
+   "number": 7,
+   "label": "5.1 7",
+   "source": "习题 5.1",
+   "body": "求下列函数的导函数：\n(1) $f(x) = |x|^{3}$ ; (2) $f(x) = \\begin{cases} x + 1, & x \\geqslant 0, \\\\ 1, & x < 0. \\end{cases}$",
+   "hint": "",
+   "tags": [
+    "导数定义",
+    "可导与连续"
+   ],
+   "type": "计算",
+   "difficulty": 2,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.1-8",
+   "chapter": 5,
+   "section": "5.1",
+   "number": 8,
+   "label": "5.1 8",
+   "source": "习题 5.1",
+   "body": "设函数\n\n$$\nf (x) = \\left\\{ \\begin{array}{c c} {x ^ {m} \\sin \\frac {1}{x},} & {x \\neq 0,} \\\\ {0,} & {x = 0} \\end{array} \\right. (m \\text {为正整数}).\n$$\n\n试问:(1) 当 m 等于何值时, f 在 x = 0 连续?\n\n(2) 当 m 等于何值时, f 在 x = 0 可导?",
+   "hint": "",
+   "tags": [
+    "导数定义",
+    "可导与连续"
+   ],
+   "type": "解答",
+   "difficulty": 2,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.1-9",
+   "chapter": 5,
+   "section": "5.1",
+   "number": 9,
+   "label": "5.1 9",
+   "source": "习题 5.1",
+   "body": "求下列函数的稳定点：\n\n$$\nf (x) = \\sin x - \\cos x;\n$$\n\n$$\nf (x) = x - \\ln x.\n$$",
+   "hint": "",
+   "tags": [
+    "导数定义",
+    "可导与连续"
+   ],
+   "type": "计算",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.1-10",
+   "chapter": 5,
+   "section": "5.1",
+   "number": 10,
+   "label": "5.1 10",
+   "source": "习题 5.1",
+   "body": "设函数 f 在点 $x_{0}$ 存在左、右导数，试证 f 在点 $x_{0}$ 连续.",
+   "hint": "",
+   "tags": [
+    "导数定义",
+    "可导与连续"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.1-11",
+   "chapter": 5,
+   "section": "5.1",
+   "number": 11,
+   "label": "5.1 11",
+   "source": "习题 5.1",
+   "body": "设 $g(0) = g'(0) = 0$ ,\n\n$$\nf (x) = \\left\\{ \\begin{array}{c c} g (x) \\sin \\frac {1}{x}, & x \\neq 0, \\\\ 0, & x = 0. \\end{array} \\right.\n$$\n\n求 $f'(0)$ .",
+   "hint": "",
+   "tags": [
+    "导数定义",
+    "可导与连续"
+   ],
+   "type": "计算",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.1-12",
+   "chapter": 5,
+   "section": "5.1",
+   "number": 12,
+   "label": "5.1 12",
+   "source": "习题 5.1",
+   "body": "设 $f$ 是定义在 $\\mathbb{R}$ 上的函数, 且对任何 $x_{1}, x_{2} \\in \\mathbb{R}$ , 都有\n\n$$\nf \\left(x _ {1} + x _ {2}\\right) = f \\left(x _ {1}\\right) \\cdot f \\left(x _ {2}\\right).\n$$\n\n若 $f^{\\prime}(0) = 1$ ，证明：对任何 $x\\in \\mathbb{R}$ ，都有\n\n$$\nf ^ {\\prime} (x) = f (x).\n$$",
+   "hint": "",
+   "tags": [
+    "导数定义",
+    "可导与连续"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.1-13",
+   "chapter": 5,
+   "section": "5.1",
+   "number": 13,
+   "label": "5.1 13",
+   "source": "习题 5.1",
+   "body": "证明: 若 $f'(x_0)$ 存在, 则\n\n$$\n\\lim _ {\\Delta x \\rightarrow 0} \\frac {f (x _ {0} + \\Delta x) - f (x _ {0} - \\Delta x)}{\\Delta x} = 2 f ^ {\\prime} (x _ {0}).\n$$",
+   "hint": "",
+   "tags": [
+    "导数定义",
+    "可导与连续"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.1-14",
+   "chapter": 5,
+   "section": "5.1",
+   "number": 14,
+   "label": "5.1 14",
+   "source": "习题 5.1",
+   "body": "证明: 若函数 $f$ 在 $[a, b]$ 上连续, 且 $f(a) = f(b) = K$ , $f'_{+}(a)f'_{-}(b) > 0$ , 则至少有一点 $\\xi \\in (a, b)$ , 使 $f(\\xi) = K$ .",
+   "hint": "",
+   "tags": [
+    "导数定义",
+    "可导与连续"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.1-15",
+   "chapter": 5,
+   "section": "5.1",
+   "number": 15,
+   "label": "5.1 15",
+   "source": "习题 5.1",
+   "body": "设 $f(x) = x^{n} + a_{n-1}x^{n-1} + \\cdots + a_{0}$ 的最大零点为 $x_{0}$ . 证明: $f'(x_{0}) \\geqslant 0$ .",
+   "hint": "",
+   "tags": [
+    "导数定义",
+    "可导与连续"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.1-16",
+   "chapter": 5,
+   "section": "5.1",
+   "number": 16,
+   "label": "5.1 16",
+   "source": "习题 5.1",
+   "body": "设有一吊桥, 其铁链呈抛物线形, 两端系于相距 $100 \\mathrm{~m}$ 高度相同的支柱上, 铁链之最低点在悬点下 $10 \\mathrm{~m}$ 处, 求铁链与支柱所成之角.",
+   "hint": "",
+   "tags": [
+    "导数定义",
+    "可导与连续"
+   ],
+   "type": "计算",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.1-17",
+   "chapter": 5,
+   "section": "5.1",
+   "number": 17,
+   "label": "5.1 17",
+   "source": "习题 5.1",
+   "body": "在曲线 $y = x^3$ 上取一点 $P$ ，过 $P$ 的切线与该曲线交于 $Q$ ，证明：曲线在 $Q$ 处的切线斜率正好是在 $P$ 处切线斜率的四倍.",
+   "hint": "",
+   "tags": [
+    "导数定义",
+    "可导与连续"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.2-1",
+   "chapter": 5,
+   "section": "5.2",
+   "number": 1,
+   "label": "5.2 1",
+   "source": "习题 5.2",
+   "body": "求下列函数在指定点的导数：\n\n(1) 设 $f(x) = 3x^{4} + 2x^{3} + 5$ ，求 $f'(0)$ ， $f'(1)$ ;\n\n(2) 设 $f(x) = \\frac{x}{\\cos x}$ ，求 $f'(0)$ ， $f'(\\pi)$ ;\n\n(3) 设 $f(x)=\\sqrt{1+\\sqrt{x}}$ ，求 $f'(0)$ ， $f'(1)$ ， $f'(4)$ .",
+   "hint": "",
+   "tags": [
+    "求导法则",
+    "复合函数"
+   ],
+   "type": "计算",
+   "difficulty": 3,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.2-2",
+   "chapter": 5,
+   "section": "5.2",
+   "number": 2,
+   "label": "5.2 2",
+   "source": "习题 5.2",
+   "body": "求下列函数的导数：\n\n(1) $y = 3x^{2} + 2$ ; \n\n(2) $y = \\frac{1 - x^2}{1 + x + x^2};$ \n\n(3) $y = x^n + nx$ ; \n\n(4) $y = \\frac{x}{m} + \\frac{m}{x} + 2\\sqrt{x} + \\frac{2}{\\sqrt{x}};$ \n\n(5) $y = x^{3}\\log_{3}x$ ; \n\n(6) $y = e^{x}\\cos x;$ \n\n(7) $y = (x^2 + 1)(3x - 1)(1 - x^3)$ ; \n\n(8) $y = \\frac{\\tan x}{x};$ \n\n(9) $y = \\frac{x}{1 - \\cos x}$ ; \n\n(10) $y = \\frac{1 + \\ln x}{1 - \\ln x}$ ; \n\n(11) $y = (\\sqrt{x} + 1)\\arctan x$ ; \n\n(12) $y = \\frac{1 + x^2}{\\sin x + \\cos x}.$",
+   "hint": "",
+   "tags": [
+    "求导法则",
+    "复合函数"
+   ],
+   "type": "计算",
+   "difficulty": 3,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.2-3",
+   "chapter": 5,
+   "section": "5.2",
+   "number": 3,
+   "label": "5.2 3",
+   "source": "习题 5.2",
+   "body": "求下列函数的导数：\n\n(1) $y = x\\sqrt{1 - x^2}$ ; \n\n(2) $y = (x^{2} - 1)^{3}$ ; \n\n(3) $y = \\left(\\frac{1 + x^2}{1 - x}\\right)^3;$ \n\n(4) $y = \\ln (\\ln x)$ ; \n\n(5) $y = \\ln (\\sin x)$ ; \n\n(6) $y = \\lg (x^2 + x + 1)$ ; \n\n(7) $y = \\ln (x + \\sqrt{1 + x^2})$ ; \n\n(8) $y = \\ln \\frac{\\sqrt{1 + x} - \\sqrt{1 - x}}{\\sqrt{1 + x} + \\sqrt{1 - x}};$ \n\n(9) $y = (\\sin x + \\cos x)^{3}$ ; \n\n(10) $y = \\cos^3 4x$ ; \n\n(11) $y = \\sin \\sqrt{1 + x^2}$ ; \n\n(12) $y = (\\sin x^2)^3$ ; \n\n(13) $y = \\arcsin \\frac{1}{x}$ ; \n\n(14) $y = (\\arctan x^3)^2$ ; \n\n(15) $y = \\operatorname{arccot} \\frac{1 + x}{1 - x};$ \n\n(16) $y = \\arcsin (\\sin^2 x)$ ; \n\n(17) $y = \\mathrm{e}^{x + 1};$ (18) $y = 2^{\\sin x};$ \n\n(19) $y = x^{\\sin x}$ ; \n\n(20) $y = x^{x^x}$ ; \n\n(21) $y = \\mathrm{e}^{-x}\\sin 2x;$ (22) $y = \\sqrt{x + \\sqrt{x + \\sqrt{x}}};$ \n\n(23) $y = \\sin (\\sin (\\sin x))$ ; \n\n(24) $y = \\sin \\left( \\frac{x}{\\sin \\left( \\frac{x}{\\sin x} \\right)} \\right)$ ; \n\n(25) $y = (x - a_{1})^{\\alpha_{1}}(x - a_{2})^{\\alpha_{2}} \\cdots (x - a_{n})^{\\alpha_{n}};$ (26) $y = \\frac{1}{\\sqrt{a^{2} - b^{2}}} \\arcsin \\frac{a \\sin x + b}{a + b \\sin x}.$",
+   "hint": "",
+   "tags": [
+    "求导法则",
+    "复合函数"
+   ],
+   "type": "计算",
+   "difficulty": 3,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.2-4",
+   "chapter": 5,
+   "section": "5.2",
+   "number": 4,
+   "label": "5.2 4",
+   "source": "习题 5.2",
+   "body": "对下列各函数计算 $f'(x)$ , $f'(x+1)$ , $f'(x-1)$ .\n\n(1) $f(x) = x^3$ ; (2) $f(x + 1) = x^3$ ; \n\n(3) $f(x - 1) = x^3$ .",
+   "hint": "",
+   "tags": [
+    "求导法则",
+    "复合函数"
+   ],
+   "type": "计算",
+   "difficulty": 2,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.2-5",
+   "chapter": 5,
+   "section": "5.2",
+   "number": 5,
+   "label": "5.2 5",
+   "source": "习题 5.2",
+   "body": "已知 $g$ 为可导函数, $a$ 为实数, 试求下列函数 $f$ 的导数:\n\n(1) $f(x) = g(x + g(a))$ ; (2) $f(x) = g(x + g(x))$ ; \n\n(3) $f(x) = g(xg(a))$ ; \n\n(4) $f(x) = g(xg(x))$ .",
+   "hint": "",
+   "tags": [
+    "求导法则",
+    "复合函数"
+   ],
+   "type": "计算",
+   "difficulty": 2,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.2-6",
+   "chapter": 5,
+   "section": "5.2",
+   "number": 6,
+   "label": "5.2 6",
+   "source": "习题 5.2",
+   "body": "设 $f$ 为可导函数, 证明: 若 $x = 1$ 时有\n\n$$\n\\frac {\\mathrm{d}}{\\mathrm{d} x} f (x ^ {2}) = \\frac {\\mathrm{d}}{\\mathrm{d} x} f ^ {2} (x),\n$$\n\n则必有 $f'(1)=0$ 或 $f(1)=1$ .",
+   "hint": "",
+   "tags": [
+    "求导法则",
+    "复合函数"
+   ],
+   "type": "证明",
+   "difficulty": 2,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.2-7",
+   "chapter": 5,
+   "section": "5.2",
+   "number": 7,
+   "label": "5.2 7",
+   "source": "习题 5.2",
+   "body": "定义双曲函数如下：\n\n双曲正弦函数 $\\sinh x = \\frac{\\mathrm{e}^x - \\mathrm{e}^{-x}}{2}$ , 双曲余弦函数 $\\cosh x = \\frac{\\mathrm{e}^x + \\mathrm{e}^{-x}}{2}$ ;\n\n双曲正切函数 $\\tanh x = \\frac{\\sinh x}{\\cosh x}$ , 双曲余切函数 $\\coth x = \\frac{\\cosh x}{\\sinh x}$ .\n\n证明：\n\n(1) $(\\sinh x)' = \\cosh x;$ (2) $(\\cosh x)' = \\sinh x;$ \n\n(3) $(\\tanh x)' = \\frac{1}{\\cosh^2 x}$ ; (4) $(\\coth x)' = -\\frac{1}{\\sinh^2 x}$ .",
+   "hint": "",
+   "tags": [
+    "求导法则",
+    "复合函数"
+   ],
+   "type": "证明",
+   "difficulty": 3,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.2-8",
+   "chapter": 5,
+   "section": "5.2",
+   "number": 8,
+   "label": "5.2 8",
+   "source": "习题 5.2",
+   "body": "求下列函数的导数：\n(1) $y = \\sinh^{3}x$ ; (2) $y = \\cosh(\\sinh x)$ ;\n(3) $y = \\ln (\\cosh x)$ ; (4) $y = \\arctan (\\tanh x)$ .",
+   "hint": "",
+   "tags": [
+    "求导法则",
+    "复合函数"
+   ],
+   "type": "计算",
+   "difficulty": 2,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.2-9",
+   "chapter": 5,
+   "section": "5.2",
+   "number": 9,
+   "label": "5.2 9",
+   "source": "习题 5.2",
+   "body": "以 $\\operatorname{arsinh} x, \\operatorname{arcosh} x, \\operatorname{artanh} x, \\operatorname{arcoth} x$ 分别表示各双曲函数的反函数. 试求下列函数的导数:\n\n(1) $y = \\operatorname{arsinh} x$ ;\n\n(2) $y = \\operatorname{arcosh} x$ ;\n\n(3) $y = \\operatorname{artanh} x$ ;\n\n(4) $y = \\operatorname{arcoth} x$ ;\n\n(5) $y = \\operatorname{artanh} x - \\operatorname{arcoth} \\frac{1}{x}$ ;\n\n(6) $y = \\operatorname{arsinh} (\\tan x)$ .",
+   "hint": "",
+   "tags": [
+    "求导法则",
+    "复合函数"
+   ],
+   "type": "计算",
+   "difficulty": 3,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.4-1",
+   "chapter": 5,
+   "section": "5.4",
+   "number": 1,
+   "label": "5.4 1",
+   "source": "习题 5.4",
+   "body": "求下列函数在指定点的高阶导数：\n\n(1) $f(x) = 3x^{3} + 4x^{2} - 5x - 9$ , 求 $f''(1), f'''(1), f^{(4)}(1)$ ;\n\n(2) $f(x)=\\frac{x}{\\sqrt{1+x^{2}}}$ ，求 $f''(0)$ ， $f''(1)$ ， $f''(-1)$ .",
+   "hint": "",
+   "tags": [
+    "高阶导数",
+    "参变量函数"
+   ],
+   "type": "计算",
+   "difficulty": 3,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.4-2",
+   "chapter": 5,
+   "section": "5.4",
+   "number": 2,
+   "label": "5.4 2",
+   "source": "习题 5.4",
+   "body": "设函数 $f$ 在 $x = 1$ 处二阶可导. 证明: 若 $f'(1) = 0, f''(1) = 0$ , 则在 $x = 1$ 处有 $\\frac{\\mathrm{d}}{\\mathrm{d}x} f(x^2) = \\frac{\\mathrm{d}^2}{\\mathrm{d}x^2} f^2(x)$ .",
+   "hint": "",
+   "tags": [
+    "高阶导数",
+    "参变量函数"
+   ],
+   "type": "证明",
+   "difficulty": 2,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.4-3",
+   "chapter": 5,
+   "section": "5.4",
+   "number": 3,
+   "label": "5.4 3",
+   "source": "习题 5.4",
+   "body": "求下列函数的高阶导数：\n(1) $f(x) = x \\ln x$ ，求 $f''(x)$ ; (2) $f(x) = e^{-x^{2}}$ ，求 $f'''(x)$ ;\n(3) $f(x) = \\ln(1 + x)$ , 求 $f^{(5)}(x)$ ; (4) $f(x) = x^{3}e^{x}$ , 求 $f^{(10)}(x)$ .",
+   "hint": "",
+   "tags": [
+    "高阶导数",
+    "参变量函数"
+   ],
+   "type": "计算",
+   "difficulty": 3,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.4-4",
+   "chapter": 5,
+   "section": "5.4",
+   "number": 4,
+   "label": "5.4 4",
+   "source": "习题 5.4",
+   "body": "设 $f$ 为二阶可导函数，求下列各函数的二阶导数：(1) $y = f(\\ln x)$ ；(2) $y = f(x^n), n \\in \\mathbb{N}_+$ ; (3) $y = f(f(x))$ .",
+   "hint": "",
+   "tags": [
+    "高阶导数",
+    "参变量函数"
+   ],
+   "type": "计算",
+   "difficulty": 2,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.4-5",
+   "chapter": 5,
+   "section": "5.4",
+   "number": 5,
+   "label": "5.4 5",
+   "source": "习题 5.4",
+   "body": "求下列函数的 $n$ 阶导数：(1) $y = \\ln x$ ; (2) $y = a^x (a > 0, a \\neq 1)$ ; (3) $y = \\frac{1}{x(1 - x)}$ ; (4) $y = \\frac{\\ln x}{x}$ ; (5) $y = \\frac{x^n}{1 - x}$ ; (6) $y = \\mathrm{e}^{ax}\\sin bx(a, b$ 均为实数).",
+   "hint": "",
+   "tags": [
+    "高阶导数",
+    "参变量函数"
+   ],
+   "type": "计算",
+   "difficulty": 3,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.4-6",
+   "chapter": 5,
+   "section": "5.4",
+   "number": 6,
+   "label": "5.4 6",
+   "source": "习题 5.4",
+   "body": "求由下列参数方程所确定的函数的二阶导数 $\\frac{\\mathrm{d}^2y}{\\mathrm{d}x^2}$ : (1) $\\left\\{ \\begin{array}{l} x = a\\cos^3 t, \\\\ y = a\\sin^3 t; \\end{array} \\right.$ (2) $\\left\\{ \\begin{array}{l} x = e^t\\cos t, \\\\ y = e^t\\sin t. \\end{array} \\right.$",
+   "hint": "",
+   "tags": [
+    "高阶导数",
+    "参变量函数"
+   ],
+   "type": "计算",
+   "difficulty": 2,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.4-7",
+   "chapter": 5,
+   "section": "5.4",
+   "number": 7,
+   "label": "5.4 7",
+   "source": "习题 5.4",
+   "body": "研究函数 $f(x) = |x^3|$ 在 $x = 0$ 处的各阶导数.",
+   "hint": "",
+   "tags": [
+    "高阶导数",
+    "参变量函数"
+   ],
+   "type": "讨论",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.4-8",
+   "chapter": 5,
+   "section": "5.4",
+   "number": 8,
+   "label": "5.4 8",
+   "source": "习题 5.4",
+   "body": "设函数 $y = f(x)$ 在点 $x$ 三阶可导，且 $f'(x) \\neq 0$ . 若 $f(x)$ 存在反函数 $x = f^{-1}(y)$ ，试用 $f'(x), f''(x)$ 以及 $f'''(x)$ 表示 $(f^{-1})'''(y)$ .",
+   "hint": "",
+   "tags": [
+    "高阶导数",
+    "参变量函数"
+   ],
+   "type": "解答",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.4-9",
+   "chapter": 5,
+   "section": "5.4",
+   "number": 9,
+   "label": "5.4 9",
+   "source": "习题 5.4",
+   "body": "设 $y = \\arctan x$ .\n\n(1) 证明它满足方程 $(1+x^{2})y''+2xy'=0$ ;\n\n(2) 求 $y^{(n)} \\big|_{x=0}$ .",
+   "hint": "",
+   "tags": [
+    "高阶导数",
+    "参变量函数"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.4-10",
+   "chapter": 5,
+   "section": "5.4",
+   "number": 10,
+   "label": "5.4 10",
+   "source": "习题 5.4",
+   "body": "设 $y = \\arcsin x$ .\n\n(1) 证明它满足方程 $(1 - x^{2})y^{(n + 2)} - (2n + 1)xy^{(n + 1)} - n^{2}y^{(n)} = 0 (n\\geqslant 0)$ ;\n\n(2) 求 $y^{(n)} \\mid_{x=0}$",
+   "hint": "",
+   "tags": [
+    "高阶导数",
+    "参变量函数"
+   ],
+   "type": "证明",
+   "difficulty": 2,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.5-1",
+   "chapter": 5,
+   "section": "5.5",
+   "number": 1,
+   "label": "5.5 1",
+   "source": "习题 5.5",
+   "body": "若 $x = 1$ ，而 $\\Delta x = 0.1, 0.01$ . 问对于 $y = x^2, \\Delta y$ 与 $\\mathrm{dy}$ 之差分别是多少？",
+   "hint": "",
+   "tags": [
+    "微分",
+    "近似计算"
+   ],
+   "type": "解答",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.5-2",
+   "chapter": 5,
+   "section": "5.5",
+   "number": 2,
+   "label": "5.5 2",
+   "source": "习题 5.5",
+   "body": "求下列函数的微分：\n(1) $y = x + 2x^{2} - \\frac{1}{3}x^{3} + x^{4}$ ;\n\n(2) $y = x \\ln x - x$ ;\n\n(3) $y = x^{2} \\cos 2x$ ;\n\n(4) $y = \\frac{x}{1 - x^{2}}$ ;\n\n(5) $y = e^{ax} \\sin bx$ ;\n\n(6) $y = \\arcsin \\sqrt{1 - x^{2}}$ .",
+   "hint": "",
+   "tags": [
+    "微分",
+    "近似计算"
+   ],
+   "type": "计算",
+   "difficulty": 3,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.5-3",
+   "chapter": 5,
+   "section": "5.5",
+   "number": 3,
+   "label": "5.5 3",
+   "source": "习题 5.5",
+   "body": "求下列函数的高阶微分：\n(1) 设 $u(x) = \\ln x, v(x) = e^{x}$ ，求 $\\mathrm{d}^{3}(uv), \\mathrm{d}^{3}\\left(\\frac{u}{v}\\right)$ ;\n\n(2) 设 $u(x) = \\mathrm{e}^{\\frac{x}{2}}, v(x) = \\cos 2x$ ，求 $\\mathrm{d}^{3}(uv), \\mathrm{d}^{3}\\left(\\frac{u}{v}\\right)$",
+   "hint": "",
+   "tags": [
+    "微分",
+    "近似计算"
+   ],
+   "type": "计算",
+   "difficulty": 3,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.5-5",
+   "chapter": 5,
+   "section": "5.5",
+   "number": 5,
+   "label": "5.5 5",
+   "source": "习题 5.5",
+   "body": "为了使计算出球的体积准确到 $1\\%$ ，问度量半径为 $r$ 时允许发生的相对误差至多应为多少？",
+   "hint": "",
+   "tags": [
+    "微分",
+    "近似计算"
+   ],
+   "type": "计算",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.5-6",
+   "chapter": 5,
+   "section": "5.5",
+   "number": 6,
+   "label": "5.5 6",
+   "source": "习题 5.5",
+   "body": "检验一个半径为 2 m, 中心角为 $55^{\\circ}$ 的工件面积 (图 5-10), 现可直接测量其中心角或此角所对的弦长, 设量角最大误差为 $0.5^{\\circ}$ , 量弦长最大误差为 3 mm, 试问用哪一种方法检验的结果较为精确.",
+   "hint": "",
+   "tags": [
+    "微分",
+    "近似计算"
+   ],
+   "type": "计算",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.rev-1",
+   "chapter": 5,
+   "section": "5.rev",
+   "number": 1,
+   "label": "5.rev 1",
+   "source": "第五章总练习题",
+   "body": "设 $y = \\frac{ax + b}{cx + d}$ ，证明：（1） $y' = \\frac{1}{(cx + d)^2} \\left| \\begin{array}{cc} a & b \\\\ c & d \\end{array} \\right|$ ；（2） $y^{(n)} = (-1)^{n+1} \\frac{n!c^{n-1}}{(cx + d)^{n+1}} \\left| \\begin{array}{cc} a & b \\\\ c & d \\end{array} \\right|$ .",
+   "hint": "",
+   "tags": [
+    "综合题",
+    "导数应用"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.rev-2",
+   "chapter": 5,
+   "section": "5.rev",
+   "number": 2,
+   "label": "5.rev 2",
+   "source": "第五章总练习题",
+   "body": "证明下列函数在 $x = 0$ 处不可导：\n\n(1) $f(x) = x^{\\frac{2}{3}}$ ; (2) $f(x) = |\\ln |x - 1|$ .",
+   "hint": "",
+   "tags": [
+    "综合题",
+    "导数应用"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.rev-3",
+   "chapter": 5,
+   "section": "5.rev",
+   "number": 3,
+   "label": "5.rev 3",
+   "source": "第五章总练习题",
+   "body": "（1）举出一个连续函数，它仅在已知点 $a_1, a_2, \\cdots, a_n$ 不可导；\n\n(2) 举出一个函数, 它仅在点 $a_1, a_2, \\cdots, a_n$ 可导.\n\n##",
+   "hint": "",
+   "tags": [
+    "综合题",
+    "导数应用"
+   ],
+   "type": "解答",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.rev-4",
+   "chapter": 5,
+   "section": "5.rev",
+   "number": 4,
+   "label": "5.rev 4",
+   "source": "第五章总练习题",
+   "body": "证明：\n\n(1) 可导的偶函数, 其导函数为奇函数;\n\n(2) 可导的奇函数, 其导函数为偶函数;\n\n(3) 可导的周期函数, 其导函数仍为周期函数.",
+   "hint": "",
+   "tags": [
+    "综合题",
+    "导数应用"
+   ],
+   "type": "证明",
+   "difficulty": 2,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.rev-5",
+   "chapter": 5,
+   "section": "5.rev",
+   "number": 5,
+   "label": "5.rev 5",
+   "source": "第五章总练习题",
+   "body": "对下列命题, 若认为是正确的, 请给予证明; 若认为是错误的, 请举一反例予以否定:\n\n（1）设 $f = \\varphi +\\psi$ ，若 $f$ 在点 $x_0$ 可导，则 $\\varphi ,\\psi$ 在点 $x_0$ 可导；\n\n(2) 设 $f = \\varphi + \\psi$ ，若 $\\varphi$ 在点 $x_{0}$ 可导， $\\psi$ 在点 $x_{0}$ 不可导，则 f 在点 $x_{0}$ 一定不可导；\n\n(3) 设 $f = \\varphi \\cdot \\psi$ ，若 f 在点 $x_{0}$ 可导，则 $\\varphi, \\psi$ 在点 $x_{0}$ 可导；\n\n(4) 设 $f = \\varphi \\cdot \\psi$ ，若 $\\varphi$ 在点 $x_{0}$ 可导， $\\psi$ 在点 $x_{0}$ 不可导，则 f 在点 $x_{0}$ 一定不可导.",
+   "hint": "",
+   "tags": [
+    "综合题",
+    "导数应用"
+   ],
+   "type": "证明",
+   "difficulty": 3,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.rev-6",
+   "chapter": 5,
+   "section": "5.rev",
+   "number": 6,
+   "label": "5.rev 6",
+   "source": "第五章总练习题",
+   "body": "设 $\\varphi(x)$ 在点 $a$ 连续, $f(x) = |x - a| \\varphi(x)$ , 求 $f'_{-}(a)$ 和 $f'_{+}(a)$ . 问在什么条件下 $f'(a)$ 存在?",
+   "hint": "",
+   "tags": [
+    "综合题",
+    "导数应用"
+   ],
+   "type": "计算",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.rev-7",
+   "chapter": 5,
+   "section": "5.rev",
+   "number": 7,
+   "label": "5.rev 7",
+   "source": "第五章总练习题",
+   "body": "设 f 为可导函数, 求下列各函数的一阶导数:\n\n(1) $y = f(e^{x})e^{f(x)}$ ; (2) $y = f(f(f(x)))$ .",
+   "hint": "",
+   "tags": [
+    "综合题",
+    "导数应用"
+   ],
+   "type": "计算",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.rev-8",
+   "chapter": 5,
+   "section": "5.rev",
+   "number": 8,
+   "label": "5.rev 8",
+   "source": "第五章总练习题",
+   "body": "设 $\\varphi, \\psi$ 为可导函数, 求 $y'$ :\n\n(1) $y = \\sqrt{\\varphi^2(x) + \\psi^2(x)}$ ; (2) $y = \\arctan \\frac{\\varphi(x)}{\\psi(x)}$ ; \n\n(3) $y = \\log_{\\varphi(x)} \\psi(x) (\\varphi, \\psi > 0, \\varphi \\neq 1).$",
+   "hint": "",
+   "tags": [
+    "综合题",
+    "导数应用"
+   ],
+   "type": "计算",
+   "difficulty": 2,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.rev-9",
+   "chapter": 5,
+   "section": "5.rev",
+   "number": 9,
+   "label": "5.rev 9",
+   "source": "第五章总练习题",
+   "body": "设 $f_{ij}(x)$ ( $i,j=1,2,\\cdots,n$ ) 为可导函数，证明：\n\n$$\n\\frac {\\mathrm{d}}{\\mathrm{d} x} \\left| \\begin{array}{c c c c} f _ {1 1} (x) & f _ {1 2} (x) & \\dots & f _ {1 n} (x) \\\\ f _ {2 1} (x) & f _ {2 2} (x) & \\dots & f _ {2 n} (x) \\\\ \\vdots & \\vdots & & \\vdots \\\\ f _ {n 1} (x) & f _ {n 2} (x) & \\dots & f _ {n n} (x) \\end{array} \\right| = \\sum_ {k ^ {\\prime} = 1} ^ {n} \\left| \\begin{array}{c c c c} f _ {1 1} (x) & f _ {1 2} (x) & \\dots & f _ {1 n} (x) \\\\ f _ {2 1} (x) & f _ {2 2} (x) & \\dots & f _ {2 n} (x) \\\\ \\vdots & \\vdots & & \\vdots \\\\ f _ {\\mathbf {k} 1} ^ {\\prime} (x) & f _ {\\mathbf {k} 2} ^ {\\prime} (x) & \\dots & f _ {\\mathbf {k} n} ^ {\\prime} (x) \\\\ \\vdots & \\vdots & & \\vdots \\\\ f _ {n 1} (x) & f _ {n 2} (x) & \\dots & f _ {n n} (x) \\end{array} \\right|.\n$$\n\n并利用这个结果求 $F'(x)$ :\n\n$$\nF (x) = \\left| \\begin{array}{c c c} x - 1 & 1 & 2 \\\\ - 3 & x & 3 \\\\ - 2 & - 3 & x + 1 \\end{array} \\right|;\n$$\n\n$$\nF (x) = \\left| \\begin{array}{c c c} x & x ^ {2} & x ^ {3} \\\\ 1 & 2 x & 3 x ^ {2} \\\\ 0 & 2 & 6 x \\end{array} \\right|.\n$$",
+   "hint": "",
+   "tags": [
+    "综合题",
+    "导数应用"
+   ],
+   "type": "证明",
+   "difficulty": 3,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.1-1",
+   "chapter": 6,
+   "section": "6.1",
+   "number": 1,
+   "label": "6.1 1",
+   "source": "习题 6.1",
+   "body": "试讨论下列函数在指定区间上是否存在一点 $\\xi$ ，使 $f'(\\xi) = 0$ ：\n\n(1) $f(x) = \\left\\{ \\begin{array}{l} x \\sin \\frac{1}{x}, \\\\ 0, \\end{array} \\right.$ $0 < x \\leqslant \\frac{1}{\\pi},$ (2) $f(x) = |x|, -1 \\leqslant x \\leqslant 1.$",
+   "hint": "",
+   "tags": [
+    "中值定理",
+    "单调性"
+   ],
+   "type": "讨论",
+   "difficulty": 2,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.1-2",
+   "chapter": 6,
+   "section": "6.1",
+   "number": 2,
+   "label": "6.1 2",
+   "source": "习题 6.1",
+   "body": "证明：\n\n(1) 方程 $x^{3}-3x+c=0$ (这里 c 为常数) 在区间 $[0,1]$ 上不可能有两个不同的实根；\n\n(2) 方程 $x^{n} + px + q = 0$ ( $n$ 为大于 1 的正整数, $p, q$ 为实数) 当 $n$ 为偶数时至多有两个实根, 当 $n$ 为奇数时至多有三个实根.",
+   "hint": "",
+   "tags": [
+    "中值定理",
+    "单调性"
+   ],
+   "type": "证明",
+   "difficulty": 2,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.1-3",
+   "chapter": 6,
+   "section": "6.1",
+   "number": 3,
+   "label": "6.1 3",
+   "source": "习题 6.1",
+   "body": "证明定理6.2的推论2.",
+   "hint": "",
+   "tags": [
+    "中值定理",
+    "单调性"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.1-4",
+   "chapter": 6,
+   "section": "6.1",
+   "number": 4,
+   "label": "6.1 4",
+   "source": "习题 6.1",
+   "body": "证明：\n\n(1) 若函数 f 在 $[a, b]$ 上可导，且 $f'(x) \\geqslant m$ ，则\n\n$$\nf (b) \\geqslant f (a) + m (b - a);\n$$\n\n(2) 若函数 f 在 $[a, b]$ 上可导，且 $\\left|f'(x)\\right| \\leqslant M$ ，则\n\n$$\n\\left| f (b) - f (a) \\right| \\leqslant M (b - a);\n$$\n\n(3) 对任意实数 $x_{1}, x_{2}$ , 都有 $\\left|\\sin x_{1} - \\sin x_{2}\\right| \\leqslant \\left|x_{1} - x_{2}\\right|$ .",
+   "hint": "",
+   "tags": [
+    "中值定理",
+    "单调性"
+   ],
+   "type": "证明",
+   "difficulty": 3,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.1-5",
+   "chapter": 6,
+   "section": "6.1",
+   "number": 5,
+   "label": "6.1 5",
+   "source": "习题 6.1",
+   "body": "应用拉格朗日中值定理证明下列不等式：\n\n(1) $\\frac{b - a}{b} < \\ln \\frac{b}{a} < \\frac{b - a}{a}$ , 其中 $0 < a < b$ ;\n\n(2) $\\frac{h}{1 + h^2} < \\arctan h < h$ ，其中 $h > 0$ .",
+   "hint": "",
+   "tags": [
+    "中值定理",
+    "单调性"
+   ],
+   "type": "证明",
+   "difficulty": 2,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.1-6",
+   "chapter": 6,
+   "section": "6.1",
+   "number": 6,
+   "label": "6.1 6",
+   "source": "习题 6.1",
+   "body": "确定下列函数的单调区间：\n\n$$\nf (x) = 3 x - x ^ {2};\n$$\n\n(2) $f(x) = 2x^{2} - \\ln x$ ; \n\n$$\nf (x) = \\sqrt {2 x - x ^ {2}};\n$$\n\n$$\nf (x) = \\frac {x ^ {2} - 1}{x}.\n$$",
+   "hint": "",
+   "tags": [
+    "中值定理",
+    "单调性"
+   ],
+   "type": "计算",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.1-7",
+   "chapter": 6,
+   "section": "6.1",
+   "number": 7,
+   "label": "6.1 7",
+   "source": "习题 6.1",
+   "body": "应用函数的单调性证明下列不等式：\n\n$$\n\\tan x > x - \\frac {x ^ {3}}{3}, x \\in \\left(0, \\frac {\\pi}{2}\\right); \\tag {1}\n$$\n\n$$\n\\frac {2 x}{\\pi} <   \\sin x <   x, x \\in \\left(0, \\frac {\\pi}{2}\\right); \\tag {2}\n$$\n\n$$\n(3) x - \\frac {x ^ {2}}{2} <   \\ln (1 + x) <   x - \\frac {x ^ {2}}{2 (1 + x)}, x > 0.\n$$",
+   "hint": "",
+   "tags": [
+    "中值定理",
+    "单调性"
+   ],
+   "type": "证明",
+   "difficulty": 2,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.1-8",
+   "chapter": 6,
+   "section": "6.1",
+   "number": 8,
+   "label": "6.1 8",
+   "source": "习题 6.1",
+   "body": "以 $S(x)$ 记由 $(a, f(a)), (b, f(b)), (x, f(x))$ 三点组成的三角形面积，试对 $S(x)$ 应用罗尔中值定理证明拉格朗日中值定理.",
+   "hint": "",
+   "tags": [
+    "中值定理",
+    "单调性"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.1-9",
+   "chapter": 6,
+   "section": "6.1",
+   "number": 9,
+   "label": "6.1 9",
+   "source": "习题 6.1",
+   "body": "设 $f$ 为 $[a, b]$ 上二阶可导函数， $f(a) = f(b) = 0$ ，并存在一点 $c \\in (a, b)$ ，使得 $f(c) > 0$ . 证明：至少存在一点 $\\xi \\in (a, b)$ ，使得 $f''(\\xi) < 0$ .",
+   "hint": "",
+   "tags": [
+    "中值定理",
+    "单调性"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.1-10",
+   "chapter": 6,
+   "section": "6.1",
+   "number": 10,
+   "label": "6.1 10",
+   "source": "习题 6.1",
+   "body": "设函数 $f$ 在 $(a, b)$ 上可导，且 $f'$ 单调。证明： $f'$ 在 $(a, b)$ 上连续。",
+   "hint": "",
+   "tags": [
+    "中值定理",
+    "单调性"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.1-11",
+   "chapter": 6,
+   "section": "6.1",
+   "number": 11,
+   "label": "6.1 11",
+   "source": "习题 6.1",
+   "body": "设 $p(x)$ 为多项式, $\\alpha$ 为 $p(x) = 0$ 的 $r$ 重实根. 证明: $\\alpha$ 必定是 $p'(x) = 0$ 的 $r - 1$ 重实根.",
+   "hint": "",
+   "tags": [
+    "中值定理",
+    "单调性"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.1-12",
+   "chapter": 6,
+   "section": "6.1",
+   "number": 12,
+   "label": "6.1 12",
+   "source": "习题 6.1",
+   "body": "设 $f$ 为 $n$ 阶可导函数. 证明: 若方程 $f(x) = 0$ 有 $n + 1$ 个相异的实根, 则方程 $f^{(n)}(x) = 0$ 至少有一个实根.",
+   "hint": "",
+   "tags": [
+    "中值定理",
+    "单调性"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.1-13",
+   "chapter": 6,
+   "section": "6.1",
+   "number": 13,
+   "label": "6.1 13",
+   "source": "习题 6.1",
+   "body": "设 $a > 0$ . 证明: 函数 $f(x) = x^3 + ax + b$ 存在唯一的零点.",
+   "hint": "",
+   "tags": [
+    "中值定理",
+    "单调性"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.1-14",
+   "chapter": 6,
+   "section": "6.1",
+   "number": 14,
+   "label": "6.1 14",
+   "source": "习题 6.1",
+   "body": "证明: $\\frac{\\tan x}{x} > \\frac{x}{\\sin x}, x \\in \\left(0, \\frac{\\pi}{2}\\right)$ .",
+   "hint": "",
+   "tags": [
+    "中值定理",
+    "单调性"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.1-15",
+   "chapter": 6,
+   "section": "6.1",
+   "number": 15,
+   "label": "6.1 15",
+   "source": "习题 6.1",
+   "body": "证明: 若函数 $f, g$ 在区间 $[a, b]$ 上可导, 且 $f'(x) > g'(x), f(a) = g(a)$ , 则在 $(a, b]$ 上有 $f(x) > g(x)$ .",
+   "hint": "",
+   "tags": [
+    "中值定理",
+    "单调性"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.2-1",
+   "chapter": 6,
+   "section": "6.2",
+   "number": 1,
+   "label": "6.2 1",
+   "source": "习题 6.2",
+   "body": "试问函数 $f(x) = x^{2}, g(x) = x^{3}$ 在区间 $[-1, 1]$ 上能否应用柯西中值定理得到相应的结论，为什么？",
+   "hint": "",
+   "tags": [
+    "柯西中值定理",
+    "洛必达法则"
+   ],
+   "type": "解答",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.2-2",
+   "chapter": 6,
+   "section": "6.2",
+   "number": 2,
+   "label": "6.2 2",
+   "source": "习题 6.2",
+   "body": "设函数 $f$ 在 $[a, b]$ 上连续，在 $(a, b)$ 上可导. 证明: 存在 $\\xi \\in (a, b)$ , 使得\n\n$$\n2 \\xi (f (b) - f (a)) = (b ^ {2} - a ^ {2}) f ^ {\\prime} (\\xi).\n$$",
+   "hint": "",
+   "tags": [
+    "柯西中值定理",
+    "洛必达法则"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.2-3",
+   "chapter": 6,
+   "section": "6.2",
+   "number": 3,
+   "label": "6.2 3",
+   "source": "习题 6.2",
+   "body": "设函数 $f$ 在点 $a$ 处具有连续的二阶导数. 证明：\n\n$$\n\\lim _ {h \\rightarrow 0} \\frac {f (a + h) + f (a - h) - 2 f (a)}{h ^ {2}} = f ^ {\\prime \\prime} (a).\n$$",
+   "hint": "",
+   "tags": [
+    "柯西中值定理",
+    "洛必达法则"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.2-4",
+   "chapter": 6,
+   "section": "6.2",
+   "number": 4,
+   "label": "6.2 4",
+   "source": "习题 6.2",
+   "body": "设 $0 < \\alpha < \\beta < \\frac{\\pi}{2}$ . 证明: 存在 $\\theta \\in (\\alpha, \\beta)$ , 使得\n\n$$\n\\frac {\\sin \\alpha - \\sin \\beta}{\\cos \\beta - \\cos \\alpha} = \\cot \\theta .\n$$",
+   "hint": "",
+   "tags": [
+    "柯西中值定理",
+    "洛必达法则"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.2-5",
+   "chapter": 6,
+   "section": "6.2",
+   "number": 5,
+   "label": "6.2 5",
+   "source": "习题 6.2",
+   "body": "求下列不定式极限：\n\n(1) $\\lim_{x\\to 0}\\frac{\\mathrm{e}^x - 1}{\\sin x};$ \n\n(2) $\\lim_{x\\to \\frac{\\pi}{6}}\\frac{1 - 2\\sin x}{\\cos 3x};$ \n\n(3) $\\lim_{x\\to 0}\\frac{\\ln(1 + x) - x}{\\cos x - 1};$ \n\n(4) $\\lim_{x\\to 0}\\frac{\\tan x - x}{x - \\sin x};$ \n\n(5) $\\lim_{x\\to \\frac{\\pi}{2}}\\frac{\\tan x - 6}{\\sec x + 5};$ \n\n(6) $\\lim_{x\\to 0}\\left(\\frac{1}{\\dot{x}} -\\frac{1}{\\mathrm{e}^x - 1}\\right);$ \n\n(7) $\\lim_{x\\to 0^{+}}(\\tan x)^{\\sin x}$ ; \n\n(8) $\\lim_{x\\to 1}x^{\\frac{1}{1 - x}};$ \n\n(9) $\\lim_{x\\to 0}\\left(1 + x^2\\right)^{\\frac{1}{x}};$ \n\n(10) $\\lim_{x\\to 0^{+}}\\sin x\\ln x;$ \n\n(11) $\\lim_{x\\to 0}\\left(\\frac{1}{x^2} -\\frac{1}{\\sin^2x}\\right)$ ; \n\n(12) $\\lim_{x\\to 0}\\left(\\frac{\\tan x}{x}\\right)^{\\frac{1}{x^2}}.$",
+   "hint": "",
+   "tags": [
+    "柯西中值定理",
+    "洛必达法则"
+   ],
+   "type": "计算",
+   "difficulty": 3,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.2-6",
+   "chapter": 6,
+   "section": "6.2",
+   "number": 6,
+   "label": "6.2 6",
+   "source": "习题 6.2",
+   "body": "设函数 $f$ 在点 $a$ 的某个邻域上具有二阶导数. 证明: 对充分小的 $h$ , 存在 $\\theta, 0 < \\theta < 1$ , 使得\n\n$$\n\\frac {f (a + h) + f (a - h) - 2 f (a)}{h ^ {2}} = \\frac {f ^ {\\prime \\prime} (a + \\theta h) + f ^ {\\prime \\prime} (a - \\theta h)}{2}.\n$$",
+   "hint": "",
+   "tags": [
+    "柯西中值定理",
+    "洛必达法则"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.2-7",
+   "chapter": 6,
+   "section": "6.2",
+   "number": 7,
+   "label": "6.2 7",
+   "source": "习题 6.2",
+   "body": "求下列不定式极限：\n\n(1) $\\lim_{x\\to 1}\\frac{\\ln\\cos(x - 1)}{1 - \\sin\\frac{\\pi x}{2}};$ (2) $\\lim_{x\\to +\\infty}(\\pi -2\\arctan x)\\ln x;$ \n\n(3) $\\lim_{x\\to 0^{+}}x^{\\sin x}$ ; (4) $\\lim_{x\\to \\frac{\\pi}{4}}(\\tan x)^{\\tan 2x}$ ; \n\n(5) $\\lim_{x\\to 0}\\left(\\frac{\\ln(1 + x)^{(1 + x)}}{x^2} -\\frac{1}{x}\\right)$ ; \n\n(6) $\\lim_{x\\to 0}\\left(\\cot x - \\frac{1}{x}\\right)$ ; \n\n(7) $\\lim_{x\\to 0}\\frac{(1 + x)^{\\frac{1}{x}} - e}{x};$ \n\n(8) $\\lim_{x\\to +\\infty}\\left(\\frac{\\pi}{2} -\\arctan x\\right)^{\\frac{1}{\\ln x}}.$",
+   "hint": "",
+   "tags": [
+    "柯西中值定理",
+    "洛必达法则"
+   ],
+   "type": "计算",
+   "difficulty": 3,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.2-8",
+   "chapter": 6,
+   "section": "6.2",
+   "number": 8,
+   "label": "6.2 8",
+   "source": "习题 6.2",
+   "body": "设 $f(0) = 0$ , $f'$ 在原点的某邻域上连续, 且 $f'(0) \\neq 0$ . 证明:\n\n$$\n\\lim _ {x \\rightarrow 0 ^ {+}} x ^ {f (x)} = 1.\n$$",
+   "hint": "",
+   "tags": [
+    "柯西中值定理",
+    "洛必达法则"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.2-9",
+   "chapter": 6,
+   "section": "6.2",
+   "number": 9,
+   "label": "6.2 9",
+   "source": "习题 6.2",
+   "body": "证明定理6.7中 $\\lim_{x\\to +\\infty}f(x) = 0,\\lim_{x\\to +\\infty}g(x) = 0$ 情形时的洛必达法则.",
+   "hint": "",
+   "tags": [
+    "柯西中值定理",
+    "洛必达法则"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.2-10",
+   "chapter": 6,
+   "section": "6.2",
+   "number": 10,
+   "label": "6.2 10",
+   "source": "习题 6.2",
+   "body": "证明: $f(x) = x^3 \\mathrm{e}^{-x^2}$ 为有界函数.",
+   "hint": "",
+   "tags": [
+    "柯西中值定理",
+    "洛必达法则"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.2-11",
+   "chapter": 6,
+   "section": "6.2",
+   "number": 11,
+   "label": "6.2 11",
+   "source": "习题 6.2",
+   "body": "证明: 函数\n\n$$\nf (x) = \\left\\{ \\begin{array}{l l} \\mathrm{e} ^ {\\frac {1}{x ^ {2}}}, & x \\neq 0, \\\\ 0, & x = 0 \\end{array} \\right.\n$$\n\n在 $x = 0$ 处 $n$ 阶可导且 $f^{(n)}(0) = 0$ ，其中 $n$ 为任意正整数.",
+   "hint": "",
+   "tags": [
+    "柯西中值定理",
+    "洛必达法则"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.3-1",
+   "chapter": 6,
+   "section": "6.3",
+   "number": 1,
+   "label": "6.3 1",
+   "source": "习题 6.3",
+   "body": "求下列函数带佩亚诺型余项的麦克劳林公式：\n\n(1) $f(x) = \\frac{1}{\\sqrt{1 + x}};$ \n\n(2) $f(x)=\\arctan x$ 到含 $x^{5}$ 的项；\n\n(3) $f(x) = \\tan x$ 到含 $x^5$ 的项.",
+   "hint": "",
+   "tags": [
+    "泰勒公式",
+    "余项"
+   ],
+   "type": "计算",
+   "difficulty": 2,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.3-2",
+   "chapter": 6,
+   "section": "6.3",
+   "number": 2,
+   "label": "6.3 2",
+   "source": "习题 6.3",
+   "body": "按例4的方法求下列极限：(1) $\\lim_{x\\to 0}\\frac{\\mathrm{e}^x\\sin x - x(1 + x)}{x^3};$ (2) $\\lim_{x\\to \\infty}\\left(x - x^2\\ln \\left(1 + \\frac{1}{x}\\right)\\right);$ \n\n$$\n\\lim _ {x \\rightarrow 0} \\frac {1}{x} \\left(\\frac {1}{x} - \\cot x\\right)\n$$",
+   "hint": "",
+   "tags": [
+    "泰勒公式",
+    "余项"
+   ],
+   "type": "计算",
+   "difficulty": 2,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.3-3",
+   "chapter": 6,
+   "section": "6.3",
+   "number": 3,
+   "label": "6.3 3",
+   "source": "习题 6.3",
+   "body": "求下列函数在指定点处带拉格朗日型余项的泰勒公式：\n(1) $f(x)=x^{3}+4x^{2}+5$ ，在x=1处；(2) $f(x)=\\frac{1}{1+x}$ ，在x=0处.",
+   "hint": "",
+   "tags": [
+    "泰勒公式",
+    "余项"
+   ],
+   "type": "计算",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.3-4",
+   "chapter": 6,
+   "section": "6.3",
+   "number": 4,
+   "label": "6.3 4",
+   "source": "习题 6.3",
+   "body": "估计下列近似公式的绝对误差：\n(1) $\\sin x \\approx x - \\frac{x^{3}}{6}, |x| \\leqslant \\frac{1}{2};$ (2) $\\sqrt{1+x} \\approx 1 + \\frac{x}{2} - \\frac{x^{2}}{8}, x \\in [0,1].$",
+   "hint": "",
+   "tags": [
+    "泰勒公式",
+    "余项"
+   ],
+   "type": "解答",
+   "difficulty": 2,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.3-5",
+   "chapter": 6,
+   "section": "6.3",
+   "number": 5,
+   "label": "6.3 5",
+   "source": "习题 6.3",
+   "body": "计算: (1) 数 e 准确到 $10^{-9}$ ;\n\n(2) $\\ln 2.7$ 准确到 $10^{-5}$ .",
+   "hint": "",
+   "tags": [
+    "泰勒公式",
+    "余项"
+   ],
+   "type": "计算",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.4-1",
+   "chapter": 6,
+   "section": "6.4",
+   "number": 1,
+   "label": "6.4 1",
+   "source": "习题 6.4",
+   "body": "求下列函数的极值：\n(1) $f(x)=2x^{3}-x^{4}$ ; (2) $f(x)=\\frac{2x}{1+x^{2}}$ ;\n(3) $f(x)=\\frac{\\left(\\ln x\\right)^{2}}{x}$ ; (4) $f(x)=\\arctan x-\\frac{1}{2}\\ln\\left(1+x^{2}\\right)$ .",
+   "hint": "",
+   "tags": [
+    "极值",
+    "最值"
+   ],
+   "type": "计算",
+   "difficulty": 2,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.4-2",
+   "chapter": 6,
+   "section": "6.4",
+   "number": 2,
+   "label": "6.4 2",
+   "source": "习题 6.4",
+   "body": "设\n\n$$\nf (x) = \\left\\{ \\begin{array}{c c} x ^ {4} \\sin^ {2} \\frac {1}{x}, & x \\neq 0, \\\\ 0, & x = 0. \\end{array} \\right.\n$$\n\n(1) 证明: x = 0 是极小值点;\n\n(2) 说明 f 在极小值点 x = 0 是否满足极值的第一充分条件或第二充分条件.",
+   "hint": "",
+   "tags": [
+    "极值",
+    "最值"
+   ],
+   "type": "证明",
+   "difficulty": 2,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.4-3",
+   "chapter": 6,
+   "section": "6.4",
+   "number": 3,
+   "label": "6.4 3",
+   "source": "习题 6.4",
+   "body": "证明: 若函数 $f$ 在点 $x_0$ 有 $f'_+(x_0) < 0 (>0)$ , $f'_-(x_0) > 0 (< 0)$ , 则 $x_0$ 为 $f$ 的极大 (小) 值点.",
+   "hint": "",
+   "tags": [
+    "极值",
+    "最值"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.4-4",
+   "chapter": 6,
+   "section": "6.4",
+   "number": 4,
+   "label": "6.4 4",
+   "source": "习题 6.4",
+   "body": "求下列函数在给定区间上的最大、最小值：\n\n(1) $f(x) = x^{5} - 5x^{4} + 5x^{3} + 1, x \\in [-1, 2]$ ; \n\n(2) $f(x) = 2\\tan x - \\tan^2 x, x \\in \\left[0, \\frac{\\pi}{2}\\right)$ ; \n\n(3) $f(x) = \\sqrt{x}\\ln x, x \\in (0, +\\infty)$ .",
+   "hint": "",
+   "tags": [
+    "极值",
+    "最值"
+   ],
+   "type": "计算",
+   "difficulty": 2,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.4-5",
+   "chapter": 6,
+   "section": "6.4",
+   "number": 5,
+   "label": "6.4 5",
+   "source": "习题 6.4",
+   "body": "设 $f(x)$ 在区间 $I$ 上连续，并且在 $I$ 上仅有唯一的极值点 $x_0$ . 证明：若 $x_0$ 是 $f$ 的极大（小）值点，则 $x_0$ 必是 $f(x)$ 在 $I$ 上的最大（小）值点.",
+   "hint": "",
+   "tags": [
+    "极值",
+    "最值"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.4-6",
+   "chapter": 6,
+   "section": "6.4",
+   "number": 6,
+   "label": "6.4 6",
+   "source": "习题 6.4",
+   "body": "把长为 $l$ 的线段截为两段, 问怎样截能使以这两段线为边所组成的矩形的面积最大?",
+   "hint": "",
+   "tags": [
+    "极值",
+    "最值"
+   ],
+   "type": "解答",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.4-7",
+   "chapter": 6,
+   "section": "6.4",
+   "number": 7,
+   "label": "6.4 7",
+   "source": "习题 6.4",
+   "body": "有一个无盖的圆柱形容器, 当给定体积为 V 时, 要使容器的表面积最小, 问底的半径与容器高的比例应该怎样?",
+   "hint": "",
+   "tags": [
+    "极值",
+    "最值"
+   ],
+   "type": "解答",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.4-8",
+   "chapter": 6,
+   "section": "6.4",
+   "number": 8,
+   "label": "6.4 8",
+   "source": "习题 6.4",
+   "body": "设用某仪器进行测量时, 读得 n 次实验数据为 $a_{1}, a_{2}, \\cdots, a_{n}$ . 问以怎样的数值 x 表达所要测量的真值, 才能使它与这 n 个数之差的平方和最小?",
+   "hint": "",
+   "tags": [
+    "极值",
+    "最值"
+   ],
+   "type": "解答",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.4-9",
+   "chapter": 6,
+   "section": "6.4",
+   "number": 9,
+   "label": "6.4 9",
+   "source": "习题 6.4",
+   "body": "求一正数 $a$ ，使它与其倒数之和最小。",
+   "hint": "",
+   "tags": [
+    "极值",
+    "最值"
+   ],
+   "type": "计算",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.4-10",
+   "chapter": 6,
+   "section": "6.4",
+   "number": 10,
+   "label": "6.4 10",
+   "source": "习题 6.4",
+   "body": "求下列函数的极值：\n\n(1) $f(x) = |x(x^2 - 1)|$ ; (2) $f(x) = \\frac{x(x^2 + 1)}{x^4 - x^2 + 1}$ ; \n\n(3) $f(x) = (x - 1)^{2}(x + 1)^{3}$ .",
+   "hint": "",
+   "tags": [
+    "极值",
+    "最值"
+   ],
+   "type": "计算",
+   "difficulty": 2,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.4-11",
+   "chapter": 6,
+   "section": "6.4",
+   "number": 11,
+   "label": "6.4 11",
+   "source": "习题 6.4",
+   "body": "设 $f(x) = a \\ln x + bx^2 + x$ 在 $x_1 = 1, x_2 = 2$ 处都取得极值，试求 $a$ 与 $b$ ，并问这时 $f$ 在 $x_1$ 与 $x_2$ 是取得极大值还是极小值？",
+   "hint": "",
+   "tags": [
+    "极值",
+    "最值"
+   ],
+   "type": "计算",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.4-12",
+   "chapter": 6,
+   "section": "6.4",
+   "number": 12,
+   "label": "6.4 12",
+   "source": "习题 6.4",
+   "body": "在抛物线 $y^{2} = 2px$ 上哪一点的法线被抛物线所截之线段最短？",
+   "hint": "",
+   "tags": [
+    "极值",
+    "最值"
+   ],
+   "type": "解答",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.4-13",
+   "chapter": 6,
+   "section": "6.4",
+   "number": 13,
+   "label": "6.4 13",
+   "source": "习题 6.4",
+   "body": "要把货物从运河边上 A 城运往与运河相距为 BC = a km 的 B 城（见图 6-11），轮船运费的单价是 $\\alpha$ 元/km，火车运费的单价是 $\\beta$ 元/km ( $\\beta > \\alpha$ )，试求运河边上的一点 M，修建铁路 MB，使得 $A \\rightarrow M \\rightarrow B$ 的总运费最省。",
+   "hint": "",
+   "tags": [
+    "极值",
+    "最值"
+   ],
+   "type": "计算",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.5-1",
+   "chapter": 6,
+   "section": "6.5",
+   "number": 1,
+   "label": "6.5 1",
+   "source": "习题 6.5",
+   "body": "确定下列函数的凸(凹)性区间与拐点：\n\n(1) $y = 2x^{3} - 3x^{2} - 36x + 25$ ; (2) $y = x + \\frac{1}{x}$ ; \n\n(3) $y = x^{2} + \\frac{1}{x};$ (4) $y = \\ln (x^{2} + 1);$ \n\n(5) $y = \\frac{1}{1 + x^2}.$",
+   "hint": "",
+   "tags": [
+    "凸性",
+    "拐点"
+   ],
+   "type": "计算",
+   "difficulty": 3,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.5-2",
+   "chapter": 6,
+   "section": "6.5",
+   "number": 2,
+   "label": "6.5 2",
+   "source": "习题 6.5",
+   "body": "问 $a$ 和 $b$ 为何值时, 点 $(1,3)$ 为曲线 $y = ax^3 + bx^2$ 的拐点?",
+   "hint": "",
+   "tags": [
+    "凸性",
+    "拐点"
+   ],
+   "type": "解答",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.5-3",
+   "chapter": 6,
+   "section": "6.5",
+   "number": 3,
+   "label": "6.5 3",
+   "source": "习题 6.5",
+   "body": "证明：\n\n(1) 若 f 为凸函数, $\\lambda$ 为非负实数, 则 $\\lambda f$ 为凸函数;\n\n(2) 若 f, g 均为凸函数, 则 $f + g$ 为凸函数;\n\n(3) 若 f 为区间 I 上凸函数, g 为 $J \\supset f(I)$ 上凸增函数, 则 $g \\circ f$ 为 I 上凸函数.",
+   "hint": "",
+   "tags": [
+    "凸性",
+    "拐点"
+   ],
+   "type": "证明",
+   "difficulty": 2,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.5-4",
+   "chapter": 6,
+   "section": "6.5",
+   "number": 4,
+   "label": "6.5 4",
+   "source": "习题 6.5",
+   "body": "设 $f$ 为区间 $I$ 上严格凸函数. 证明: 若 $x_0 \\in I$ 为 $f$ 的极小值点, 则 $x_0$ 为 $f$ 在 $I$ 上唯一的极小值点.",
+   "hint": "",
+   "tags": [
+    "凸性",
+    "拐点"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.5-5",
+   "chapter": 6,
+   "section": "6.5",
+   "number": 5,
+   "label": "6.5 5",
+   "source": "习题 6.5",
+   "body": "应用凸函数概念证明如下不等式：\n\n(1) 对任意实数 $a, b$ , 有 $\\mathrm{e}^{\\frac{a+b}{2}} \\leqslant \\frac{1}{2} (\\mathrm{e}^{a} + \\mathrm{e}^{b})$ ;\n\n(2) 对任何非负实数 $a, b$ , 有 $2 \\arctan \\left( \\frac{a + b}{2} \\right) \\geqslant \\arctan a + \\arctan b$ .",
+   "hint": "",
+   "tags": [
+    "凸性",
+    "拐点"
+   ],
+   "type": "证明",
+   "difficulty": 2,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.5-6",
+   "chapter": 6,
+   "section": "6.5",
+   "number": 6,
+   "label": "6.5 6",
+   "source": "习题 6.5",
+   "body": "证明: $\\sin \\pi x \\leqslant \\frac{\\pi^2}{2} x (1 - x)$ , 其中 $x \\in [0,1]$ .",
+   "hint": "",
+   "tags": [
+    "凸性",
+    "拐点"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.5-7",
+   "chapter": 6,
+   "section": "6.5",
+   "number": 7,
+   "label": "6.5 7",
+   "source": "习题 6.5",
+   "body": "证明: 若 $f, g$ 均为区间 $I$ 上凸函数, 则 $F(x) = \\max \\{f(x), g(x)\\}$ 也是 $I$ 上凸函数.",
+   "hint": "",
+   "tags": [
+    "凸性",
+    "拐点"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.5-8",
+   "chapter": 6,
+   "section": "6.5",
+   "number": 8,
+   "label": "6.5 8",
+   "source": "习题 6.5",
+   "body": "证明: 对任意正数 a, b, p, q, 有\n\n$$\na b \\leqslant {\\frac {1}{p}} a ^ {p} + {\\frac {1}{q}} b ^ {q}, \\quad \\text {其中} {\\frac {1}{p}} + {\\frac {1}{q}} = 1.\n$$",
+   "hint": "",
+   "tags": [
+    "凸性",
+    "拐点"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.5-9",
+   "chapter": 6,
+   "section": "6.5",
+   "number": 9,
+   "label": "6.5 9",
+   "source": "习题 6.5",
+   "body": "证明：(1) $f$ 为区间 $I$ 上凸函数的充要条件是对 $I$ 上任意三点 $x_{1} < x_{2} < x_{3}$ ，恒有\n\n$$\n\\Delta = \\left| \\begin{array}{c c c} 1 & x _ {1} & f (x _ {1}) \\\\ 1 & x _ {2} & f (x _ {2}) \\\\ 1 & x _ {3} & f (x _ {3}) \\end{array} \\right| \\geqslant 0;\n$$\n\n(2) f 为严格凸函数的充要条件是 $\\Delta > 0$ .",
+   "hint": "",
+   "tags": [
+    "凸性",
+    "拐点"
+   ],
+   "type": "证明",
+   "difficulty": 2,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.5-10",
+   "chapter": 6,
+   "section": "6.5",
+   "number": 10,
+   "label": "6.5 10",
+   "source": "习题 6.5",
+   "body": "应用延森不等式证明：\n\n(1) 设 $a_{i}>0\\quad(i=1,2,\\cdots,n)$ ，有\n\n$$\n\\frac {n}{\\frac {1}{a _ {1}} + \\frac {1}{a _ {2}} + \\cdots + \\frac {1}{a _ {n}}} \\leqslant \\sqrt [ n ]{a _ {1} a _ {2} \\cdots a _ {n}} \\leqslant \\frac {a _ {1} + a _ {2} + \\cdots + a _ {n}}{n};\n$$\n\n(2) 设 $a_{i}, b_{i} > 0 (i = 1, 2, \\cdots, n)$ ，有\n\n$$\n\\sum_ {i = 1} ^ {n} a _ {i} b _ {i} \\leqslant \\left(\\sum_ {i = 1} ^ {n} a _ {i} ^ {p}\\right) ^ {\\frac {1}{p}} \\left(\\sum_ {i = 1} ^ {n} b _ {i} ^ {q}\\right) ^ {\\frac {1}{q}},\n$$\n\n其中 $p > 1, q > 1, \\frac{1}{p} + \\frac{1}{q} = 1$ .",
+   "hint": "",
+   "tags": [
+    "凸性",
+    "拐点"
+   ],
+   "type": "证明",
+   "difficulty": 3,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.5-11",
+   "chapter": 6,
+   "section": "6.5",
+   "number": 11,
+   "label": "6.5 11",
+   "source": "习题 6.5",
+   "body": "求证: 圆内接 n 边形的面积最大者必为正 n 边形 ( $n \\geqslant 3$ ).",
+   "hint": "",
+   "tags": [
+    "凸性",
+    "拐点"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.6-1",
+   "chapter": 6,
+   "section": "6.6",
+   "number": 1,
+   "label": "6.6 1",
+   "source": "习题 6.6",
+   "body": "$y = x^{3} + 6x^{2} - 15x - 20.$",
+   "hint": "",
+   "tags": [
+    "函数图像",
+    "渐近线"
+   ],
+   "type": "解答",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.6-2",
+   "chapter": 6,
+   "section": "6.6",
+   "number": 2,
+   "label": "6.6 2",
+   "source": "习题 6.6",
+   "body": "$y = \\frac{x^3}{2(1 + x)^2}.$",
+   "hint": "",
+   "tags": [
+    "函数图像",
+    "渐近线"
+   ],
+   "type": "解答",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.6-3",
+   "chapter": 6,
+   "section": "6.6",
+   "number": 3,
+   "label": "6.6 3",
+   "source": "习题 6.6",
+   "body": "$y = x - 2\\arctan x.$",
+   "hint": "",
+   "tags": [
+    "函数图像",
+    "渐近线"
+   ],
+   "type": "解答",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.6-4",
+   "chapter": 6,
+   "section": "6.6",
+   "number": 4,
+   "label": "6.6 4",
+   "source": "习题 6.6",
+   "body": "$y = x\\mathrm{e}^{-x}$",
+   "hint": "",
+   "tags": [
+    "函数图像",
+    "渐近线"
+   ],
+   "type": "解答",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.6-5",
+   "chapter": 6,
+   "section": "6.6",
+   "number": 5,
+   "label": "6.6 5",
+   "source": "习题 6.6",
+   "body": "$y = 3x^{5} - 5x^{3}$",
+   "hint": "",
+   "tags": [
+    "函数图像",
+    "渐近线"
+   ],
+   "type": "解答",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.6-7",
+   "chapter": 6,
+   "section": "6.6",
+   "number": 7,
+   "label": "6.6 7",
+   "source": "习题 6.6",
+   "body": "$y = (x - 1)x^{\\frac{2}{3}}$",
+   "hint": "",
+   "tags": [
+    "函数图像",
+    "渐近线"
+   ],
+   "type": "解答",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.6-6",
+   "chapter": 6,
+   "section": "6.6",
+   "number": 6,
+   "label": "6.6 6",
+   "source": "习题 6.6",
+   "body": "$y = \\mathrm{e}^{-x^2}$",
+   "hint": "",
+   "tags": [
+    "函数图像",
+    "渐近线"
+   ],
+   "type": "解答",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.6-8",
+   "chapter": 6,
+   "section": "6.6",
+   "number": 8,
+   "label": "6.6 8",
+   "source": "习题 6.6",
+   "body": "$y = |x|^{\\frac{2}{3}}(x - 2)^{2}$ .",
+   "hint": "",
+   "tags": [
+    "函数图像",
+    "渐近线"
+   ],
+   "type": "解答",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.rev-1",
+   "chapter": 6,
+   "section": "6.rev",
+   "number": 1,
+   "label": "6.rev 1",
+   "source": "第六章总练习题",
+   "body": "证明: 若 $f(x)$ 在有限开区间 $(a, b)$ 上可导, 且 $\\lim_{x \\to a^{+}} f(x) = \\lim_{x \\to b^{-}} f(x)$ , 则至少存在一点 $\\xi \\in (a, b)$ , 使 $f'(\\xi) = 0$ .",
+   "hint": "",
+   "tags": [
+    "综合题",
+    "中值定理应用"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.rev-2",
+   "chapter": 6,
+   "section": "6.rev",
+   "number": 2,
+   "label": "6.rev 2",
+   "source": "第六章总练习题",
+   "body": "证明: 若 $x > 0$ , 则\n\n(1) $\\sqrt{x + 1} -\\sqrt{x} = \\frac{1}{2\\sqrt{x + \\theta(x)}}$ ，其中 $\\frac{1}{4}\\leqslant \\theta (x)\\leqslant \\frac{1}{2};$ \n\n(2) $\\lim_{x\\to 0^{+}}\\theta (x) = \\frac{1}{4},\\lim_{x\\to +\\infty}\\theta (x) = \\frac{1}{2}.$",
+   "hint": "",
+   "tags": [
+    "综合题",
+    "中值定理应用"
+   ],
+   "type": "证明",
+   "difficulty": 2,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.rev-3",
+   "chapter": 6,
+   "section": "6.rev",
+   "number": 3,
+   "label": "6.rev 3",
+   "source": "第六章总练习题",
+   "body": "设函数 $f$ 在 $[a, b]$ 上连续，在 $(a, b)$ 上可导，且 $a \\cdot b > 0$ . 证明：存在 $\\xi \\in (a, b)$ ，使得\n\n$$\n\\frac {1}{a - b} \\left| \\begin{array}{c c} a & b \\\\ f (a) & f (b) \\end{array} \\right| = f (\\xi) - \\xi f ^ {\\prime} (\\xi).\n$$",
+   "hint": "",
+   "tags": [
+    "综合题",
+    "中值定理应用"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.rev-4",
+   "chapter": 6,
+   "section": "6.rev",
+   "number": 4,
+   "label": "6.rev 4",
+   "source": "第六章总练习题",
+   "body": "设 $f$ 在 $[a, b]$ 上三阶可导. 证明: 存在 $\\xi \\in (a, b)$ , 使得\n\n$$\nf (b) = f (a) + \\frac {1}{2} (b - a) \\left(f ^ {\\prime} (a) + f ^ {\\prime} (b)\\right) - \\frac {1}{1 2} (b - a) ^ {3} f ^ {\\prime \\prime \\prime} (\\xi).\n$$",
+   "hint": "",
+   "tags": [
+    "综合题",
+    "中值定理应用"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.rev-5",
+   "chapter": 6,
+   "section": "6.rev",
+   "number": 5,
+   "label": "6.rev 5",
+   "source": "第六章总练习题",
+   "body": "对 $f(x)=\\ln(1+x)$ 应用拉格朗日中值定理, 试证: 对 x>0, 有\n\n$$\n0 <   \\frac {1}{\\ln (1 + x)} - \\frac {1}{x} <   1.\n$$",
+   "hint": "",
+   "tags": [
+    "综合题",
+    "中值定理应用"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.rev-6",
+   "chapter": 6,
+   "section": "6.rev",
+   "number": 6,
+   "label": "6.rev 6",
+   "source": "第六章总练习题",
+   "body": "设 $a_{1}, a_{2}, \\cdots, a_{n}$ 为 n 个正数，且\n\n$$\nf (x) = \\left(\\frac {a _ {1} ^ {x} + a _ {2} ^ {x} + \\cdots + a _ {n} ^ {x}}{n}\\right) ^ {\\frac {1}{x}}.\n$$\n\n证明：(1) $\\lim_{x\\to0}f(x)=\\sqrt[n]{a_{1}a_{2}\\cdots a_{n}}$ ;\n\n(2) $\\lim_{x\\to+\\infty}f(x)=\\max\\left\\{a_{1},a_{2},\\cdots,a_{n}\\right\\}$ .",
+   "hint": "",
+   "tags": [
+    "综合题",
+    "中值定理应用"
+   ],
+   "type": "证明",
+   "difficulty": 2,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.rev-7",
+   "chapter": 6,
+   "section": "6.rev",
+   "number": 7,
+   "label": "6.rev 7",
+   "source": "第六章总练习题",
+   "body": "求下列极限：\n\n(1) $\\lim_{x\\to 1^{-}}(1 - x^2)^{\\frac{1}{\\ln(1 - x)}};$ (2) $\\lim_{x\\to 0}\\frac{x\\mathrm{e}^x - \\ln(1 + x)}{x^2};$ \n\n(3) $\\lim_{x\\to 0}\\frac{x^2\\sin\\frac{1}{x}}{\\sin x}.$",
+   "hint": "",
+   "tags": [
+    "综合题",
+    "中值定理应用"
+   ],
+   "type": "计算",
+   "difficulty": 2,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.rev-8",
+   "chapter": 6,
+   "section": "6.rev",
+   "number": 8,
+   "label": "6.rev 8",
+   "source": "第六章总练习题",
+   "body": "设 $h > 0$ ，函数 $f$ 在 $U(a; h)$ 上具有 $n + 2$ 阶连续导数，且 $f^{(n + 2)}(a) \\neq 0, f$ 在 $U(a; h)$ 上的泰勒公式为\n\n$$\nf (a + h) = f (a) + f ^ {\\prime} (a) h + \\dots + \\frac {f ^ {(n)} (a)}{n !} h ^ {n} + \\frac {f ^ {(n + 1)} (a + \\theta h)}{(n + 1) !} h ^ {n + 1}, \\quad 0 <   \\theta <   1.\n$$\n\n证明： $\\lim_{h\\to 0}\\theta = \\frac{1}{n + 2}.$",
+   "hint": "",
+   "tags": [
+    "综合题",
+    "中值定理应用"
+   ],
+   "type": "证明",
+   "difficulty": 2,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.rev-9",
+   "chapter": 6,
+   "section": "6.rev",
+   "number": 9,
+   "label": "6.rev 9",
+   "source": "第六章总练习题",
+   "body": "设 $k > 0$ ，试问 $k$ 为何值时，方程 $\\arctan x - kx = 0$ 有正实根？",
+   "hint": "",
+   "tags": [
+    "综合题",
+    "中值定理应用"
+   ],
+   "type": "解答",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.rev-10",
+   "chapter": 6,
+   "section": "6.rev",
+   "number": 10,
+   "label": "6.rev 10",
+   "source": "第六章总练习题",
+   "body": "证明: 对任一多项式 $p(x)$ , 一定存在 $x_{1}$ 与 $x_{2}$ , 使 $p(x)$ 在 $(- \\infty, x_{1})$ 与 $(x_{2}, +\\infty)$ 上分别严格单调.",
+   "hint": "",
+   "tags": [
+    "综合题",
+    "中值定理应用"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.rev-11",
+   "chapter": 6,
+   "section": "6.rev",
+   "number": 11,
+   "label": "6.rev 11",
+   "source": "第六章总练习题",
+   "body": "讨论函数\n\n$$\nf (x) = \\left\\{ \\begin{array}{c c} \\frac {x}{2} + x ^ {2} \\sin \\frac {1}{x}, & x \\neq 0, \\\\ 0, & x = 0, \\end{array} \\right.\n$$\n\n(1) 在 x = 0 点是否可导？\n\n(2) 是否存在 x = 0 的一个邻域, 使 f 在该邻域上单调?",
+   "hint": "",
+   "tags": [
+    "综合题",
+    "中值定理应用"
+   ],
+   "type": "讨论",
+   "difficulty": 2,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.rev-12",
+   "chapter": 6,
+   "section": "6.rev",
+   "number": 12,
+   "label": "6.rev 12",
+   "source": "第六章总练习题",
+   "body": "设函数 $f$ 在 $[a, b]$ 上二阶可导， $f'(a) = f'(b) = 0$ . 证明：存在一点 $\\xi \\in (a, b)$ ，使得\n\n$$\n\\left| f ^ {\\prime \\prime} (\\xi) \\right| \\geqslant \\frac {4}{(b - a) ^ {2}} \\left| f (b) - f (a) \\right|.\n$$",
+   "hint": "",
+   "tags": [
+    "综合题",
+    "中值定理应用"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.rev-13",
+   "chapter": 6,
+   "section": "6.rev",
+   "number": 13,
+   "label": "6.rev 13",
+   "source": "第六章总练习题",
+   "body": "设函数 $f$ 在 $[0, a]$ 上具有二阶导数，且 $|f''(x)| \\leqslant M, f'$ 在 $(0, a)$ 上取到最大值。试证：\n\n$$\n\\left| f ^ {\\prime} (0) \\right| + \\left| f ^ {\\prime} (a) \\right| \\leqslant M a.\n$$",
+   "hint": "",
+   "tags": [
+    "综合题",
+    "中值定理应用"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.rev-14",
+   "chapter": 6,
+   "section": "6.rev",
+   "number": 14,
+   "label": "6.rev 14",
+   "source": "第六章总练习题",
+   "body": "设 $f$ 在 $[0, +\\infty)$ 上可微，且 $0 \\leqslant f'(x) \\leqslant f(x), f(0) = 0$ . 证明：在 $[0, +\\infty)$ 上 $f(x) \\equiv 0$ .",
+   "hint": "",
+   "tags": [
+    "综合题",
+    "中值定理应用"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.rev-15",
+   "chapter": 6,
+   "section": "6.rev",
+   "number": 15,
+   "label": "6.rev 15",
+   "source": "第六章总练习题",
+   "body": "设 $f(x)$ 满足 $f''(x) + f'(x)g(x) - f(x) = 0$ ，其中 $g(x)$ 为任一函数。证明：若 $f(x_0) = f(x_1) = 0 (x_0 < x_1)$ ，则 $f$ 在 $[x_0, x_1]$ 上恒等于 0。",
+   "hint": "",
+   "tags": [
+    "综合题",
+    "中值定理应用"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.rev-16",
+   "chapter": 6,
+   "section": "6.rev",
+   "number": 16,
+   "label": "6.rev 16",
+   "source": "第六章总练习题",
+   "body": "证明: 定圆内接正 n 边形面积将随 n 的增加而增加.",
+   "hint": "",
+   "tags": [
+    "综合题",
+    "中值定理应用"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.rev-17",
+   "chapter": 6,
+   "section": "6.rev",
+   "number": 17,
+   "label": "6.rev 17",
+   "source": "第六章总练习题",
+   "body": "证明: $f$ 为 $I$ 上凸函数的充要条件是对任何 $x_{1}, x_{2} \\in I$ , 函数\n\n$$\n\\varphi (\\lambda) = f \\left(\\lambda x _ {1} + (1 - \\lambda) x _ {2}\\right)\n$$\n\n为 $[0,1]$ 上的凸函数.",
+   "hint": "",
+   "tags": [
+    "综合题",
+    "中值定理应用"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.rev-18",
+   "chapter": 6,
+   "section": "6.rev",
+   "number": 18,
+   "label": "6.rev 18",
+   "source": "第六章总练习题",
+   "body": "证明：(1) 设 $f$ 在 $(a, +\\infty)$ 上可导，若 $\\lim_{x \\to +\\infty} f(x), \\lim_{x \\to +\\infty} f'(x)$ 都存在，则\n\n$$\n\\lim _ {x \\rightarrow + \\infty} f ^ {\\prime} (x) = 0;\n$$\n\n(2) 设 $f$ 在 $(a, +\\infty)$ 上 $n$ 阶可导，若 $\\lim_{x \\to +\\infty} f(x)$ 和 $\\lim_{x \\to +\\infty} f^{(n)}(x)$ 都存在，则\n\n$$\n\\lim _ {x \\rightarrow + \\infty} f ^ {(k)} (x) = 0 (k = 1, 2, \\dots , n).\n$$",
+   "hint": "",
+   "tags": [
+    "综合题",
+    "中值定理应用"
+   ],
+   "type": "证明",
+   "difficulty": 2,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "6.rev-19",
+   "chapter": 6,
+   "section": "6.rev",
+   "number": 19,
+   "label": "6.rev 19",
+   "source": "第六章总练习题",
+   "body": "设 $f$ 为 $(- \\infty, + \\infty)$ 上的二阶可导函数. 证明: 若 $f$ 在 $(- \\infty, + \\infty)$ 上有界, 则存在 $\\xi \\in (-\\infty, + \\infty)$ , 使 $f''(\\xi) = 0$ .\n\n第六章自测题\n\n第六章重难点精讲",
+   "hint": "",
+   "tags": [
+    "综合题",
+    "中值定理应用"
+   ],
+   "type": "证明",
+   "difficulty": 1,
+   "answer": "",
+   "solution": ""
+  },
+  {
+   "id": "5.5-4",
+   "chapter": 5,
+   "section": "5.5",
+   "number": 4,
+   "label": "5.5 4",
+   "source": "习题 5.5",
+   "body": "利用微分求近似值：\n(1) $\\sqrt[3]{1.02}$；\n(2) $\\ln 2.7$；\n(3) $\\tan 45^{\\circ}10'$；\n(4) $\\sqrt{26}$.",
+   "hint": "",
+   "tags": [
+    "微分",
+    "近似计算"
+   ],
+   "type": "计算",
+   "difficulty": 1,
    "answer": "",
    "solution": ""
   }
