@@ -15,6 +15,7 @@
   var CMAP = {};
   CLUSTERS.forEach(function (c) { CMAP[c.id] = c; });
   var REFS = META.refs || {};
+  var KNOWLEDGE = window.MAQ_KNOWLEDGE || { chapters: [] };
   var TYPES = ['证明', '计算', '讨论', '辨析', '作图', '解答'];
   var DAY = 86400000;
   var REVIEW_DAYS = [1, 2, 4, 7, 15, 30, 60];
@@ -1125,6 +1126,7 @@
         '<div><b>' + (g.correct + g.wrong ? g.accuracy + '%' : '—') + '</b><span>累计正确率</span></div></div>' +
     '</section>' +
     resume +
+    '<div class="kb-promo"><div><div class="eyebrow">TEXTBOOK · 第 5–6 章</div><h3>导数与微分 · 微分中值定理</h3><p>定义、定理、公式、证明步骤与易混注记，按小节整理，支持全文搜索。</p></div><a class="btn primary" href="#/knowledge">打开知识点 →</a></div>' +
     (function () {
       var checked = !!state.checkins[todayKey()];
       return '<div class="review-panel">' +
@@ -1206,6 +1208,72 @@
       '<div class="filterbar">' + chips + statusSel + search + '</div>' +
       (list.length ? '<div class="bank-list">' + list.map(bankRow).join('') + '</div>' :
         '<div class="empty"><div class="big">∅</div><h3>没有符合条件的题目</h3><p>换个章节、状态或关键词试试。</p></div>');
+  }
+
+  /* ---------------- views: textbook knowledge ---------------- */
+  function kbType(p) {
+    var t = p.type || '';
+    return t === '定理' ? '定理' : t === '定义' ? '定义' : t === '推论' ? '推论' : t === '命题' ? '命题' : t === '注' ? '易混/注意' : t === '公式' ? '公式' : t === '步骤' ? '作图步骤' : t === '方法' ? '方法' : '补充';
+  }
+  function kbAllItems() {
+    var out = [];
+    (KNOWLEDGE.chapters || []).forEach(function (c) {
+      (c.sections || []).forEach(function (s) {
+        (s.points || []).forEach(function (p) { out.push({ ch: c, sec: s, p: p }); });
+      });
+    });
+    return out;
+  }
+  function kbCard(item) {
+    var p = item.p, sec = item.sec, ch = item.ch;
+    var proof = p.proof ? '<details class="kb-proof"><summary>证明步骤（展开）</summary><div class="kb-proof-body">' + esc(p.proof) + '</div></details>' : '';
+    var short = (p.title || '').split(/[：:]/)[0].trim();
+    var repeated = short && p.text.trim().indexOf(short) === 0;
+    var heading = (repeated || p.type === '注') ? '' : '<h3>' + esc(p.title) + '</h3>';
+    return '<article class="kb-card">' +
+      '<div class="kb-card-top"><span class="kb-type t-' + esc(p.type || '') + '">' + kbType(p) + '</span>' +
+        '<span class="kb-crumb">第 ' + ch.n + ' 章 · ' + sec.id + ' ' + esc(sec.title) + '</span></div>' +
+      heading + '<div class="kb-text">' + esc(p.text) + '</div>' + proof +
+    '</article>';
+  }
+  function viewKnowledge(route) {
+    var q = (route.query.q || '').trim();
+    var chapters = (KNOWLEDGE.chapters || []).filter(function (c) { return c.sections && c.sections.length; });
+    if (!chapters.length) {
+      return '<div class="page-head"><div><h1>课本知识点</h1></div></div><div class="empty"><div class="big">∅</div><h3>知识点数据未加载</h3></div>';
+    }
+    var chN = parseInt(route.query.ch, 10) || chapters[0].n;
+    var chapter = chapters.find(function (c) { return c.n === chN; }) || chapters[0];
+    var secId = route.query.sec || (chapter.sections[0] && chapter.sections[0].id);
+    var section = chapter.sections.find(function (s) { return s.id === secId; }) || chapter.sections[0];
+    var all = kbAllItems();
+    var total = all.length;
+    var searchForm = '<form class="kb-search" data-kb-search><input class="input" name="q" value="' + esc(q) + '" placeholder="搜索定义、定理、公式、证明步骤…" aria-label="搜索知识点"><button class="btn sm primary" type="submit">搜索</button></form>' +
+      (q ? '<a class="kb-clear" href="#/knowledge">清除搜索</a>' : '');
+    var chapterTabs = chapters.map(function (c) {
+      return '<a class="kb-chapter-tab ' + (c.n === chapter.n ? 'on' : '') + '" href="#/knowledge?ch=' + c.n + '">第 ' + c.n + ' 章 · ' + esc(c.title) + '</a>';
+    }).join('');
+    var sectionList = '<div class="kb-sec-list">' + chapter.sections.map(function (s) {
+      return '<a class="kb-sec ' + (s.id === section.id ? 'on' : '') + '" href="#/knowledge?ch=' + chapter.n + '&sec=' + s.id + '">' +
+        '<span>' + s.id + ' ' + esc(s.title) + '</span><em>' + s.points.length + '</em></a>';
+    }).join('') + '</div>';
+    var main;
+    if (q) {
+      var kw = q.toLowerCase();
+      var hits = all.filter(function (it) {
+        var p = it.p;
+        return [p.title, p.text, p.key, p.proof, it.sec.title, it.ch.title].join(' ').toLowerCase().indexOf(kw) >= 0;
+      });
+      main = '<div class="kb-main-head"><div><div class="kb-kicker">搜索结果</div><h2>“' + esc(q) + '” · ' + hits.length + ' 条</h2></div><a class="btn sm" href="#/knowledge">返回章节</a></div>' +
+        (hits.length ? '<div class="kb-grid">' + hits.map(kbCard).join('') + '</div>' : '<div class="empty"><div class="big">∅</div><h3>没有找到相关知识点</h3><p>试试“导数”“中值定理”“泰勒”“极值”等关键词。</p></div>');
+    } else {
+      main = '<div class="kb-main-head"><div><div class="kb-kicker">第 ' + chapter.n + ' 章</div><h2>' + esc(chapter.title) + '</h2><p class="kb-overview">' + esc(chapter.overview || '') + '</p></div><span class="kb-count">' + section.points.length + ' 个要点</span></div>' +
+        (section.overview ? '<div class="kb-section-note">' + esc(section.overview) + '</div>' : '') +
+        '<div class="kb-grid">' + section.points.map(function (p) { return kbCard({ ch: chapter, sec: section, p: p }); }).join('') + '</div>';
+    }
+    return '<div class="page-head"><div><h1>课本知识点</h1><div class="sub">第 5–6 章 · 定义、定理、公式、证明步骤与易混注记 · 共 ' + total + ' 条</div></div></div>' +
+      '<div class="kb-layout"><aside class="kb-side">' + searchForm + '<div class="kb-chapter-tabs">' + chapterTabs + '</div>' + sectionList +
+      '<div class="kb-side-note">知识点来自教材 OCR，公式已保留；定理证明折叠在卡片底部。</div></aside><div class="kb-main">' + main + '</div></div>';
   }
 
   /* ---------------- views: wrong / favorites ---------------- */
@@ -2385,6 +2453,7 @@
     switch (route.name) {
       case 'home': html = viewHome(); break;
       case 'bank': html = viewBank(route); break;
+      case 'knowledge': html = viewKnowledge(route); break;
       case 'wrong': html = viewWrong(); break;
       case 'favorites': html = viewFavorites(); break;
       case 'stats': html = viewStats(); break;
@@ -2629,6 +2698,11 @@
       var val = e.target.querySelector('input[name="q"]').value.trim();
       if (stateRouteIs('search')) navigate('#/search' + (val ? '?q=' + encodeURIComponent(val) : ''));
       else navigate('#/bank' + (val ? '?q=' + encodeURIComponent(val) : ''));
+    }
+    if (e.target.matches('[data-kb-search]')) {
+      e.preventDefault();
+      var kv = e.target.querySelector('input[name="q"]').value.trim();
+      navigate('#/knowledge' + (kv ? '?q=' + encodeURIComponent(kv) : ''));
     }
   });
   function stateRouteIs(name) { return parseRoute().name === name; }
